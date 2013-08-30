@@ -1,0 +1,83 @@
+From galder@redhat.com Tue Jan  4 05:31:00 2011
+Content-Type: text/plain; charset=iso-8859-1
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: =?iso-8859-1?Q?Galder_Zamarre=F1o?= <galder@redhat.com>
+In-Reply-To: <AANLkTikEBijE6P2Lm75phaZd63P1gR6oRMDCK-Vy3hFC@mail.gmail.com>
+Date: Tue, 4 Jan 2011 11:30:45 +0100
+Message-Id: <7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>
+References: <AANLkTikwB2V_tjm9PjfTCn4V9Byn9t7U9v9QzAcdafSm@mail.gmail.com>
+        <18D7FECE-F54D-4028-A16F-8471A938D602@redhat.com>
+        <AANLkTikEBijE6P2Lm75phaZd63P1gR6oRMDCK-Vy3hFC@mail.gmail.com>
+To: infinispan -Dev List <infinispan-dev@lists.jboss.org>
+X-Scanned-By: MIMEDefang 2.67 on 10.5.11.11
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+        filtered.out id p04AV0jj025291
+Subject: Re: [infinispan-dev] Feedback from Mobicents Cluster Framework on
+        top of Infinispan 5.0 Alpha1
+X-BeenThere: infinispan-dev@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+Reply-To: infinispan -Dev List <infinispan-dev@lists.jboss.org>
+List-Id: infinispan -Dev List <infinispan-dev.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/infinispan-dev>,
+        <mailto:infinispan-dev-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/infinispan-dev>
+List-Post: <mailto:infinispan-dev@lists.jboss.org>
+List-Help: <mailto:infinispan-dev-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/infinispan-dev>,
+        <mailto:infinispan-dev-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Tue, 04 Jan 2011 10:31:00 -0000
+
+See comments inline:
+
+On Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote:
+
+> See inline.
+>
+> On Mon, Jan 3, 2011 at 10:38 AM, Galder Zamarreño <galder@redhat.com> wrote:
+>> See below my comments:
+>>
+>> On Dec 30, 2010, at 7:05 AM, Eduardo Martins wrote:
+>>
+>>> Hi all, just completed first iteration of Mobicents Cluster Framework
+>>> 2.x, which includes impl using first alpha release of Infinispan 5. We
+>>> have everything we had in jboss cache working, it's a dumb down but
+>>> higher level framework, with stuff like Fault Tolerant timers, which
+>>> is then reuse in whole Mobicents platform to provide cluster related
+>>> features. I believe we now already use a lot of stuff from Infinispan
+>>> rich feature set, so I guess it's good timing to give some feedback,
+>>> report some minor issues, and clear some doubts.
+>>>
+>>> 1) Marshallers
+>> I don't think it's negative stuff at all. On the contrary, I think it's really valuable feedback from another Infinispan user :)
+>
+> I don't think it's negative also, but some could interpret like that,
+> you know, too many complaints, whatever ;-)
+>
+>>
+>> AS7 will of course have Infinispan but in due course.
+>>
+>
+> So right now, there is no work being done to plug Infinispan in AS7?
+
+I can't say 100% for sure, Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done yet.
+
+>
+> -- Eduardo
+> ..............................................
+> http://emmartins.blogspot.com
+> http://redhat.com/solutions/telco
+>
+> _______________________________________________
+> infinispan-dev mailing list
+> infinispan-dev@lists.jboss.org
+> https://lists.jboss.org/mailman/listinfo/infinispan-dev
+
+--
+Galder Zamarreño
+Sr. Software Engineer
+Infinispan, JBoss Cache
+
+
+

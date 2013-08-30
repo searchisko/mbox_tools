@@ -1,0 +1,18 @@
+{
+    "author" : "Galder Zamarreño <galder@redhat.com>",
+    "to" : [ "infinispan -Dev List <infinispan-dev@lists.jboss.org>" ],
+    "subject_original" : "Re: [infinispan-dev] Feedback from Mobicents Cluster Framework on        top of Infinispan 5.0 Alpha1",
+    "subject" : "Feedback from Mobicents Cluster Framework on top of Infinispan 5.0 Alpha1",
+    "date" : "2011-01-04T10:30:45.000Z",
+    "message_id_original" : "<7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>",
+    "message_id" : "<7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>",
+    "references" : [ "<AANLkTikwB2V_tjm9PjfTCn4V9Byn9t7U9v9QzAcdafSm@mail.gmail.com>", "<18D7FECE-F54D-4028-A16F-8471A938D602@redhat.com>", "<AANLkTikEBijE6P2Lm75phaZd63P1gR6oRMDCK-Vy3hFC@mail.gmail.com>" ],
+    "in_reply_to" : "<AANLkTikEBijE6P2Lm75phaZd63P1gR6oRMDCK-Vy3hFC@mail.gmail.com>",
+    "message_snippet" : "See comments inline: On Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote: I can't say 100% for sure, Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done yet. -- Galder ZamarreÃ±o Sr. Software Engineer In",
+    "first_text_message" : "See comments inline:\n\nOn Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote:\n\n&gt; See inline.\n&gt;\n&gt; On Mon, Jan 3, 2011 at 10:38 AM, Galder ZamarreÃ±o &lt;galder@redhat.com&gt; wrote:\n&gt;&gt; See below my comments:\n&gt;&gt;\n&gt;&gt; On Dec 30, 2010, at 7:05 AM, Eduardo Martins wrote:\n&gt;&gt;\n&gt;&gt;&gt; Hi all, just completed first iteration of Mobicents Cluster Framework\n&gt;&gt;&gt; 2.x, which includes impl using first alpha release of Infinispan 5. We\n&gt;&gt;&gt; have everything we had in jboss cache working, it's a dumb down but\n&gt;&gt;&gt; higher level framework, with stuff like Fault Tolerant timers, which\n&gt;&gt;&gt; is then reuse in whole Mobicents platform to provide cluster related\n&gt;&gt;&gt; features. I believe we now already use a lot of stuff from Infinispan\n&gt;&gt;&gt; rich feature set, so I guess it's good timing to give some feedback,\n&gt;&gt;&gt; report some minor issues, and clear some doubts.\n&gt;&gt;&gt;\n&gt;&gt;&gt; 1) Marshallers\n&gt;&gt; I don't think it's negative stuff at all. On the contrary, I think it's really valuable feedback from another Infinispan user :)\n&gt;\n&gt; I don't think it's negative also, but some could interpret like that,\n&gt; you know, too many complaints, whatever ;-)\n&gt;\n&gt;&gt;\n&gt;&gt; AS7 will of course have Infinispan but in due course.\n&gt;&gt;\n&gt;\n&gt; So right now, there is no work being done to plug Infinispan in AS7?\n\nI can't say 100% for sure, Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done yet.\n\n&gt;\n&gt; -- Eduardo\n&gt; ..............................................\n&gt; http://emmartins.blogspot.com\n&gt; http://redhat.com/solutions/telco\n&gt;\n&gt; _______________________________________________\n&gt; infinispan-dev mailing list\n&gt; infinispan-dev@lists.jboss.org\n&gt; https://lists.jboss.org/mailman/listinfo/infinispan-dev\n\n--\nGalder ZamarreÃ±o\nSr. Software Engineer\nInfinispan, JBoss Cache\n\n\n\n",
+    "first_text_message_without_quotes" : "See comments inline: On Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote: I can't say 100% for sure, Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done yet. -- Galder ZamarreÃ±o Sr. Software Engineer Infinispan, JBoss Cache",
+    "text_messages" : [ ],
+    "text_messages_cnt" : 0,
+    "html_messages" : [ ],
+    "html_messages_cnt" : 0
+}
