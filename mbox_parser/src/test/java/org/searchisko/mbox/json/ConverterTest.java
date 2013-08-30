@@ -51,6 +51,15 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/simple/simple.mbox", "json/simple/simple.json");
     }
 
+    /**
+     * Test bunch of mail from lucene-user mail archive.
+     */
+    @Test
+    public void shouldEqualsLucene() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/lucene-user/lucene0087.mbox", "json/lucene-user/lucene0087.json");
+        shouldEquals("mbox/lucene-user/lucene0089.mbox", "json/lucene-user/lucene0089.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -59,6 +68,18 @@ public class ConverterTest extends MessageTestSupport {
         JsonNode jsonFromPath    = jsonNodeFromPath(expectedFilePath, mapper);
 
         assertTrue(jsonFromMessage.equals(jsonFromPath));
+
+    }
+
+    /**
+     * Can be used to get pretty JSON from messages.
+     * This method should be commented out.
+     */
+    //@Test
+    public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
+
+        Message msg = getMessage("mbox/lucene-user/lucene0089.mbox", mb);
+        System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }
 
