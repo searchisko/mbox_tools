@@ -66,6 +66,26 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/encoding/jbpm-users-01.mbox", "json/encoding/jbpm-users-01.json");
     }
 
+    /**
+     * Should fail because the "Date:" header contains invalid date format (probably mandatory "< >")
+     */
+    @Test
+    public void shouldFailsParsingInvalidDate1() throws IOException, MimeException, MessageParseException {
+        Message msg = getMessage("mbox/spam/jbossws-dev-01.mbox", mb);
+        thrown.expect(NullPointerException.class);
+        MessageParser.parse(msg);
+    }
+
+    /**
+     * Should fail because the "Date:" header contains invalid date format (probably mandatory "< >")
+     */
+    @Test
+    public void shouldFailsParsingInvalidDate2() throws IOException, MimeException, MessageParseException {
+        Message msg = getMessage("mbox/spam/jbossws-dev-02.mbox", mb);
+        thrown.expect(NullPointerException.class);
+        MessageParser.parse(msg);
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
