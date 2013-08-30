@@ -1,0 +1,73 @@
+From java-user-return-45325-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 10:04:15 2010
+Return-Path: <java-user-return-45325-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 93395 invoked from network); 5 Mar 2010 10:04:15 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 10:04:15 -0000
+Received: (qmail 17944 invoked by uid 500); 5 Mar 2010 10:04:00 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 17842 invoked by uid 500); 5 Mar 2010 10:03:58 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 17829 invoked by uid 99); 5 Mar 2010 10:03:58 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 10:03:58 +0000
+X-ASF-Spam-Status: No, hits=0.7 required=10.0
+	tests=RCVD_IN_DNSWL_NONE,SPF_NEUTRAL
+X-Spam-Check-By: apache.org
+Received-SPF: neutral (nike.apache.org: local policy)
+Received: from [64.202.165.31] (HELO smtpauth18.prod.mesa1.secureserver.net) (64.202.165.31)
+    by apache.org (qpsmtpd/0.29) with SMTP; Fri, 05 Mar 2010 10:03:51 +0000
+Received: (qmail 11425 invoked from network); 5 Mar 2010 10:03:29 -0000
+Received: from unknown (81.219.54.251)
+  by smtpauth18.prod.mesa1.secureserver.net (64.202.165.31) with ESMTP; 05 Mar 2010 10:03:26 -0000
+Message-ID: <4B90D6EB.6060501@getopt.org>
+Date: Fri, 05 Mar 2010 11:03:23 +0100
+From: Andrzej Bialecki <ab@getopt.org>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.1.8) Gecko/20100216 Thunderbird/3.0.2
+MIME-Version: 1.0
+To: java-user@lucene.apache.org
+Subject: Re: SpanQueries in Luke
+References: <644844.24067.qm@web50308.mail.re2.yahoo.com> <4B8FFE67.7040906@getopt.org> <225693.6795.qm@web24713.mail.ird.yahoo.com>
+In-Reply-To: <225693.6795.qm@web24713.mail.ird.yahoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+On 2010-03-05 10:47, mark harwood wrote:
+>
+>
+>>> No, this simply means that you will be able to use the xml-query-parser instead of the regular one
+>
+> Not sure exactly what you have in mind for an editor, Andrzej but there is an opportunity to do something smart here for little effort.
+> The XMLQueryParser comes with a DTD which means you can have an editor that auto-completes/suggests legal query syntax. Any schema-driven editing widget for XML could be used e.g. http://www.felixgolubov.com/XMLEditor/ or http://gendiapo.sourceforge.net/dev/
+>
+> If none of these are any good another startpoint may be to use DTDdoc to parse the schema. The DTD includes a lot of help-text comments which are used by the DTDdoc to generate HTML documentation so using this tool gives you schema *and* help text.
+
+I didn't have any editor in mind, I used a lo-tek solution of copy&paste 
+to the query textarea.
+
+I'll commit the current mostly-working state today, you can take a look 
+- you've written some cool Luke plugins before .. ;)
+
+
+-- 
+Best regards,
+Andrzej Bialecki     <><
+  ___. ___ ___ ___ _ _   __________________________________
+[__ || __|__/|__||\/|  Information Retrieval, Semantic Web
+___|||__||  \|  ||  |  Embedded Unix, System Integration
+http://www.sigram.com  Contact: info at sigram dot com
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

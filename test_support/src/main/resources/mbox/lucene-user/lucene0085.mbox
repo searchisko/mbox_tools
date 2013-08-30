@@ -1,0 +1,76 @@
+From java-user-return-45324-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 09:57:25 2010
+Return-Path: <java-user-return-45324-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 90913 invoked from network); 5 Mar 2010 09:57:24 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 09:57:24 -0000
+Received: (qmail 4420 invoked by uid 500); 5 Mar 2010 09:57:09 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 4135 invoked by uid 500); 5 Mar 2010 09:57:07 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 4126 invoked by uid 99); 5 Mar 2010 09:57:06 -0000
+Received: from athena.apache.org (HELO athena.apache.org) (140.211.11.136)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:57:06 +0000
+X-ASF-Spam-Status: No, hits=0.0 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_PASS,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: pass (athena.apache.org: domain of rff.rff@gmail.com designates 209.85.219.221 as permitted sender)
+Received: from [209.85.219.221] (HELO mail-ew0-f221.google.com) (209.85.219.221)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:57:00 +0000
+Received: by ewy21 with SMTP id 21so1323613ewy.5
+        for <java-user@lucene.apache.org>; Fri, 05 Mar 2010 01:56:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:mime-version:received:in-reply-to:references
+         :from:date:message-id:subject:to:content-type;
+        bh=gerFeWlcT5aSNw2iO/TDwIZ2hFKG0gdPHwlbpoCSHAc=;
+        b=n3jWilcKvgQGWsYPytDWulUT8/qZrq1pg2qMwuckcTFo3JGdK8w7ukuZHP/VwwV2Y1
+         HkjnhydeM4ZyBE5lTFTnCBrIHFtK0Ijqc4eeUHMW2+6bd/XPXZ8hSPBwQ2uOmC/nX4ga
+         8l+9Llx82O6Nt4yBSM3iu6jTt3ON96DAqv9NI=
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=gmail.com; s=gamma;
+        h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+         :content-type;
+        b=SUmFD8038/sFeTAV4FH/46mJHMVOdTGw9Vm6xXSlTp7pllb+Br66LuW7ZoUrE/4Jyv
+         T8+aUPJtWaqBEg5sxPQIOBJHrFVvklL2w7XiPMP4efFcAB4PCOS3zAlLCOZmYyGRgQRP
+         2jUGCPIOtxzyaEo0VgA5XezgnDbPjBylnfzPE=
+MIME-Version: 1.0
+Received: by 10.213.25.79 with SMTP id y15mr292812ebb.61.1267782999171; Fri, 
+	05 Mar 2010 01:56:39 -0800 (PST)
+In-Reply-To: <8c4e68611003050142nfaa67cj384cd2b3bfaaeb77@mail.gmail.com>
+References: <828083e71003050113u1c8df68eu82734bc1269e4c41@mail.gmail.com> 
+	<8c4e68611003050142nfaa67cj384cd2b3bfaaeb77@mail.gmail.com>
+From: gabriele renzi <rff.rff@gmail.com>
+Date: Fri, 5 Mar 2010 10:56:19 +0100
+Message-ID: <828083e71003050156tbab6beci8144f70c5d1d1d71@mail.gmail.com>
+Subject: Re: DisjunctionMaxQuery and custom Sort
+To: java-user@lucene.apache.org
+Content-Type: text/plain; charset=ISO-8859-1
+
+On Fri, Mar 5, 2010 at 10:42 AM, Ian Lea <ian.lea@gmail.com> wrote:
+> From the javadocs for the search with sort method it appears you are calling:
+>
+> NOTE: this does not compute scores by default; use
+> IndexSearcher.setDefaultFieldSortScoring(boolean, boolean) to enable
+> scoring.
+>
+>
+> Sounds like you need to call that with at least the first arg set to true.
+
+doh, yet another case of "even someone passing by will see the obvious
+problem that you have been banging your head on for one hour".
+
+Thank you for easily overcoming my stupidity :)
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

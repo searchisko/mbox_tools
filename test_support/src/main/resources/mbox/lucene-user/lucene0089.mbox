@@ -1,0 +1,99 @@
+From java-user-return-45328-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 11:27:22 2010
+Return-Path: <java-user-return-45328-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 11485 invoked from network); 5 Mar 2010 11:27:22 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 11:27:22 -0000
+Received: (qmail 20870 invoked by uid 500); 5 Mar 2010 11:27:07 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 20820 invoked by uid 500); 5 Mar 2010 11:27:07 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 20812 invoked by uid 99); 5 Mar 2010 11:27:07 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 11:27:07 +0000
+X-ASF-Spam-Status: No, hits=0.7 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_NEUTRAL,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: neutral (nike.apache.org: local policy)
+Received: from [87.248.110.138] (HELO n21.bullet.mail.ukl.yahoo.com) (87.248.110.138)
+    by apache.org (qpsmtpd/0.29) with SMTP; Fri, 05 Mar 2010 11:26:58 +0000
+Received: from [217.146.182.179] by n21.bullet.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 11:26:37 -0000
+Received: from [87.248.110.202] by t5.bullet.ukl.yahoo.com with NNFMP; 05 Mar 2010 11:26:37 -0000
+Received: from [127.0.0.1] by omp232.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 11:26:37 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 550061.8688.bm@omp232.mail.ukl.yahoo.com
+Received: (qmail 95779 invoked by uid 60001); 5 Mar 2010 11:26:37 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.uk; s=s1024; t=1267788397; bh=THLT6IG4LYS9YL/KG8O9WkoN2l9bwqXfvOBNSzKvDT0=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding; b=IizaOqeIYB71VpYgm0up/z2kxvTNwcS/5lMq1DUMM7X6Hj6YokNLueRzHXVb48FmZcGVORQTmHJ5pQ9xWCXsSK6QZSox4BEkFR1j3TcfTxhvJErHoQAWJi833Hgrt51zlIGS4ZkpnsqdDWDZO4NCti9N+/P3L6fVb5/p+9RcCkI=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=s1024; d=yahoo.co.uk;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
+  b=zP1fb5PyXfLsFurRyUAs1ovLo9yCda25x6vsm0H+TXux6eA5JGGhiibTVpxnXMBrXiqXk8+XHUQIyDit++dKIMFoPcgf846R74UM36JOcvSqBk/8R+Pw0LR2CYJUSte9wMzPK5fvl9ohUidvUsjSyBfAAttRNOKglMJqfgnQyMQ=;
+Message-ID: <303371.91922.qm@web24709.mail.ird.yahoo.com>
+X-YMail-OSG: q.mX0GMVM1mCjuXFUDSoOlCmjzPwl3U44sktKsnjkdnz_wb
+ 9zRqMJoSI4tJ4prXm.AWmRPD2PS_K538p1SnzdysP69r9dLIKgyVul36tISe
+ 908VapAM4bdtEBdmHiO8SFyDhygAa9erPRSpvUT0tKsk2w7ImpAgCUykLsgs
+ S38FjMuzwPk2T8ouIsyA_lJZSc_Xi0PNI8m7EJOEJARr.GdHN2XMc2NPlDRi
+ WYySFZPaJrWtRPq5crDiO3PXEATfR1akuBG5HEykLCXWgnrNIE39t2RQ5miW
+ uX_q8VIuxMv.6rXVzuSwsI8Zh2ANnPw--
+Received: from [193.36.230.96] by web24709.mail.ird.yahoo.com via HTTP; Fri, 05 Mar 2010 11:26:37 GMT
+X-Mailer: YahooMailRC/300.3 YahooMailWebService/0.8.100.260964
+References: <644844.24067.qm@web50308.mail.re2.yahoo.com> <4B8FFE67.7040906@getopt.org> <225693.6795.qm@web24713.mail.ird.yahoo.com> <4B90D6EB.6060501@getopt.org> <214261.6081.qm@web24707.mail.ird.yahoo.com> <4B90E6D0.6080903@getopt.org>
+Date: Fri, 5 Mar 2010 11:26:37 +0000 (GMT)
+From: mark harwood <markharw00d@yahoo.co.uk>
+Subject: Re: SpanQueries in Luke
+To: java-user@lucene.apache.org
+In-Reply-To: <4B90E6D0.6080903@getopt.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+>>The lack of standardized metadata is an issue, of course - we could=0Asta=
+rt experimenting with this in Luke, to see whether we can squeeze a=0Asubse=
+t of Solr schema there.=0A=0AActually, an "AnalyzerFactory" interface in Lu=
+ke might provide the abstraction which would allow Solr, my proprietary met=
+adata system, and any other config resource to hook into Luke. =0AThat woul=
+d be pretty cool =0A=0A=0A=0A----- Original Message ----=0AFrom: Andrzej Bi=
+alecki <ab@getopt.org>=0ATo: java-user@lucene.apache.org=0ASent: Fri, 5 Mar=
+ch, 2010 11:11:12=0ASubject: Re: SpanQueries in Luke=0A=0AOn 2010-03-05 11:=
+22, mark harwood wrote:=0A>>> I'll commit the current mostly-working state =
+today, you can take a look=0A> =0A> OK. However I think this XMLQueryParser=
+ addition will only resurface a long-standing issue with Luke and Lucene in=
+ general.=0A> This query parser works best on multiple fields (e.g. free-te=
+xt<UserQuery>  tags and<TermsFilter>  on structured fields). Each field typ=
+ically requires different analyzers and there is currently no way of record=
+ing this information as metadata alongside an index.=0A> Without this metad=
+ata each user's Luke session starts with a game of "guess-which-analyzer-to=
+-use?"=0A=0AI guess ;) that generally speaking there is no good answer to t=
+his - the same token stream could have been produced by varying analysis ch=
+ains, even across indexing sessions that append to the same index.=0A=0A> =
+=0A> I use my own proprietary system for storing such index metadata and th=
+is is through an XML file that contains a BeanEncoder-serialized PerFieldAn=
+alyserWrapper among other things.=0A> It would be nice to see some standard=
+isation in how this information can be made available in *any* Lucene index=
+ but I guess this overlaps with things like Solr's config.=0A=0AYes.=0A=0AT=
+heoretically one could store such information in IndexCommit.getUserData().=
+ The lack of standardized metadata is an issue, of course - we could start =
+experimenting with this in Luke, to see whether we can squeeze a subset of =
+Solr schema there.=0A=0A-- Best regards,=0AAndrzej Bialecki     <><=0A___. =
+___ ___ ___ _ _   __________________________________=0A[__ || __|__/|__||\/=
+|  Information Retrieval, Semantic Web=0A___|||__||  \|  ||  |  Embedded Un=
+ix, System Integration=0Ahttp://www.sigram.com  Contact: info at sigram dot=
+ com=0A=0A=0A--------------------------------------------------------------=
+-------=0ATo unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org=
+=0AFor additional commands, e-mail: java-user-help@lucene.apache.org=0A=0A=
+=0A      
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

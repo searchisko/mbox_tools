@@ -1,0 +1,101 @@
+From java-user-return-45326-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 10:23:24 2010
+Return-Path: <java-user-return-45326-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 97621 invoked from network); 5 Mar 2010 10:23:24 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 10:23:24 -0000
+Received: (qmail 48139 invoked by uid 500); 5 Mar 2010 10:23:09 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 47964 invoked by uid 500); 5 Mar 2010 10:23:07 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 47956 invoked by uid 99); 5 Mar 2010 10:23:06 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 10:23:06 +0000
+X-ASF-Spam-Status: No, hits=0.7 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_NEUTRAL,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: neutral (nike.apache.org: local policy)
+Received: from [87.248.110.139] (HELO n22.bullet.mail.ukl.yahoo.com) (87.248.110.139)
+    by apache.org (qpsmtpd/0.29) with SMTP; Fri, 05 Mar 2010 10:22:58 +0000
+Received: from [217.12.4.214] by n22.bullet.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 10:22:36 -0000
+Received: from [87.248.110.201] by t1.bullet.ukl.yahoo.com with NNFMP; 05 Mar 2010 10:22:36 -0000
+Received: from [127.0.0.1] by omp231.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 10:22:36 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 445632.34831.bm@omp231.mail.ukl.yahoo.com
+Received: (qmail 20006 invoked by uid 60001); 5 Mar 2010 10:22:36 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.uk; s=s1024; t=1267784556; bh=UZIDHrRwisLaDhhoBB/whacY1bwX3JlkPi+d5Pq+73A=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding; b=QsgQ81nkSCvMiJWSOVVDJQmB64Rf7ZWFVwnJj/xFScjV2+gH5KC5n2B3GOcuRqtpR9I3umFPYHeyitN0ZPeLO2LJyvDz7vcmy8D4cq84YlAmReTeAT4RCW0PWHKLmTvoa16Z4sBN5rMcWCQowtV6sGQE9QvqQZ5e94KmVkMeDfY=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=s1024; d=yahoo.co.uk;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
+  b=MklfsIJpn0gDX6BBW89389DN9zQIzFauUEGmKpsq6r1gtSHOjF5aZcB09ypPPw8n/7MneVSINoQjknJfSz1VNgjjKOmmWfY9TflZCLNiPyLpQidznLObncxe/Ssvxi6YbrowW9krXUlRF3taZfYvCEyFHVLqWzbynKr7A5pn1iQ=;
+Message-ID: <214261.6081.qm@web24707.mail.ird.yahoo.com>
+X-YMail-OSG: kvyZYpwVM1m72_dVw5wzAMWXTHEHfY7Kp7dBaTh7s9o.YJ1
+ aScca6pwP6CkaeuRC.icme74r8rZSY2QCI1rPAE5rXa7P4Z8ctUF3v8ti9Of
+ N1BIHLKAfLvYReqWSgHE0Mjkoh74VEmlVVi4G0McsPwcYCY7nXFZ9YxEA3bZ
+ xBqCFGhDMErwUA40YkZ_5PtQZMPPKvHSYWTGCazX4SfnGoSy2xr7jhaQb3NE
+ aFAaGxQU3ILeQKi8rabfLLK.Ou3HONUyvd8qDry1aR_BXohfdTooiiKZFd9O
+ RuNABaXCwcQyWrtxEtgfMTqrb0rcB3Q--
+Received: from [193.36.230.96] by web24707.mail.ird.yahoo.com via HTTP; Fri, 05 Mar 2010 10:22:36 GMT
+X-Mailer: YahooMailRC/300.3 YahooMailWebService/0.8.100.260964
+References: <644844.24067.qm@web50308.mail.re2.yahoo.com> <4B8FFE67.7040906@getopt.org> <225693.6795.qm@web24713.mail.ird.yahoo.com> <4B90D6EB.6060501@getopt.org>
+Date: Fri, 5 Mar 2010 10:22:36 +0000 (GMT)
+From: mark harwood <markharw00d@yahoo.co.uk>
+Subject: Re: SpanQueries in Luke
+To: java-user@lucene.apache.org
+In-Reply-To: <4B90D6EB.6060501@getopt.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+>>I'll commit the current mostly-working state today, you can take a look=
+=0A=0AOK. However I think this XMLQueryParser addition will only resurface =
+a long-standing issue with Luke and Lucene in general.=0AThis query parser =
+works best on multiple fields (e.g. free-text <UserQuery> tags and <TermsFi=
+lter> on structured fields). Each field typically requires different analyz=
+ers and there is currently no way of recording this information as metadata=
+ alongside an index.=0AWithout this metadata each user's Luke session start=
+s with a game of "guess-which-analyzer-to-use?"=0A=0AI use my own proprieta=
+ry system for storing such index metadata and this is through an XML file t=
+hat contains a BeanEncoder-serialized PerFieldAnalyserWrapper among other t=
+hings.=0AIt would be nice to see some standardisation in how this informati=
+on can be made available in *any* Lucene index but I guess this overlaps wi=
+th things like Solr's config.=0A=0A=0ACheers,=0AMark=0A=0A=0A=0A----- Origi=
+nal Message ----=0AFrom: Andrzej Bialecki <ab@getopt.org>=0ATo: java-user@l=
+ucene.apache.org=0ASent: Fri, 5 March, 2010 10:03:23=0ASubject: Re: SpanQue=
+ries in Luke=0A=0AOn 2010-03-05 10:47, mark harwood wrote:=0A>=0A>=0A>>> No=
+, this simply means that you will be able to use the xml-query-parser inste=
+ad of the regular one=0A>=0A> Not sure exactly what you have in mind for an=
+ editor, Andrzej but there is an opportunity to do something smart here for=
+ little effort.=0A> The XMLQueryParser comes with a DTD which means you can=
+ have an editor that auto-completes/suggests legal query syntax. Any schema=
+-driven editing widget for XML could be used e.g. http://www.felixgolubov.c=
+om/XMLEditor/ or http://gendiapo.sourceforge.net/dev/=0A>=0A> If none of th=
+ese are any good another startpoint may be to use DTDdoc to parse the schem=
+a. The DTD includes a lot of help-text comments which are used by the DTDdo=
+c to generate HTML documentation so using this tool gives you schema *and* =
+help text.=0A=0AI didn't have any editor in mind, I used a lo-tek solution =
+of copy&paste =0Ato the query textarea.=0A=0AI'll commit the current mostly=
+-working state today, you can take a look =0A- you've written some cool Luk=
+e plugins before .. ;)=0A=0A=0A-- =0ABest regards,=0AAndrzej Bialecki     <=
+><=0A  ___. ___ ___ ___ _ _   __________________________________=0A[__ || _=
+_|__/|__||\/|  Information Retrieval, Semantic Web=0A___|||__||  \|  ||  | =
+ Embedded Unix, System Integration=0Ahttp://www.sigram.com  Contact: info a=
+t sigram dot com=0A=0A=0A--------------------------------------------------=
+-------------------=0ATo unsubscribe, e-mail: java-user-unsubscribe@lucene.=
+apache.org=0AFor additional commands, e-mail: java-user-help@lucene.apache.=
+org=0A=0A=0A      
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

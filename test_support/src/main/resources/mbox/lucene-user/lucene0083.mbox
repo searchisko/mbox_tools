@@ -1,0 +1,124 @@
+From java-user-return-45322-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 09:43:24 2010
+Return-Path: <java-user-return-45322-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 87180 invoked from network); 5 Mar 2010 09:43:24 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 09:43:24 -0000
+Received: (qmail 76200 invoked by uid 500); 5 Mar 2010 09:43:09 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 76067 invoked by uid 500); 5 Mar 2010 09:43:07 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 76059 invoked by uid 99); 5 Mar 2010 09:43:06 -0000
+Received: from athena.apache.org (HELO athena.apache.org) (140.211.11.136)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:43:06 +0000
+X-ASF-Spam-Status: No, hits=0.0 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_PASS,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: pass (athena.apache.org: domain of ian.lea@gmail.com designates 209.85.220.221 as permitted sender)
+Received: from [209.85.220.221] (HELO mail-fx0-f221.google.com) (209.85.220.221)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:43:04 +0000
+Received: by fxm21 with SMTP id 21so854905fxm.5
+        for <java-user@lucene.apache.org>; Fri, 05 Mar 2010 01:42:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:mime-version:received:in-reply-to:references
+         :from:date:message-id:subject:to:content-type
+         :content-transfer-encoding;
+        bh=Airs8j0ga2fm/cyzlSqPpO23JmJ91GAWnnKDJVBFmLA=;
+        b=f4fUaMV2DpIlQrlz+/qWJwRIzH1Mdq+Zy8gby0MU+bAmECAt7H+8KAq2YPFvShjKGm
+         1vVJlgURSYSGbv4a6GPbdTwtQcrAFyJRC3zPk7yM4jAKqKAJ1rHN97lWPmbcdwYuIH5g
+         uvwjPxDw6B+F7RgCX2cMsorQg2zO8zKLjf7IU=
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=gmail.com; s=gamma;
+        h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+         :content-type:content-transfer-encoding;
+        b=cbgQRq87TLKbTbVoCvACLmYFg9YZAN2Td1UpcMqLxwYUecUq0M0f+Nd8VMo1AgdpEM
+         lEeKHEQDj+vouokw6SN7a56bzA6DRRJqF+h7SSQyk42BXeDLGvLJ3mhUnPbc/uOFNcO3
+         L/seJrbeY+kCat5yj90t78RIxy0AkwspSI70w=
+MIME-Version: 1.0
+Received: by 10.223.5.207 with SMTP id 15mr806192faw.6.1267782163136; Fri, 05 
+	Mar 2010 01:42:43 -0800 (PST)
+In-Reply-To: <828083e71003050113u1c8df68eu82734bc1269e4c41@mail.gmail.com>
+References: <828083e71003050113u1c8df68eu82734bc1269e4c41@mail.gmail.com>
+From: Ian Lea <ian.lea@gmail.com>
+Date: Fri, 5 Mar 2010 09:42:23 +0000
+Message-ID: <8c4e68611003050142nfaa67cj384cd2b3bfaaeb77@mail.gmail.com>
+Subject: Re: DisjunctionMaxQuery and custom Sort
+To: java-user@lucene.apache.org
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+>From the javadocs for the search with sort method it appears you are callin=
+g:
+
+NOTE: this does not compute scores by default; use
+IndexSearcher.setDefaultFieldSortScoring(boolean, boolean) to enable
+scoring.
+
+
+Sounds like you need to call that with at least the first arg set to true.
+
+
+--
+Ian.
+
+
+On Fri, Mar 5, 2010 at 9:13 AM, gabriele renzi <rff.rff@gmail.com> wrote:
+> Hi everyone,
+>
+> In our search app we'd perform searches with a DisjunctionMaxQuery
+> with code like
+>
+> =A0searcher.search(query, hits)
+>
+> Now we'd like to add a custom sub-sort so that when the search returns
+> two documents with the same score they will be ordered by a custom
+> field (this is not a boost for two reasons: first, =A0we already use
+> boosting for other goals, second, we may like to add a third level of
+> boosting in the future)
+>
+> I thought I could just change the former line to something like
+>
+> =A0searcher.search(query, null, hits, new Sort(SortField.SCORE_FIELD,
+> new CustomSortField())
+>
+> but I had unexpected results, so I dropped our custom SortField, and
+> tried the simple
+>
+> =A0searcher.search(query, null, hits, new Sort(SortField.SCORE_FIELD))
+>
+> which I though should have the same behaviour of our original code:
+> yet, a large part of our tests failed because it appears that the
+> results are not the same as above.
+>
+> So my question is threefold:
+> 1. is the last query really not functionally equivalent to the first?
+> 2. if not, how would the equivalent be?
+> 3. and how can I perform a sub-sorting of the results by relevance
+> first and my custom score field later?
+>
+> FWIW I am using lucene 2.9.1, java 1.6, OSX 10.6. Thanks in advance
+> for any help.
+>
+> --
+> blog en: http://www.riffraff.info
+> blog it: http://riffraff.blogsome.com
+>
+> ---------------------------------------------------------------------
+> To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+> For additional commands, e-mail: java-user-help@lucene.apache.org
+>
+>
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

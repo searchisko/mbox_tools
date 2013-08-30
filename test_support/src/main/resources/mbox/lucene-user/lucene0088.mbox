@@ -1,0 +1,77 @@
+From java-user-return-45327-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 11:11:59 2010
+Return-Path: <java-user-return-45327-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 9024 invoked from network); 5 Mar 2010 11:11:59 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 11:11:59 -0000
+Received: (qmail 8470 invoked by uid 500); 5 Mar 2010 11:11:44 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 8419 invoked by uid 500); 5 Mar 2010 11:11:43 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 8411 invoked by uid 99); 5 Mar 2010 11:11:43 -0000
+Received: from athena.apache.org (HELO athena.apache.org) (140.211.11.136)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 11:11:43 +0000
+X-ASF-Spam-Status: No, hits=0.7 required=10.0
+	tests=SPF_NEUTRAL
+X-Spam-Check-By: apache.org
+Received-SPF: neutral (athena.apache.org: local policy)
+Received: from [72.167.82.90] (HELO p3plsmtpa01-10.prod.phx3.secureserver.net) (72.167.82.90)
+    by apache.org (qpsmtpd/0.29) with SMTP; Fri, 05 Mar 2010 11:11:39 +0000
+Received: (qmail 26793 invoked from network); 5 Mar 2010 11:11:16 -0000
+Received: from unknown (81.219.54.251)
+  by p3plsmtpa01-10.prod.phx3.secureserver.net (72.167.82.90) with ESMTP; 05 Mar 2010 11:11:16 -0000
+Message-ID: <4B90E6D0.6080903@getopt.org>
+Date: Fri, 05 Mar 2010 12:11:12 +0100
+From: Andrzej Bialecki <ab@getopt.org>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.1.8) Gecko/20100216 Thunderbird/3.0.2
+MIME-Version: 1.0
+To: java-user@lucene.apache.org
+Subject: Re: SpanQueries in Luke
+References: <644844.24067.qm@web50308.mail.re2.yahoo.com> <4B8FFE67.7040906@getopt.org> <225693.6795.qm@web24713.mail.ird.yahoo.com> <4B90D6EB.6060501@getopt.org> <214261.6081.qm@web24707.mail.ird.yahoo.com>
+In-Reply-To: <214261.6081.qm@web24707.mail.ird.yahoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 2010-03-05 11:22, mark harwood wrote:
+>>> I'll commit the current mostly-working state today, you can take a look
+>
+> OK. However I think this XMLQueryParser addition will only resurface a long-standing issue with Luke and Lucene in general.
+> This query parser works best on multiple fields (e.g. free-text<UserQuery>  tags and<TermsFilter>  on structured fields). Each field typically requires different analyzers and there is currently no way of recording this information as metadata alongside an index.
+> Without this metadata each user's Luke session starts with a game of "guess-which-analyzer-to-use?"
+
+I guess ;) that generally speaking there is no good answer to this - the 
+same token stream could have been produced by varying analysis chains, 
+even across indexing sessions that append to the same index.
+
+>
+> I use my own proprietary system for storing such index metadata and this is through an XML file that contains a BeanEncoder-serialized PerFieldAnalyserWrapper among other things.
+> It would be nice to see some standardisation in how this information can be made available in *any* Lucene index but I guess this overlaps with things like Solr's config.
+
+Yes.
+
+Theoretically one could store such information in 
+IndexCommit.getUserData(). The lack of standardized metadata is an 
+issue, of course - we could start experimenting with this in Luke, to 
+see whether we can squeeze a subset of Solr schema there.
+
+-- 
+Best regards,
+Andrzej Bialecki     <><
+  ___. ___ ___ ___ _ _   __________________________________
+[__ || __|__/|__||\/|  Information Retrieval, Semantic Web
+___|||__||  \|  ||  |  Embedded Unix, System Integration
+http://www.sigram.com  Contact: info at sigram dot com
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

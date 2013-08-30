@@ -1,0 +1,83 @@
+From java-user-return-45697-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Sat Apr 03 15:31:53 2010
+Return-Path: <java-user-return-45697-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 39491 invoked from network); 3 Apr 2010 15:31:53 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 3 Apr 2010 15:31:53 -0000
+Received: (qmail 64723 invoked by uid 500); 3 Apr 2010 15:31:51 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 64682 invoked by uid 500); 3 Apr 2010 15:31:50 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 64664 invoked by uid 99); 3 Apr 2010 15:31:50 -0000
+Received: from athena.apache.org (HELO athena.apache.org) (140.211.11.136)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Sat, 03 Apr 2010 15:31:50 +0000
+X-ASF-Spam-Status: No, hits=-1.7 required=10.0
+	tests=ASF_LIST_OPS,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_PASS,T_TO_NO_BRKTS_FREEMAIL,URIBL_RHS_DOB
+X-Spam-Check-By: apache.org
+Received-SPF: pass (athena.apache.org: domain of volsky@gmail.com designates 209.85.218.222 as permitted sender)
+Received: from [209.85.218.222] (HELO mail-bw0-f222.google.com) (209.85.218.222)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Sat, 03 Apr 2010 15:31:44 +0000
+Received: by bwz22 with SMTP id 22so2244409bwz.5
+        for <multiple recipients>; Sat, 03 Apr 2010 08:31:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:mime-version:received:date:received:message-id
+         :subject:from:to:content-type;
+        bh=zxoIvTIFOkh7TzU/9X3A7uHqKQX4opLHYagJizaRrd8=;
+        b=Ll0L8pWcdtdo9HZa6YxDZ05MRszmLIRjj7evQC04OBt+9kv3eUpZFrUjLUaebhRqnB
+         oeY32bAKi8JoBxmDmyj88d7IJSY4qE0pCvx+NyKgcYYGQAqJwLQCNu2vWbdM1y/XMtvJ
+         ykK/6OukhBSvdhVyr1TcpChxBblVbdzGcCuP0=
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=gmail.com; s=gamma;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        b=t2SsGwGGc+kFtUtvLSkc+DBuml2Ns0CeSeHmdX5GxS8dSOCSkJjK1JViym/QhGvjFt
+         Q5DijoEc8MIVfoQa5WJFXNR6w1uw0XuI0uj6V3KjM90BibJ+k8/W/9orx4v+A51SnOTC
+         aV6LoxcYkmjTMtguARA7iU7LtYyH3hbDncKDY=
+MIME-Version: 1.0
+Received: by 10.204.71.77 with HTTP; Sat, 3 Apr 2010 08:31:21 -0700 (PDT)
+Date: Sat, 3 Apr 2010 18:31:21 +0300
+Received: by 10.204.18.129 with SMTP id w1mr1320446bka.149.1270308681532; Sat, 
+	03 Apr 2010 08:31:21 -0700 (PDT)
+Message-ID: <n2oae5b9bdf1004030831h625ab3d9l490390f40a4ff7d2@mail.gmail.com>
+Subject: Hi!
+From: Dima Volsky <volsky@gmail.com>
+To: Optionsvolsky@gmail.com, amirweiz@hotmail.com, amirevy@zahav.net.il,
+	chenhe2@gmail.com, dmitriv@nice.com, eyalma@openu.ac.il, ezrad@nice.com,
+	guymizra@gmail.com, hamutalo@nice.com, java-user@lucene.apache.org,
+	java-user-subscribe@lucene.apache.org, yhefez@013.net, myartsev@gmail.com,
+	anni@nisha-hr.co.il, stmjobs@netvision.net.il, rotemmaya@hotmail.com,
+	rotemmaya@yahoo.com, sarik@bgu.ac.il, sergay@sce.ac.il, sergay@post.sce.ac.il,
+	shirab1000@yahoo.com, shoniash@hotmail.com, volsky@gmail.com,
+	volsky@netvision.net.il, volsky@exn.co.il, volsky@elbit.co.il, dima@gmail.com,
+	w_noa@hotmail.com, yaron.shenhav@gmail.com, yhefez@013.net.il,
+	avielisha@gmail.com, akrepel@hp.com, krepel@gmail.com, orlybloch@gmail.com,
+	vvolsky@gmail.com, i_m_ariel@walla.com, mayergab@gmail.com,
+	guy.serero@gmail.com, alvayos@gmail.com, yakovd@tcb.ac.il,
+	cfir.moshe@gmail.com, dor.lera.valeria@gmail.com, Maor.nissan@gmail.com,
+	moran.ploznik@gmail.com, moranroy@gmail.com, mokrepel@017.net.il,
+	mokrepel@admin.ort.org.il, mokrepel@netvision.net.il, tsvika.rabkin@gmail.com,
+	tzachash@gmail.com
+Content-Type: text/plain; charset=ISO-8859-1
+
+<DIV>hi!<BR>i am glad to tell you a good news ,and i find a good
+website&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A
+href="http://www.buusir.net/">http://www.buusir.net/</A><BR>On this
+website ,you can find many new and origianl electronic&nbsp; products
+.Now they are holding sales promotion activity, all the&nbsp; product
+are sold at a discount.<BR>low cost and good quality ,and the delivery
+is on time .<BR>It is a good chance that you should not lose.<BR>If
+you need some, visit this website .<BR>Hope everything goes
+well.<BR>Greetings! </DIV>
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

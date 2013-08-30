@@ -1,0 +1,75 @@
+From java-user-return-45323-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 09:48:36 2010
+Return-Path: <java-user-return-45323-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 89314 invoked from network); 5 Mar 2010 09:48:36 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 09:48:36 -0000
+Received: (qmail 89104 invoked by uid 500); 5 Mar 2010 09:48:21 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 88947 invoked by uid 500); 5 Mar 2010 09:48:20 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 88939 invoked by uid 99); 5 Mar 2010 09:48:19 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:48:19 +0000
+X-ASF-Spam-Status: No, hits=0.7 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_NEUTRAL,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: neutral (nike.apache.org: local policy)
+Received: from [87.248.110.138] (HELO n21.bullet.mail.ukl.yahoo.com) (87.248.110.138)
+    by apache.org (qpsmtpd/0.29) with SMTP; Fri, 05 Mar 2010 09:48:10 +0000
+Received: from [217.146.182.180] by n21.bullet.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 09:47:49 -0000
+Received: from [87.248.110.108] by t6.bullet.ukl.yahoo.com with NNFMP; 05 Mar 2010 09:47:49 -0000
+Received: from [127.0.0.1] by omp213.mail.ukl.yahoo.com with NNFMP; 05 Mar 2010 09:47:49 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 766046.2530.bm@omp213.mail.ukl.yahoo.com
+Received: (qmail 7399 invoked by uid 60001); 5 Mar 2010 09:47:49 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.uk; s=s1024; t=1267782469; bh=dBoyNXcBeAdAL4z2hkzsg98pJyuVaV5JetXHjhjGoI4=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding; b=YGAE90xbXFeNrU2/rqXGMEIfpEoq4zLtdwaLaujWk55zKPLt+5G4k4viFVbgmvubkUa4qfHty/euD2dJVT9+PDpGTRUWjdbqoUbHnIr0za7wxKBLcM/pK/KEPfmmSOgA7guNHu9BfvMRL+XFFYoNxCIhjyyXAMLxI2sMJooQXlM=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=s1024; d=yahoo.co.uk;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:References:Date:From:Subject:To:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
+  b=Fumu3F2DaFOZujzMajp+Izs7odnglKUKmdulxbRj+KTOignoXoP8mUnwimjO9Ou31s/YU2sqOpW70+/LrEzvmzSaEJNAVN/yKniMmtAJofIuveGtvOq7ccQ057RL7Lx5XwkuIXr3ciySVLXzD5KN4o/jlWQLC7QqHO/iQpZLjOo=;
+Message-ID: <225693.6795.qm@web24713.mail.ird.yahoo.com>
+X-YMail-OSG: 3xEFXZMVM1nyJX2qQ_YmSDuxEPWx2KemRaWt3nrNvLYhCQg
+ OMJ0Bt9NhCPiyQLGSzdluOeB5iyigMUYHY1yNE6dKGtFJLKW_WVjW.49osqJ
+ IdfVcueE.lXh0HfFBuux5Qk_fsmdVNlcGGapmwdutMIYyMUo1J8dAkX5LBFo
+ 4hb1b1VHXkjFfnjt4K4MI8lVprWQwv2rtPoHWujJ7YCTfn4WhctVoKoeBzJ6
+ c0UbuKfRYxtAw4zY19cI08.8HFHVHWzAnIadjqpLWevsUynjIoSX28K6juAZ
+ nltdBJ9dRCpdTrrul.ty3Ykv4.y1WQAx8IiNSLRPG
+Received: from [193.36.230.96] by web24713.mail.ird.yahoo.com via HTTP; Fri, 05 Mar 2010 09:47:49 GMT
+X-Mailer: YahooMailRC/300.3 YahooMailWebService/0.8.100.260964
+References: <644844.24067.qm@web50308.mail.re2.yahoo.com> <4B8FFE67.7040906@getopt.org>
+Date: Fri, 5 Mar 2010 09:47:49 +0000 (GMT)
+From: mark harwood <markharw00d@yahoo.co.uk>
+Subject: Re: SpanQueries in Luke
+To: java-user@lucene.apache.org
+In-Reply-To: <4B8FFE67.7040906@getopt.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+=0A=0A>>No, this simply means that you will be able to use the xml-query-pa=
+rser instead of the regular one=0A=0ANot sure exactly what you have in mind=
+ for an editor, Andrzej but there is an opportunity to do something smart h=
+ere for little effort. =0AThe XMLQueryParser comes with a DTD which means y=
+ou can have an editor that auto-completes/suggests legal query syntax. Any =
+schema-driven editing widget for XML could be used e.g. http://www.felixgol=
+ubov.com/XMLEditor/ or http://gendiapo.sourceforge.net/dev/=0A=0AIf none of=
+ these are any good another startpoint may be to use DTDdoc to parse the sc=
+hema. The DTD includes a lot of help-text comments which are used by the DT=
+Ddoc to generate HTML documentation so using this tool gives you schema *an=
+d* help text.=0A=0A=0ACheers=0AMark=0A=0A=0A=0A      
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

@@ -1,0 +1,98 @@
+From java-user-return-45320-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 09:14:59 2010
+Return-Path: <java-user-return-45320-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 77636 invoked from network); 5 Mar 2010 09:14:58 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 09:14:58 -0000
+Received: (qmail 32150 invoked by uid 500); 5 Mar 2010 09:14:43 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 31926 invoked by uid 500); 5 Mar 2010 09:14:40 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 31913 invoked by uid 99); 5 Mar 2010 09:14:39 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:14:39 +0000
+X-ASF-Spam-Status: No, hits=0.0 required=10.0
+	tests=FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_PASS
+X-Spam-Check-By: apache.org
+Received-SPF: pass (nike.apache.org: domain of rff.rff@gmail.com designates 209.85.219.221 as permitted sender)
+Received: from [209.85.219.221] (HELO mail-ew0-f221.google.com) (209.85.219.221)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 09:14:34 +0000
+Received: by ewy21 with SMTP id 21so1306250ewy.5
+        for <java-user@lucene.apache.org>; Fri, 05 Mar 2010 01:14:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:mime-version:received:from:date:message-id
+         :subject:to:content-type;
+        bh=drqAjvwy+ebXrx0960+M8gBHb3s+TRoHlVjnj03TQYE=;
+        b=kuZC05RG+Uuur+beUjGgL7TbHMaoN3QbkiNsGnqAD+Xlg0oGITUGLIF5aGMilQBWKc
+         rxDbVjIunMxVzcF8MRCYFulyUAflWDudYn6QjZXrUbpbzOHBenKNNDO2fKwBrNgrQfPG
+         t+RmjTlO05nyOIWQyCujY70oyQUvz1wm1fnic=
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=gmail.com; s=gamma;
+        h=mime-version:from:date:message-id:subject:to:content-type;
+        b=XGmGTwexfwZ+J1jnWtOV2COVNIRlTXN/6Zhsfg3rdnDsJLLrEpV5tZnmgFvOe5O3ru
+         oIKadYgaH+ZzGli3Evtqjpp0i592my7khlRx0uf9iv1mbZN+m06ql8XzxzfKds5l4hIM
+         Ee/nV9WJ3LfadKsW+BSAggpl1NAFA0JnVAnvs=
+MIME-Version: 1.0
+Received: by 10.213.100.161 with SMTP id y33mr458989ebn.27.1267780452124; Fri, 
+	05 Mar 2010 01:14:12 -0800 (PST)
+From: gabriele renzi <rff.rff@gmail.com>
+Date: Fri, 5 Mar 2010 10:13:52 +0100
+Message-ID: <828083e71003050113u1c8df68eu82734bc1269e4c41@mail.gmail.com>
+Subject: DisjunctionMaxQuery and custom Sort
+To: lucene-user <java-user@lucene.apache.org>
+Content-Type: text/plain; charset=ISO-8859-1
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+Hi everyone,
+
+In our search app we'd perform searches with a DisjunctionMaxQuery
+with code like
+
+  searcher.search(query, hits)
+
+Now we'd like to add a custom sub-sort so that when the search returns
+two documents with the same score they will be ordered by a custom
+field (this is not a boost for two reasons: first,  we already use
+boosting for other goals, second, we may like to add a third level of
+boosting in the future)
+
+I thought I could just change the former line to something like
+
+  searcher.search(query, null, hits, new Sort(SortField.SCORE_FIELD,
+new CustomSortField())
+
+but I had unexpected results, so I dropped our custom SortField, and
+tried the simple
+
+  searcher.search(query, null, hits, new Sort(SortField.SCORE_FIELD))
+
+which I though should have the same behaviour of our original code:
+yet, a large part of our tests failed because it appears that the
+results are not the same as above.
+
+So my question is threefold:
+1. is the last query really not functionally equivalent to the first?
+2. if not, how would the equivalent be?
+3. and how can I perform a sub-sorting of the results by relevance
+first and my custom score field later?
+
+FWIW I am using lucene 2.9.1, java 1.6, OSX 10.6. Thanks in advance
+for any help.
+
+-- 
+blog en: http://www.riffraff.info
+blog it: http://riffraff.blogsome.com
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+

@@ -1,0 +1,59 @@
+From java-user-return-45319-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Fri Mar 05 08:56:32 2010
+Return-Path: <java-user-return-45319-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 71941 invoked from network); 5 Mar 2010 08:56:32 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 5 Mar 2010 08:56:32 -0000
+Received: (qmail 84999 invoked by uid 500); 5 Mar 2010 08:56:17 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 84906 invoked by uid 500); 5 Mar 2010 08:56:12 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 84898 invoked by uid 99); 5 Mar 2010 08:56:12 -0000
+Received: from nike.apache.org (HELO nike.apache.org) (192.87.106.230)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 08:56:12 +0000
+X-ASF-Spam-Status: No, hits=0.0 required=10.0
+	tests=FREEMAIL_FROM,SPF_HELO_PASS,SPF_PASS,T_TO_NO_BRKTS_FREEMAIL
+X-Spam-Check-By: apache.org
+Received-SPF: pass (nike.apache.org: domain of lists@nabble.com designates 216.139.236.158 as permitted sender)
+Received: from [216.139.236.158] (HELO kuber.nabble.com) (216.139.236.158)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Fri, 05 Mar 2010 08:56:05 +0000
+Received: from isper.nabble.com ([192.168.236.156])
+	by kuber.nabble.com with esmtp (Exim 4.63)
+	(envelope-from <lists@nabble.com>)
+	id 1NnTJx-0008Bz-3u
+	for java-user@lucene.apache.org; Fri, 05 Mar 2010 00:55:45 -0800
+Message-ID: <27791329.post@talk.nabble.com>
+Date: Fri, 5 Mar 2010 00:55:45 -0800 (PST)
+From: halbtuerderschwarze <halbtuerderschwarze@web.de>
+To: java-user@lucene.apache.org
+Subject: RE: FastVectorHighlighter truncated queries
+In-Reply-To: <005401cabbe4$473ae4a0$d5b0ade0$@com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Nabble-From: halbtuerderschwarze@web.de
+References: <27709797.post@talk.nabble.com> <4B844CC2.8020809@gmail.com> <27714123.post@talk.nabble.com> <002801cabb15$687759c0$39660d40$@com> <27782929.post@talk.nabble.com> <003b01cabbbe$b8e61ff0$2ab25fd0$@com> <27786722.post@talk.nabble.com> <005401cabbe4$473ae4a0$d5b0ade0$@com>
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+
+Thank you very much.
+You are right, queries like aa* really work fine, even in Lucene 3.0.1 :)
+But I still have problems getting fragments for queries like aa* AND *ac 
+(parser.setAllowLeadingWildcard(true); is set).
+-- 
+View this message in context: http://old.nabble.com/FastVectorHighlighter-truncated-queries-tp27709797p27791329.html
+Sent from the Lucene - Java Users mailing list archive at Nabble.com.
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+
