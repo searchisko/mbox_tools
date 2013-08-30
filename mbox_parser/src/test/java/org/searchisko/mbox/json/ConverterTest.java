@@ -55,9 +55,15 @@ public class ConverterTest extends MessageTestSupport {
      * Test bunch of mail from lucene-user mail archive.
      */
     @Test
-    public void shouldEqualsLucene() throws MimeException, MessageParseException, IOException {
+    public void shouldEqualsLuceneML() throws MimeException, MessageParseException, IOException {
         shouldEquals("mbox/lucene-user/lucene0087.mbox", "json/lucene-user/lucene0087.json");
         shouldEquals("mbox/lucene-user/lucene0089.mbox", "json/lucene-user/lucene0089.json");
+    }
+
+    @Test
+    public void base64CodingTest() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/encoding/hibernate-announce-01.mbox", "json/encoding/hibernate-announce-01.json");
+        shouldEquals("mbox/encoding/jbpm-users-01.mbox", "json/encoding/jbpm-users-01.json");
     }
 
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
@@ -75,10 +81,10 @@ public class ConverterTest extends MessageTestSupport {
      * Can be used to get pretty JSON from messages.
      * This method should be commented out.
      */
-    //@Test
+//    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/lucene-user/lucene0089.mbox", mb);
+        Message msg = getMessage("mbox/encoding/jbpm-users-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }

@@ -1,0 +1,36 @@
+Public Mailman URL:
+http://lists.jboss.org/pipermail/jbpm-users/2011-August/008598.html
+
+Problem symptoms:
+Failed to extract text for [orderLine_nozj2.bpmn]
+Caused by: org.apache.tika.exception.TikaException: TIKA-198: Illegal IOException from org.apache.tika.parser.xml.DcXMLParser@1fd837fe
+	at org.apache.tika.parser.CompositeParser.parse(CompositeParser.java:248)
+	at org.apache.tika.parser.CompositeParser.parse(CompositeParser.java:242)
+	at org.apache.tika.parser.AutoDetectParser.parse(AutoDetectParser.java:129)
+	at org.apache.tika.Tika.parseToString(Tika.java:381)
+	... 12 more
+Caused by: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence.
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.invalidByte(UTF8Reader.java:687)
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.read(UTF8Reader.java:372)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.load(XMLEntityScanner.java:1719)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.scanLiteral(XMLEntityScanner.java:1041)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:789)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.scanAttribute(XMLNSDocumentScannerImpl.java:436)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.scanStartElement(XMLNSDocumentScannerImpl.java:253)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2723)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:624)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:116)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:486)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:810)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:740)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:110)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1208)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:525)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:392)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:195)
+	at org.apache.tika.parser.xml.XMLParser.parse(XMLParser.java:65)
+	at org.apache.tika.parser.CompositeParser.parse(CompositeParser.java:242)
+	... 16 more
+
+Solution:
+This seems to be problem on TIKA side failing to extract XML content from attachment.

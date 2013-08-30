@@ -1,0 +1,19 @@
+Public Mailman URL:
+http://lists.jboss.org/pipermail/hibernate-announce/2007-March/000007.html
+
+Problem symptoms:
+java.io.IOException: Error in encoded stream, got 2
+	at com.sun.xml.messaging.saaj.packaging.mime.util.BASE64DecoderStream.decode(BASE64DecoderStream.java:148)
+	at com.sun.xml.messaging.saaj.packaging.mime.util.BASE64DecoderStream.read(BASE64DecoderStream.java:53)
+	at com.sun.xml.messaging.saaj.packaging.mime.util.BASE64DecoderStream.read(BASE64DecoderStream.java:78)
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:283)
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:325)
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:177)
+	at java.io.InputStreamReader.read(InputStreamReader.java:184)
+	at java.io.BufferedReader.fill(BufferedReader.java:154)
+	at java.io.BufferedReader.readLine(BufferedReader.java:317)
+	at java.io.BufferedReader.readLine(BufferedReader.java:382)
+	... 3 more
+
+Solution:
+Avoid using com.sun.xml.messaging.saaj.packaging.mime.util.BASE64DecoderStream.decode()
