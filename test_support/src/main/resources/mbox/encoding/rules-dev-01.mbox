@@ -1,0 +1,43 @@
+From lpetrovi@redhat.com Wed Oct  3 08:52:05 2012
+Message-ID: <1349272323.1538.11.camel@steam>
+From: =?UTF-8?Q?Luk=C3=A1=C5=A1_Petrovick=C3=BD?= <lpetrovi@redhat.com>
+To: rules-dev@lists.jboss.org, jbpm-dev@lists.jboss.org
+Date: Wed, 03 Oct 2012 15:52:03 +0200
+In-Reply-To: <CAAG9P0sizr52sF-2S4LonORsg5zgefO9JGNoxm-HxJQAvDQ_DA@mail.gmail.com>
+References: <CAAG9P0sizr52sF-2S4LonORsg5zgefO9JGNoxm-HxJQAvDQ_DA@mail.gmail.com>
+Organization: Red Hat, Inc.
+Content-Type: text/plain; charset="UTF-7"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.24
+Subject: Re: [rules-dev] POM changes for AS7.1.2 BOM
+X-BeenThere: rules-dev@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+Reply-To: lpetrovi@redhat.com, Rules Dev List <rules-dev@lists.jboss.org>
+List-Id: Rules Dev List <rules-dev.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/rules-dev>,
+	<mailto:rules-dev-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/rules-dev>
+List-Post: <mailto:rules-dev@lists.jboss.org>
+List-Help: <mailto:rules-dev-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/rules-dev>,
+	<mailto:rules-dev-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Wed, 03 Oct 2012 12:52:05 -0000
+
+Michael Anstis p+AO0BYQ-e v St 03. 10. 2012 v 13:38 +-0100:
++AD4 We have had numerous cross-compatibility issues in the past with 7.0.2
++AD4 and 7.1.1 and trying for 7.0.2, 7.1.1 and 7.1.2 could be quite
++AD4 difficult.
+
+As far as I know, 7.1.2 is only available as a Git tag. No public
+release was ever made. For people who want to use it, they can either
+build it themselves or obtain a copy of EAP 6 (which is a commercially
+supported offering of Red Hat).
+
+-- 
+Luk+AOEBYQ Petrovick+AP0
+QE Lead, JBoss Enterprise BRMS
+Phone: +-420 532 294 123
+irc: lpetrovi, triceo
+

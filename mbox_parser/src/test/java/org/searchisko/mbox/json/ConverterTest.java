@@ -116,6 +116,14 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/encoding/jbpm-users-01.mbox","json/encoding/jbpm-users-01.json");
     }
 
+    /**
+     * UTF-7 encoding not supported by JDK out of the box. Third-party library is needed to make it work.
+     */
+    @Test
+    public void utf7CharsetShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/encoding/rules-dev-01.mbox","json/encoding/rules-dev-01.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -134,7 +142,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/jbpm-users-01.mbox", mb);
+        Message msg = getMessage("mbox/encoding/rules-dev-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }
