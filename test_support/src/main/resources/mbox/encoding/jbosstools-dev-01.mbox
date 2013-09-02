@@ -1,0 +1,47 @@
+From max.andersen@gmail.com Fri Jun 22 07:12:16 2012
+From: Max Rydahl Andersen <max.andersen@gmail.com>
+Content-Type: text/plain; charset=windows-1252
+Date: Fri, 22 Jun 2012 13:11:15 +0200
+Message-Id: <200DAC9E-5767-49BF-ACF5-4661AF2695C5@gmail.com>
+To: jbosstools-dev jbosstools-dev <jbosstools-dev@lists.jboss.org>
+Mime-Version: 1.0 (Apple Message framework v1257)
+X-Mailer: Apple Mail (2.1257)
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+        lists01.dmz-a.mwc.hst.phx2.redhat.com id q5MBCFHJ030847
+Subject: [jbosstools-dev] rename of plugins without warning ...
+X-BeenThere: jbosstools-dev@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+List-Id: JBoss Tools Development List <jbosstools-dev.lists.jboss.org>
+List-Unsubscribe:
+<https://lists.jboss.org/mailman/listinfo/jbosstools-dev>,
+        <mailto:jbosstools-dev-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/jbosstools-dev>
+List-Post: <mailto:jbosstools-dev@lists.jboss.org>
+List-Help: <mailto:jbosstools-dev-request@lists.jboss.org?subject=help>
+List-Subscribe:
+<https://lists.jboss.org/mailman/listinfo/jbosstools-dev>,
+        <mailto:jbosstools-dev-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Fri, 22 Jun 2012 11:12:16 -0000
+
+Hi Denis,
+
+"        � More
+        � 42127
+        � changed 73 files
+        � trunk
+
+renamed org.jboss.tests.tests to org.jboss.tests.test to follow the
+common name pattern for test plugins. it also included into feature for
+consistency "
+
+Do we really need to rename this ? And without warning ?
+
+Everyone needs to exit their eclipse if they have this loaded and then
+do svn update otherwise everything will look like it is still there
+because eclipse will create the project dirs if deleted under it.
+
+Please - lets not rename plugins "just for fun" and without warning!
+
+/max

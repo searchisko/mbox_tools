@@ -124,6 +124,13 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/encoding/rules-dev-01.mbox","json/encoding/rules-dev-01.json");
     }
 
+    @Test
+    public void windows1252CharsetShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        // TODO these two mails look similar.
+        shouldEquals("mbox/encoding/jbosstools-dev-01.mbox","json/encoding/jbosstools-dev-01.json");
+        shouldEquals("mbox/encoding/jbosstools-dev-02.mbox","json/encoding/jbosstools-dev-02.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -142,7 +149,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/rules-dev-01.mbox", mb);
+        Message msg = getMessage("mbox/encoding/jbosstools-dev-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }

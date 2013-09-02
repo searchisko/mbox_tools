@@ -1,0 +1,17 @@
+{
+    "author" : "Max Rydahl Andersen <max.andersen@gmail.com>",
+    "to" : [ "jbosstools-dev jbosstools-dev <jbosstools-dev@lists.jboss.org>" ],
+    "subject_original" : "[jbosstools-dev] rename of plugins without warning ...",
+    "subject" : "rename of plugins without warning ...",
+    "date" : "2012-06-22T11:11:15.000Z",
+    "message_id_original" : "<200DAC9E-5767-49BF-ACF5-4661AF2695C5@gmail.com>",
+    "message_id" : "<200DAC9E-5767-49BF-ACF5-4661AF2695C5@gmail.com>",
+    "references" : [ ],
+    "message_snippet" : "Hi Denis, \" • More • 42127 • changed 73 files • trunk renamed org.jboss.tests.tests to org.jboss.tests.test to follow the common name pattern for test plugins. it also included into feature for consistency \" Do we really need to rename this ? And wit",
+    "first_text_message" : "Hi Denis,\n\n\"\t• More\n\t• 42127\n\t• changed 73 files\n\t• trunk\n\nrenamed org.jboss.tests.tests to org.jboss.tests.test to follow the common name pattern for test plugins. it also included into feature for consistency \"\n\nDo we really need to rename this ? And without warning ?\n\nEveryone needs to exit their eclipse if they have this loaded and then do svn update otherwise everything will look like it is still there because eclipse will create the project dirs if deleted under it.\n\nPlease - lets not rename plugins \"just for fun\" and without warning!\n\n/max\n",
+    "first_text_message_without_quotes" : "Hi Denis, \"\t• More • 42127 • changed 73 files • trunk renamed org.jboss.tests.tests to org.jboss.tests.test to follow the common name pattern for test plugins. it also included into feature for consistency \" Do we really need to rename this ? And without warning ? Everyone needs to exit their eclipse if they have this loaded and then do svn update otherwise everything will look like it is still there because eclipse will create the project dirs if deleted under it. Please - lets not rename plugins \"just for fun\" and without warning! /max",
+    "text_messages" : [ ],
+    "text_messages_cnt" : 0,
+    "html_messages" : [ ],
+    "html_messages_cnt" : 0
+}
