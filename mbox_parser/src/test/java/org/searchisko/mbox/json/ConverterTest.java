@@ -52,7 +52,7 @@ public class ConverterTest extends MessageTestSupport {
     }
 
     /**
-     * Test bunch of mail from lucene-user mail archive.
+     * Test bunch of mails from lucene-user mail archive.
      */
     @Test
     public void shouldEqualsLuceneML() throws MimeException, MessageParseException, IOException {
@@ -86,6 +86,12 @@ public class ConverterTest extends MessageTestSupport {
         MessageParser.parse(msg);
     }
 
+    @Test
+    public void shouldFixInvalidCharset() throws IOException, MimeException, MessageParseException {
+        // TODO: should be fixed in https://github.com/searchisko/mbox_integration/issues/1
+        shouldEquals("mbox/encoding/invalid/jboss-l10n-na-01.mbox", "json/encoding/invalid/jboss-l10n-na-01.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -104,7 +110,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/jbpm-users-01.mbox", mb);
+        Message msg = getMessage("mbox/encoding/invalid/jboss-l10n-na-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }

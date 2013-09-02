@@ -1,0 +1,49 @@
+From brunolmfg@gmail.com Wed Jan 25 22:25:08 2012
+Received: from mail-tul01m020-f170.google.com (mail-tul01m020-f170.google.com
+        [209.85.214.170])
+        by lists01.dmz-a.mwc.hst.phx2.redhat.com (8.13.8/8.13.8) with ESMTP id
+        q0Q3P7K3014058
+        for <jboss-l10n@lists.jboss.org>; Wed, 25 Jan 2012 22:25:08 -0500
+Received: by obbup3 with SMTP id up3so306334obb.1
+        for <jboss-l10n@lists.jboss.org>; Wed, 25 Jan 2012 19:25:07 -0800 (PST)
+Received: by 10.182.226.6 with SMTP id ro6mr446565obc.3.1327548307447; Wed, 25
+        Jan 2012 19:25:07 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.182.32.233 with HTTP; Wed, 25 Jan 2012 19:24:46 -0800 (PST)
+From: =?ISO-8859-1?Q?Bruno_Leonardo_Gon=E7alves?= <brunolmfg@gmail.com>
+Date: Thu, 26 Jan 2012 01:24:46 -0200
+Message-ID: <CALwwXrUbvM54ze37755nwPepimF8WT8AN4TuSYqacL7_vd0=7g@mail.gmail.com>
+To: jboss-l10n@lists.jboss.org
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+        lists01.dmz-a.mwc.hst.phx2.redhat.com id q0Q3P7K3014058
+Cc: =?ISO-8859-1?Q?Jo=E3o_Paulo_Viragine?= <jpviragine@gmail.com>
+Subject: [jboss-l10n] Brazilian Portuguese Translation of Weld Reference
+        Guide: Completed!
+X-BeenThere: jboss-l10n@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+List-Id: jboss-l10n  List <jboss-l10n.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/jboss-l10n>,
+        <mailto:jboss-l10n-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/jboss-l10n>
+List-Post: <mailto:jboss-l10n@lists.jboss.org>
+List-Help: <mailto:jboss-l10n-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/jboss-l10n>,
+        <mailto:jboss-l10n-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Thu, 26 Jan 2012 03:25:08 -0000
+
+The translation of the Weld Reference Guide (1.1) to Brazilian
+Portuguese is completed!
+
+Despite the need for an accurate review, this work involved some great
+hours of effort over two years [1]. Thanks to João Viragine for
+starting this laborious task which we can only be carried out in spare
+moments. :-)
+
+Regards,
+Bruno
+
+[1] https://issues.jboss.org/browse/WELD-17
+
