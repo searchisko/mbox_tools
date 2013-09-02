@@ -1,0 +1,47 @@
+From mazz@redhat.com Fri Feb 20 12:58:06 2009
+Date: Fri, 20 Feb 2009 12:58:06 -0500 (EST)
+From: John Mazzitelli <mazz@redhat.com>
+To: jopr-dev <jopr-dev@lists.jboss.org>
+Message-ID: <1413601378.76141235152686649.JavaMail.root@zmail01.collab.prod.int.phx2.redhat.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_Part_2122_274650959.1235152686649"
+X-Originating-IP: [0.0.0.0]
+X-Scanned-By: MIMEDefang 2.58 on 0.0.0.0
+Subject: [jopr-dev] order of tabs
+X-BeenThere: jopr-dev@lists.jboss.org
+X-Mailman-Version: 2.1.5
+Precedence: list
+Reply-To: John Mazzitelli <mazz@redhat.com>
+List-Id: jopr -Dev List <jopr-dev.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/jopr-dev>,
+	<mailto:jopr-dev-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/jopr-dev>
+List-Post: <mailto:jopr-dev@lists.jboss.org>
+List-Help: <mailto:jopr-dev-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/jopr-dev>,
+	<mailto:jopr-dev-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Fri, 20 Feb 2009 17:58:06 -0000
+
+------=_Part_2122_274650959.1235152686649
+Content-Type: multipart/related;
+	boundary="----=_Part_2123_1116310510.1235152686649"
+
+------=_Part_2123_1116310510.1235152686649
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+I'm looking at the tabs in the resource view, and I'm thinking, why are they ordered they way they are?
+
+summary | monitor | events | inventory | configure | operations | alert
+
+I think we need to push those permanent, required tabs to the left, and the optional ones on the right.
+I also think inventory should be to the far left (well, next to summary now that we have that):
+
+summary | inventory | monitor | alerts | configure | operations | events | packages
+
+We should also order the MICA icons to match the order of the tabs.
+------=_Part_2123_1116310510.1235152686649--
+
+------=_Part_2122_274650959.1235152686649--
+

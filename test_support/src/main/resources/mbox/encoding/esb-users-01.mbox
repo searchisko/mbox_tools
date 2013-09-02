@@ -1,0 +1,270 @@
+From yhqian99@163.com Thu Aug  7 02:27:24 2008
+Date: Thu, 7 Aug 2008 14:27:21 +0800 (CST)
+From: =?GBK?B?x67T7rrn?= <yhqian99@163.com>
+To: "Jeff Yu" <cyu@redhat.com>
+Message-ID: <8797288.265991218090441422.JavaMail.coremail@app141.163.com>
+In-Reply-To: <489A8F04.7020209@redhat.com>
+References: <489A8F04.7020209@redhat.com> <4896D67B.6040506@redhat.com>
+        <27748447.192941217757635607.JavaMail.coremail@bj163app131.163.com>
+        <48966773.3060807@redhat.com> <48967297.10504@redhat.com>
+        <4896B9E3.3090605@redhat.com>
+        <21300555.240101218087933646.JavaMail.coremail@app141.163.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+        boundary="----=_Part_70835_28024639.1218090441420"
+X-Originating-IP: [0.0.0.0 (0.0.0.0)]
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT_Ux_snapshot build
+        080718(5706.1785.1782) Copyright (c) 2002-2008 www.mailtech.cn 163com
+X-CM-SenderInfo: 51ktxtrqzzqiywtou0bp/1tbiVxBJZkJw0boZQwABsq
+X-Coremail-Antispam: 1U50xBIdaVrnRJUUUcYn4vEF7Iv6F18KVAqrcv_GVWUtr1rJF
+        1lnx0Ec2IEnICE548m6r1DJrWUZwAC62BYpTIE1TZKA3svLVAKvSnIqfZI6r4lFVCF04k2
+        0xvEw2I207IF0wCS07vEb7Iv0xC_Jr1lV2xY6c02F40Eb7x2x7xS6r4j6ryUMIAIbVAqx4
+        xG64xvF2IEw4CE5I8CrVC2j2WlV2xY6c02F40Ew4AK048IF2xKxVW5JVWrJwCS07vEYx0E
+        2Ix0cI8IcVAFwI0_Jr0_Jr4lV2xY6cIj6I8E87Iv67AKxVWUJVW8JwCS07vE7I0Y64k_MI
+        AIbVCY1Ik26cxK6x8YrwCS07vEc7Ca8VAvwVCFzxkY4VCF77xAMIAIbVCY0x0Ix7I2Y4AK
+        64vIr4UvcSsGvfC2KfnxnUU==
+Cc: esb-users mailing list <esb-users@lists.jboss.org>
+Subject: [esb-users] Re:Re: jbossesb project wizard
+X-BeenThere: esb-users@lists.jboss.org
+X-Mailman-Version: 2.1.5
+Precedence: list
+List-Id: esb -Users List <esb-users.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/esb-users>,
+        <mailto:esb-users-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/esb-users>
+List-Post: <mailto:esb-users@lists.jboss.org>
+List-Help: <mailto:esb-users-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/esb-users>,
+        <mailto:esb-users-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Thu, 07 Aug 2008 06:27:24 -0000
+
+------=_Part_70835_28024639.1218090441420
+Content-Type: text/plain; charset=gbk
+Content-Transfer-Encoding: quoted-printable
+
+ Jeff,
+=20
+=20
+=20
+ Since you speak Chinese, let me tell you something, it does have something=
+ like=A1=B0File->New->Project" , as I described as follow, it can help you =
+create a project with ESB archive file.
+   =20
+
+1=A1=A2 =D4=DAEclipse=D6=D0=A3=AC=D1=A1=D4=F1=B2=CB=B5=A5=A1=B0File->New->P=
+roject=A1=AD=A1=B1=A3=BB
+
+2=A1=A2 =D4=DA=B4=F2=BF=AA=B5=C4=A1=B0Select a wizard=A1=B1=B6=D4=BB=B0=BF=
+=F2=D6=D0=A3=AC=D1=A1=D4=F1=A1=B0J2EE->Utility Project=A1=B1=A3=AC=B5=E3=BB=
+=F7Next=A1=B1=BC=CC=D0=F8=A3=BB
+
+3=A1=A2 =D4=DA=B4=F2=BF=AA=B5=C4=A1=B0Utility Module=A1=B1=B6=D4=BB=B0=BF=
+=F2=D6=D0=A3=AC=CA=E4=C8=EB=C8=E7=CF=C2=D0=C5=CF=A2=A3=BA
+
+Project Name=A3=BAHelloESB
+
+Target Runtime=A3=BAJBoss 4.2 Runtime
+
+Configuration=A3=BADefault Configuration for JBoss 4.2 Runtime
+
+=20
+
+=B5=E3=BB=F7=A1=B0Finish=A1=B1=BD=E1=CA=F8=B4=B4=BD=A8=CF=EE=C4=BF
+
+=20
+
+=20
+
+BTW, The plugin you refer to , I think I did tried two days ago, but it doe=
+s'n help.
+
+
+   Lucy
+
+=D4=DA2008-08-07=A3=AC"Jeff Yu" <cyu@redhat.com> =D0=B4=B5=C0=A3=BA
+>Hi Lucy,
+>
+>I have gone through that tool, it can't be seen as an 'project wizard' (=
+=20
+>For the wizard, it will 'Ngive you an option said ew -> JBoss ESB=20
+>project'..), it is an jboss-esb.xml editor, it provides a GUI to help=20
+>you do the configuration. ;-), we are not saying that we will drop this=20
+>tool plugin, however, we will enhance this tool, such as providing a=20
+>drag n drop, introducing some icons etc.  Please correct me if I am=20
+>wrong, Kevin.
+>
+>BTW: I guess the links will be a challenge for Kevin.. ;).
+>
+>-Jeff
+>
+>=C7=AE=D3=EE=BA=E7 wrote:
+>>  =20
+>>  Kevin and Jeff:
+>> =20
+>>   I have found a chinese website http://www.jbossweek.com/ , where=20
+>> there are two articles talking about
+>> ESB development on Eclipse3.3 with 5 plug-ins, I think it might be the=
+=20
+>> same 'jbossesb project wizard' as is described by Kevin in the=20
+>> following email.
+>> =20
+>>   these 2 articles are
+>> 1)  http://www.jbossweek.com/2008/06/jbosstools-install/
+>> 2) http://www.jbossweek.com/2008/06/jbosstools-tutorial-jbossesb/
+>> =20
+>> As a tutorial these two articles are not very clear (even some=20
+>> mistakes in it) but good enough for me to figure out based on my=20
+>> working knowledge and experience.
+>> =20
+>>   I think this 'jbossesb project wizard' is very good but why no=20
+>> longer supported?
+>> =20
+>> =20
+>> =20
+>> =20
+>>    Lucy
+>> =20
+>> =D4=DA2008-08-04=A3=AC"Jeff Yu"
+------=_Part_70835_28024639.1218090441420
+Content-Type: text/html; charset=gbk
+Content-Transfer-Encoding: quoted-printable
+
+<DIV>&nbsp;Jeff,</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT size=3D"3">&nbsp;</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;Since you speak Chinese, let me tell you something, it does have=
+ something like<FONT size=3D"3">=A1=B0<SPAN lang=3D"EN-US">File-&gt;New-&gt=
+;Project" , as I described as follow, it can help you create a&nbsp;project=
+ with ESB archive file.</SPAN></FONT></DIV>
+<DIV>&nbsp;&nbsp; &nbsp;</DIV>
+<DIV>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">1</SPAN><SPAN style=3D=
+"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">=A1=A2 =
+=D4=DA</SPAN><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =
+=CB=CE=CC=E5; mso-font-kerning: 0pt; mso-bidi-font-family: =CB=CE=CC=E5">Ec=
+lipse</SPAN><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12pt; COLOR: red; mso-=
+font-kerning: 0pt"><FONT face=3D"Times New Roman"> </FONT></SPAN><SPAN styl=
+e=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">=D6=
+=D0=A3=AC=D1=A1=D4=F1=B2=CB=B5=A5=A1=B0<SPAN lang=3D"EN-US">File-&gt;New-&g=
+t;Project</SPAN>=A1=AD=A1=B1=A3=BB<SPAN lang=3D"EN-US"><o:p></o:p></SPAN></=
+SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm -50.1pt 0pt 0cm; LAYOUT-GRID-MO=
+DE: char; mso-layout-grid-align: none; mso-para-margin-right: -4.77gd"><SPA=
+N lang=3D"EN-US" style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-f=
+ont-kerning: 0pt">2</SPAN><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=
+=CE=CC=E5; mso-font-kerning: 0pt">=A1=A2 =D4=DA=B4=F2=BF=AA=B5=C4=A1=B0<SPA=
+N lang=3D"EN-US">Select a wizard</SPAN>=A1=B1=B6=D4=BB=B0=BF=F2=D6=D0=A3=AC=
+=D1=A1=D4=F1=A1=B0<SPAN lang=3D"EN-US">J2EE-&gt;Utility Project</SPAN>=A1=
+=B1=A3=AC=B5=E3=BB=F7<SPAN lang=3D"EN-US">Next</SPAN>=A1=B1=BC=CC=D0=F8=A3=
+=BB<SPAN lang=3D"EN-US"><o:p></o:p></SPAN></SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">3</SPAN><SPAN style=3D=
+"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">=A1=A2 =
+=D4=DA=B4=F2=BF=AA=B5=C4=A1=B0<SPAN lang=3D"EN-US">Utility Module</SPAN>=A1=
+=B1=B6=D4=BB=B0=BF=F2=D6=D0=A3=AC=CA=E4=C8=EB=C8=E7=CF=C2=D0=C5=CF=A2=A3=BA=
+<SPAN lang=3D"EN-US"><o:p></o:p></SPAN></SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">Project Name</SPAN><SP=
+AN style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0=
+pt">=A3=BA<SPAN lang=3D"EN-US">HelloESB<o:p></o:p></SPAN></SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">Target Runtime</SPAN><=
+SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning:=
+ 0pt">=A3=BA<SPAN lang=3D"EN-US">JBoss 4.2 Runtime<o:p></o:p></SPAN></SPAN>=
+</P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt">Configuration</SPAN><S=
+PAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: =
+0pt">=A3=BA<SPAN lang=3D"EN-US">Default Configuration for JBoss 4.2 Runtime=
+<o:p></o:p></SPAN></SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN lang=3D"EN-US" style=3D"FONT-SIZE: 12p=
+t; FONT-FAMILY: =CB=CE=CC=E5; mso-font-kerning: 0pt"><o:p>&nbsp;</o:p></SPA=
+N></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY:=
+ =CB=CE=CC=E5; mso-font-kerning: 0pt">=B5=E3=BB=F7=A1=B0<SPAN lang=3D"EN-US=
+">Finish</SPAN>=A1=B1=BD=E1=CA=F8=B4=B4=BD=A8=CF=EE=C4=BF</SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY:=
+ =CB=CE=CC=E5; mso-font-kerning: 0pt"></SPAN>&nbsp;</P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY:=
+ =CB=CE=CC=E5; mso-font-kerning: 0pt"></SPAN>&nbsp;</P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY:=
+ =CB=CE=CC=E5; mso-font-kerning: 0pt">BTW, The plugin you refer to , I thin=
+k I did tried two days ago, but it does'n help.<BR></SPAN></P>
+<P class=3D"MsoNormal" style=3D"MARGIN: 0cm 0cm 0pt; LAYOUT-GRID-MODE: char=
+; mso-layout-grid-align: none"><SPAN style=3D"FONT-SIZE: 12pt; FONT-FAMILY:=
+ =CB=CE=CC=E5; mso-font-kerning: 0pt">&nbsp;</SPAN>&nbsp; Lucy</P></DIV><PR=
+E>=D4=DA2008-08-07=A3=AC"Jeff Yu" &lt;cyu@redhat.com&gt; =D0=B4=B5=C0=A3=BA
+&gt;Hi Lucy,
+&gt;
+&gt;I have gone through that tool, it can't be seen as an 'project wizard' =
+(=20
+&gt;For the wizard, it will 'Ngive you an option said ew -&gt; JBoss ESB=20
+&gt;project'..), it is an jboss-esb.xml editor, it provides a GUI to help=
+=20
+&gt;you do the configuration. ;-), we are not saying that we will drop this=
+=20
+&gt;tool plugin, however, we will enhance this tool, such as providing a=20
+&gt;drag n drop, introducing some icons etc.  Please correct me if I am=20
+&gt;wrong, Kevin.
+&gt;
+&gt;BTW: I guess the links will be a challenge for Kevin.. ;).
+&gt;
+&gt;-Jeff
+&gt;
+&gt;=C7=AE=D3=EE=BA=E7 wrote:
+&gt;&gt;  =20
+&gt;&gt;  Kevin and Jeff:
+&gt;&gt; =20
+&gt;&gt;   I have found a chinese website http://www.jbossweek.com/ , where=
+=20
+&gt;&gt; there are two articles talking about
+&gt;&gt; ESB development on Eclipse3.3 with 5 plug-ins, I think it might be=
+ the=20
+&gt;&gt; same 'jbossesb project wizard' as is described by Kevin in the=20
+&gt;&gt; following email.
+&gt;&gt; =20
+&gt;&gt;   these 2 articles are
+&gt;&gt; 1)  http://www.jbossweek.com/2008/06/jbosstools-install/
+&gt;&gt; 2) http://www.jbossweek.com/2008/06/jbosstools-tutorial-jbossesb/
+&gt;&gt; =20
+&gt;&gt; As a tutorial these two articles are not very clear (even some=20
+&gt;&gt; mistakes in it) but good enough for me to figure out based on my=
+=20
+&gt;&gt; working knowledge and experience.
+&gt;&gt; =20
+&gt;&gt;   I think this 'jbossesb project wizard' is very good but why no=
+=20
+&gt;&gt; longer supported?
+&gt;&gt; =20
+&gt;&gt; =20
+&gt;&gt; =20
+&gt;&gt; =20
+&gt;&gt;    Lucy
+&gt;&gt; =20
+&gt;&gt; =D4=DA2008-08-04=A3=AC"Jeff Yu" <CYU =D0=B4=B5=C0=3D"" Kevin=3D"" =
+Interesting..=3D"" Good=3D"" to=3D"" know.=3D"" Conner=3D"" wrote:=3D"" Jef=
+f=3D"" Yu=3D"" wrote:=3D"" One=3D"" correction=3D"" when=3D"" I=3D"" say=3D=
+"" development=3D"" tool=3D"" I=3D"" mean=3D"" there=3D"" is=3D"" no=3D"" j=
+bossesb=3D"" project=3D"" wizard=3D"" but=3D"" we=3D"" did=3D"" have=3D"" t=
+he=3D"" jboss-esb=3D"" editor.=3D"" Actually=3D"" there=3D"" used=3D"" to=
+=3D"" be=3D"" a=3D"" project=3D"" wizard=3D"" plugin=3D"" for=3D"" eclipse=
+=3D"" but=3D"" this=3D"" has=3D"" not=3D"" been=3D"" updated=3D"" and=3D"" =
+is=3D"" no=3D"" longer=3D"" supported.=3D"" It=3D"" was=3D"" initially=3D""=
+ done=3D"" by=3D"" the=3D"" ESB=3D"" team=3D"" but=3D"" is=3D"" now=3D"" be=
+ing=3D"" handled=3D"" by=3D"" the=3D"" tooling=3D"" team.=3D"" Kev=3D"" Yu=
+=3D"" a=3D"" Divsion=3D"" of=3D"" Red=3D"" Hat=3D"" Yu=3D"" a=3D"" Divsion=
+=3D"" of=3D"" Red=3D"" Hat=3D""></CYU></PRE>
+------=_Part_70835_28024639.1218090441420--

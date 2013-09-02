@@ -1,0 +1,17 @@
+{
+    "author" : "John Mazzitelli <mazz@redhat.com>",
+    "to" : [ "jopr-dev <jopr-dev@lists.jboss.org>" ],
+    "subject_original" : "[jopr-dev] order of tabs",
+    "subject" : "order of tabs",
+    "date" : "2009-02-20T17:58:06.000Z",
+    "message_id_original" : "<1413601378.76141235152686649.JavaMail.root@zmail01.collab.prod.int.phx2.redhat.com>",
+    "message_id" : "<1413601378.76141235152686649.JavaMail.root@zmail01.collab.prod.int.phx2.redhat.com>",
+    "references" : [ ],
+    "message_snippet" : "I'm looking at the tabs in the resource view, and I'm thinking, why are they ordered they way they are? summary | monitor | events | inventory | configure | operations | alert I think we need to push those permanent, required tabs to the left, and th",
+    "first_text_message" : "I'm looking at the tabs in the resource view, and I'm thinking, why are they ordered they way they are?\n\nsummary | monitor | events | inventory | configure | operations | alert\n\nI think we need to push those permanent, required tabs to the left, and the optional ones on the right.\nI also think inventory should be to the far left (well, next to summary now that we have that):\n\nsummary | inventory | monitor | alerts | configure | operations | events | packages\n\nWe should also order the MICA icons to match the order of the tabs.",
+    "first_text_message_without_quotes" : "I'm looking at the tabs in the resource view, and I'm thinking, why are they ordered they way they are? summary | monitor | events | inventory | configure | operations | alert I think we need to push those permanent, required tabs to the left, and the optional ones on the right. I also think inventory should be to the far left (well, next to summary now that we have that): summary | inventory | monitor | alerts | configure | operations | events | packages We should also order the MICA icons to match the order of the tabs.",
+    "text_messages" : [ ],
+    "text_messages_cnt" : 0,
+    "html_messages" : [ ],
+    "html_messages_cnt" : 0
+}

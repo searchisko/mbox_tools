@@ -87,6 +87,35 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/encoding/invalid/jboss-l10n-na-01.mbox", "json/encoding/invalid/jboss-l10n-na-01.json");
     }
 
+    @Test
+    public void shouldParseMessageWithAttachments() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/attachments/netty-dev-01.mbox", "json/attachments/netty-dev-01.json");
+    }
+
+    /**
+     * Test nested multipart (alternate/related) messages.
+     */
+    @Test
+    public void nestedMultipartShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/multipart/jopr-dev-01.mbox", "json/multipart/jopr-dev-01.json");
+    }
+
+    /**
+     * Test charset=gbk
+     */
+    @Test
+    public void gbkCharsetShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/encoding/esb-users-01.mbox","json/encoding/esb-users-01.json");
+    }
+
+    /**
+     * Test charset=x-gbk
+     */
+    @Test
+    public void xgbkCharsetShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/encoding/jbpm-users-01.mbox","json/encoding/jbpm-users-01.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -105,7 +134,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/invalid/simple.mbox", mb);
+        Message msg = getMessage("mbox/encoding/jbpm-users-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }

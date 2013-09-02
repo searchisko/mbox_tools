@@ -1,0 +1,24 @@
+Public Mailman URL:
+http://lists.jboss.org/pipermail/jboss-as7-dev/2011-March/000760.html
+
+Problem symptoms:
+java.io.UnsupportedEncodingException: x-gbk
+    ...
+Caused by: java.io.UnsupportedEncodingException: x-gbk
+	at sun.nio.cs.StreamEncoder.forOutputStreamWriter(StreamEncoder.java:60)
+	at java.io.OutputStreamWriter.<init>(OutputStreamWriter.java:100)
+	... 33 more
+
+Solution:
+Hardcoded - if "x-gbk" charset is used, change it to "gbk" unless better solution is found.
+
+Chinese charset coding taken from http://www.cs.tut.fi/~jkorpela/www/nvu-enc.html
+
+Chinese Simplified (GB18030)	gb18030	Newer encoding for Chinese in Simplified writing system
+Chinese Simplified (GB2312)	gb2312	Older encoding for Chinese in Simplified writing system
+Chinese Simplified (GBK)	x-gbk	An extension of GB2312 (MIME name: GBK)
+Chinese Simplified (HZ)	HZ-GB-2312	An encoding designed for E-mail
+Chinese Simplified (ISO-2022-CN)	ISO-2022-CN	ISO 2022 based encoding for Chinese
+Chinese Traditional (Big5)	Big5	Chinese encoding, used especially in Taiwan
+Chinese Traditional (Big5-HKSCS)	Big5-HKSCS	Chinese encoding, used especially in Hong Kong
+Chinese Traditional (EUC-TW)	x-euc-tw	Chinese encoding, unregistered

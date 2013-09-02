@@ -1,0 +1,6 @@
+Public Mailman URL:
+http://lists.jboss.org/pipermail/esb-users/2008-August/000043.html
+
+Problem symptoms:
+Actually, I do not know what exactly is the problem here but this message is very strange mix of various Chinese codes and
+readable text. I am also not sure if it is correctly encoded at all, but definitely it makes for an interesting testing mail...
