@@ -45,7 +45,7 @@ public class MessageHeaderParsingTest extends MessageTestSupport {
     @Test
     public void shouldParseHeaders() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/simple/simple.mbox", mb);
+        Message msg = getMessage("mbox/encoding/invalid/simple.mbox", mb);
         Mail mail = MessageParser.parse(msg, "clientSuffix");
 
         assertEquals(mail.message_id_original(), "<7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>");

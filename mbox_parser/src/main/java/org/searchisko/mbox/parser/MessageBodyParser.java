@@ -6,6 +6,8 @@
 
 package org.searchisko.mbox.parser;
 
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeUtility;
 import org.apache.commons.io.IOUtils;
@@ -251,6 +253,20 @@ public class MessageBodyParser {
                     } else {
                         output = MimeUtility.decode(body.getInputStream(), contentTransferEncoding.toLowerCase());
                     }
+
+                    if (charset.toUpperCase().startsWith("ISO-8859") || charset.toUpperCase().startsWith("ISO8859")) {
+                        CharsetMatch detectedCharset = detectCharset(output);
+                        if (detectedCharset != null) {
+                            int conf = detectedCharset.getConfidence();
+                            if (conf >= 80) {
+                                charset = detectedCharset.getName();
+                            }
+//                            log this !!!
+//                            System.out.println("--- detected charset ---");
+//                            System.out.println(charset + ", conf = " + conf);
+                        }
+                    }
+
                     StringWriter writer = new StringWriter();
                     IOUtils.copy(output, writer, charset);
                     content = writer.toString();
@@ -293,6 +309,13 @@ public class MessageBodyParser {
 
         }
         return bodyContent;
+    }
+
+    private static CharsetMatch detectCharset(InputStream inputStream) throws IOException {
+        CharsetDetector cd = new CharsetDetector();
+        cd.setText(inputStream);
+        cd.enableInputFilter(true);
+        return cd.detect();
     }
 
     private static MailBodyContent parseBinaryBody(MailBodyContent content, BinaryBody body, String mimeType, String contentTransferEncoding, String charset, String filename) {

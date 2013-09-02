@@ -41,18 +41,18 @@ public class MessageBodyParsingTest extends MessageTestSupport {
     @Test
     public void shouldParseMessage() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/simple/simple.mbox", mb);
+        Message msg = getMessage("mbox/encoding/invalid/simple.mbox", mb);
         Mail mail = MessageParser.parse(msg);
 
         assertEquals(mail.message_snippet(),
                 "See comments inline: On Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote: I can't say 100% for sure, " +
                 "Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done " +
-                "yet. -- Galder ZamarreÃ±o Sr. Software Engineer In");
+                "yet. -- Galder Zamarreño Sr. Software Engineer Inf");
 
         assertEquals(mail.first_text_message_without_quotes(),
                 "See comments inline: On Jan 3, 2011, at 3:44 PM, Eduardo Martins wrote: I can't say 100% for sure, " +
                 "Paul Ferraro or Scott Marlow will be able to clarify this further, but AFAIK, this is not being done " +
-                "yet. -- Galder ZamarreÃ±o Sr. Software Engineer Infinispan, JBoss Cache"
+                "yet. -- Galder Zamarreño Sr. Software Engineer Infinispan, JBoss Cache"
         );
     }
 

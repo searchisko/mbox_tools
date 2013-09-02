@@ -1,15 +1,6 @@
 From brunolmfg@gmail.com Wed Jan 25 22:25:08 2012
-Received: from mail-tul01m020-f170.google.com (mail-tul01m020-f170.google.com
-        [209.85.214.170])
-        by lists01.dmz-a.mwc.hst.phx2.redhat.com (8.13.8/8.13.8) with ESMTP id
-        q0Q3P7K3014058
-        for <jboss-l10n@lists.jboss.org>; Wed, 25 Jan 2012 22:25:08 -0500
-Received: by obbup3 with SMTP id up3so306334obb.1
-        for <jboss-l10n@lists.jboss.org>; Wed, 25 Jan 2012 19:25:07 -0800 (PST)
-Received: by 10.182.226.6 with SMTP id ro6mr446565obc.3.1327548307447; Wed, 25
-        Jan 2012 19:25:07 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.182.32.233 with HTTP; Wed, 25 Jan 2012 19:24:46 -0800 (PST)
+Received: by 0.0.0.0 with HTTP; Wed, 25 Jan 2012 19:24:46 -0800 (PST)
 From: =?ISO-8859-1?Q?Bruno_Leonardo_Gon=E7alves?= <brunolmfg@gmail.com>
 Date: Thu, 26 Jan 2012 01:24:46 -0200
 Message-ID: <CALwwXrUbvM54ze37755nwPepimF8WT8AN4TuSYqacL7_vd0=7g@mail.gmail.com>

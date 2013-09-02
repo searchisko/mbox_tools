@@ -12,6 +12,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:51.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tika:tika-parsers:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tika:tika-core:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.gagravarr:vorbis-java-tika:0.1" level="project" />

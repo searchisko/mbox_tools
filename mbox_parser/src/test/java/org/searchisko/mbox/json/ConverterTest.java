@@ -46,11 +46,6 @@ public class ConverterTest extends MessageTestSupport {
         mapper = getMapper();
     }
 
-    @Test
-    public void shouldEquals() throws MimeException, MessageParseException, IOException {
-        shouldEquals("mbox/simple/simple.mbox", "json/simple/simple.json");
-    }
-
     /**
      * Test bunch of mails from lucene-user mail archive.
      */
@@ -88,7 +83,7 @@ public class ConverterTest extends MessageTestSupport {
 
     @Test
     public void shouldFixInvalidCharset() throws IOException, MimeException, MessageParseException {
-        // TODO: should be fixed in https://github.com/searchisko/mbox_integration/issues/1
+        shouldEquals("mbox/encoding/invalid/simple.mbox", "json/encoding/invalid/simple.json");
         shouldEquals("mbox/encoding/invalid/jboss-l10n-na-01.mbox", "json/encoding/invalid/jboss-l10n-na-01.json");
     }
 
@@ -110,7 +105,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/invalid/jboss-l10n-na-01.mbox", mb);
+        Message msg = getMessage("mbox/encoding/invalid/simple.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }
