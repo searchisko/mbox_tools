@@ -1,0 +1,42 @@
+From wolfgang.laun@gmail.com Wed Apr  4 09:23:13 2012
+MIME-Version: 1.0
+In-Reply-To: <4F7C447B.7010504@codehaus.org>
+References: <1333533880186-3883669.post@n3.nabble.com>
+	<4F7C27B7.5070707@codehaus.org>
+	<CALhnpdQ6MHRUrvVcjJMs6EDgnfKAeHOoNrVqGHTUKtnD=Z+Mxg@mail.gmail.com>
+	<4F7C447B.7010504@codehaus.org>
+Date: Wed, 4 Apr 2012 15:23:12 +0200
+Message-ID: <CANaj1LfVJpE+s3VZgfX-yh9KupZ8t61NzPG_mCpc_UKKAiLPxA@mail.gmail.com>
+From: Wolfgang Laun <wolfgang.laun@gmail.com>
+To: Rules Users List <rules-users@lists.jboss.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	filtered id q34DNC8g021084
+Subject: Re: [rules-users] mvel strict-mode not applied in drools 5.3.1.Final
+X-BeenThere: rules-users@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+Reply-To: Rules Users List <rules-users@lists.jboss.org>
+List-Id: Rules Users List <rules-users.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/rules-users>,
+	<mailto:rules-users-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/rules-users>
+List-Post: <mailto:rules-users@lists.jboss.org>
+List-Help: <mailto:rules-users-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/rules-users>,
+	<mailto:rules-users-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Wed, 04 Apr 2012 13:23:13 -0000
+
+@Jörg:
+
+>>     On 04/04/2012 11:04, korgen wrote:
+>>    we updated Drools from 5.1.1 to 5.3.1 (as in 5.1.1
+>>     language level
+>>     > 1.7 is not supported).
+
+Why would Drools 5.1.1. not be usable with Java 1.7? Byte code is
+supposed to be upward compatible.
+
+-W
+

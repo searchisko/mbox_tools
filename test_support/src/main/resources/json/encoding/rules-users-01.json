@@ -1,0 +1,18 @@
+{
+    "author" : "Wolfgang Laun <wolfgang.laun@gmail.com>",
+    "to" : [ "Rules Users List <rules-users@lists.jboss.org>" ],
+    "subject_original" : "Re: [rules-users] mvel strict-mode not applied in drools 5.3.1.Final",
+    "subject" : "mvel strict-mode not applied in drools 5.3.1.Final",
+    "date" : "2012-04-04T13:23:12.000Z",
+    "message_id_original" : "<CANaj1LfVJpE+s3VZgfX-yh9KupZ8t61NzPG_mCpc_UKKAiLPxA@mail.gmail.com>",
+    "message_id" : "<CANaj1LfVJpE+s3VZgfX-yh9KupZ8t61NzPG_mCpc_UKKAiLPxA@mail.gmail.com>",
+    "references" : [ "<1333533880186-3883669.post@n3.nabble.com>", "<4F7C27B7.5070707@codehaus.org>", "<CALhnpdQ6MHRUrvVcjJMs6EDgnfKAeHOoNrVqGHTUKtnD=Z+Mxg@mail.gmail.com>", "<4F7C447B.7010504@codehaus.org>" ],
+    "in_reply_to" : "<4F7C447B.7010504@codehaus.org>",
+    "message_snippet" : "@Jörg: Why would Drools 5.1.1. not be usable with Java 1.7? Byte code is supposed to be upward compatible. -",
+    "first_text_message" : "@Jörg:\n\n&gt;&gt;     On 04/04/2012 11:04, korgen wrote:\n&gt;&gt;    we updated Drools from 5.1.1 to 5.3.1 (as in 5.1.1\n&gt;&gt;     language level\n&gt;&gt;     &gt; 1.7 is not supported).\n\nWhy would Drools 5.1.1. not be usable with Java 1.7? Byte code is\nsupposed to be upward compatible.\n\n-W\n\n",
+    "first_text_message_without_quotes" : "@Jörg: Why would Drools 5.1.1. not be usable with Java 1.7? Byte code is supposed to be upward compatible. -W",
+    "text_messages" : [ ],
+    "text_messages_cnt" : 0,
+    "html_messages" : [ ],
+    "html_messages_cnt" : 0
+}

@@ -131,6 +131,11 @@ public class ConverterTest extends MessageTestSupport {
         shouldEquals("mbox/encoding/jbosstools-dev-02.mbox","json/encoding/jbosstools-dev-02.json");
     }
 
+    @Test
+    public void iso88591CharsetShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/encoding/rules-users-01.mbox","json/encoding/rules-users-01.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
@@ -149,7 +154,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/jbosstools-dev-01.mbox", mb);
+        Message msg = getMessage("mbox/encoding/rules-users-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }
