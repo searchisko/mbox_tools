@@ -1,0 +1,5 @@
+Public Mailman URL:
+http://lists.jboss.org/pipermail/gatein-dev/2009-October/000117.html
+
+Problem:
+This message has two attachments both declaring to be text/xml but they are only text files with some XML content.

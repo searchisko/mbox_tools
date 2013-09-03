@@ -91,6 +91,7 @@ public class ConverterTest extends MessageTestSupport {
     public void shouldParseMessageWithAttachments() throws MimeException, MessageParseException, IOException {
         shouldEquals("mbox/attachments/netty-dev-01.mbox", "json/attachments/netty-dev-01.json");
         shouldEquals("mbox/attachments/cdi-dev-01.mbox", "json/attachments/cdi-dev-01.json");
+        shouldEquals("mbox/attachments/gatein-dev-01.mbox", "json/attachments/gatein-dev-01.json");
     }
 
     /**
@@ -156,7 +157,7 @@ public class ConverterTest extends MessageTestSupport {
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
 
-        Message msg = getMessage("mbox/encoding/jboss-as7-dev-01.mbox", mb);
+        Message msg = getMessage("mbox/attachments/gatein-dev-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
 
     }
