@@ -85,6 +85,7 @@ public class ConverterTest extends MessageTestSupport {
     public void shouldFixInvalidCharset() throws IOException, MimeException, MessageParseException {
         shouldEquals("mbox/encoding/invalid/simple.mbox", "json/encoding/invalid/simple.json");
         shouldEquals("mbox/encoding/invalid/jboss-l10n-na-01.mbox", "json/encoding/invalid/jboss-l10n-na-01.json");
+        shouldEquals("mbox/encoding/invalid/jboss-cluster-dev-01.mbox", "json/encoding/invalid/jboss-cluster-dev-01.json");
     }
 
     @Test
@@ -101,6 +102,7 @@ public class ConverterTest extends MessageTestSupport {
     public void nestedMultipartShouldMatchAndNotFail() throws MimeException, MessageParseException, IOException {
         shouldEquals("mbox/multipart/jopr-dev-01.mbox", "json/multipart/jopr-dev-01.json");
         shouldEquals("mbox/multipart/weld-dev-01.mbox", "json/multipart/weld-dev-01.json");
+        shouldEquals("mbox/multipart/wise-users-01.mbox", "json/multipart/wise-users-01.json");
     }
 
     /**
@@ -156,10 +158,8 @@ public class ConverterTest extends MessageTestSupport {
      */
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
-
-        Message msg = getMessage("mbox/attachments/gatein-dev-01.mbox", mb);
+        Message msg = getMessage("mbox/multipart/wise-users-01.mbox", mb);
         System.out.println(Converter.toJSON(MessageParser.parse(msg), true));
-
     }
 
     private ObjectMapper getMapper() {
