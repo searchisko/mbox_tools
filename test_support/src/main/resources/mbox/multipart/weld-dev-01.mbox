@@ -1,0 +1,280 @@
+From stuart.w.douglas@gmail.com Fri Sep  7 11:27:49 2012
+Message-ID: <504A126C.4060204@gmail.com>
+Date: Sat, 08 Sep 2012 01:27:40 +1000
+From: Stuart Douglas <stuart.w.douglas@gmail.com>
+User-Agent: Postbox 3.0.5 (Macintosh/20120826)
+MIME-Version: 1.0
+To: =?windows-1252?Q?Marko_Luk=9Aa?= <marko.luksa@gmail.com>
+References: <5049BC14.9030108@gmail.com>
+In-Reply-To: <5049BC14.9030108@gmail.com>
+Content-Type: multipart/alternative;
+	boundary="------------050304050306030507060401"
+Cc: weld-dev <weld-dev@lists.jboss.org>
+Subject: Re: [weld-dev] Bridge methods & proxies & interceptors
+X-BeenThere: weld-dev@lists.jboss.org
+X-Mailman-Version: 2.1.9
+Precedence: list
+List-Id: Weld Development Discussion List <weld-dev.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/weld-dev>,
+	<mailto:weld-dev-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/weld-dev>
+List-Post: <mailto:weld-dev@lists.jboss.org>
+List-Help: <mailto:weld-dev-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/weld-dev>,
+	<mailto:weld-dev-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Fri, 07 Sep 2012 15:27:49 -0000
+
+This is a multi-part message in MIME format.
+--------------050304050306030507060401
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+IMHO the correct way to deal with this is to simply make bridge methods 
+delegate to super(), which will then result in the actual intercepted 
+method being called.
+
+To be honest I thought we already did this, as we have had multiple 
+related bugs in the past. Do you have a test case that I can look at?
+
+Stuart
+
+> Marko Lukša <mailto:marko.luksa@gmail.com>
+> 7 September 2012 7:19 PM
+> Hey all.
+>
+> I've been working on https://issues.jboss.org/browse/WELD-1162 and 
+> need your opinion.
+>
+> Say we have:
+>
+> public interface Foo<T> {
+>    void doSomething(T t);
+> }
+> public interface StringFoo extends Foo<String> {}
+> public class StringFooImpl implements StringFoo {}
+>
+> and
+>
+> @Inject StringFoo stringFoo;
+>
+> The proxy created by Weld is a subclass of StringFooImpl and therefore 
+> has two declared methods:
+>
+> void doSomething(Object o) { doSomething((String) o); }
+> void doSomething(String) {...}
+>
+> However, when StringFooImpl is a session bean, with StringFoo as its 
+> local interface, the proxy is a subclass of Object and therefore the 
+> proxy only has the following declared method:
+>
+> void doSomething(Object o);
+>
+> In both cases, when a client invokes stringFoo.doSomething("foo"), the 
+> method doSomething(Object) is invoked. But there's a difference in 
+> what happens next:
+>
+>   * In the non-ejb version, the bridge method then immediately invokes
+>     doSomething(String) and only then is the proxy's method handler
+>     invoked. The handler is therefore dealing with the method
+>     doSomething(*String*)
+>   * in the EJB version, doSomething(Object) is not a bridge method,
+>     and so the method handler is invoked directly and it (the handler)
+>     is operating on doSomething(*Object*).
+>
+> In the second case, this ultimately means that Weld will check whether 
+> doSomething(Object) is intercepted. It isn't, since 
+> Beans.getInterceptableMethods() is ignoring bridge methods. The 
+> interceptor will not be invoked. On the other hand, in the first case, 
+> the interceptor _will_ be invoked, since Weld will be checking whether 
+> doSomething(String) is intercepted.
+>
+> My initial solution was to make Beans.getInterceptableMethods() also 
+> return bridge methods, but now I'm thinking the actual problem is in 
+> the proxy itself. IMO, when creating a proxy based on an interface, we 
+> should also generate bridge methods on the proxy (this should be 
+> either done by Weld or by Javassist directly). These bridge methods 
+> should be perfectly normal bridge methods and should not invoke the 
+> method handler directly. They should simply invoke the non-bridge 
+> method and the non-bridge method should then invoke the method handler.
+>
+> The java compiler can't add bridge methods directly to interfaces 
+> which require them, so it adds them to all the classes implementing 
+> the interface (StringFooImpl in our case). Since we are creating 
+> StringFoo$Proxy, which is also a class implementing an interface which 
+> requires bridge methods, we should add the bridge methods
+> to it - exactly as the java compiler would.
+>
+> This would solve the interceptor problem and possibly other similar 
+> problems as well.
+>
+> What do you think?
+>
+> Marko
+>
+>
+> _______________________________________________
+> weld-dev mailing list
+> weld-dev@lists.jboss.org
+> https://lists.jboss.org/mailman/listinfo/weld-dev
+
+--------------050304050306030507060401
+Content-Type: multipart/related;
+	boundary="------------030406030301000305010206"
+
+
+--------------030406030301000305010206
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta content="text/html; charset=windows-1252" 
+http-equiv="Content-Type">
+</head><body text="#000000" bgcolor="#FFFFFF">IMHO the correct way to 
+deal with this is to simply make bridge methods delegate to super(), 
+which will then result in the actual intercepted method being called. <br>
+<br>
+To be honest I thought we already did this, as we have had multiple 
+related bugs in the past. Do you have a test case that I can look at?<br>
+<br>
+Stuart<br>
+<br>
+<blockquote style="border: 0px none;" 
+cite="mid:5049BC14.9030108@gmail.com" type="cite">
+  <div style="margin:30px 25px 10px 25px;" class="__pbConvHr"><div 
+style="display:table;width:100%;border-top:1px solid 
+#EDEEF0;padding-top:5px"> 	<div 
+style="display:table-cell;vertical-align:middle;padding-right:6px;"><img
+ photoaddress="marko.luksa@gmail.com" photoname="Marko Lukša" 
+src="cid:part1.05060108.08080008@gmail.com" name="postbox-contact.jpg" 
+width="25px" height="25px"></div>   <div 
+style="display:table-cell;white-space:nowrap;vertical-align:middle;width:100%">
+   	<a moz-do-not-send="true" href="mailto:marko.luksa@gmail.com" 
+style="color:#737F92 
+!important;padding-right:6px;font-weight:bold;text-decoration:none 
+!important;">Marko Lukša</a></div>   <div 
+style="display:table-cell;white-space:nowrap;vertical-align:middle;">   
+  <font color="#9FA2A5"><span style="padding-left:6px">7 September 2012 
+7:19 PM</span></font></div></div></div>
+  <div style="color:#888888;margin-left:24px;margin-right:24px;" 
+__pbrmquotes="true" class="__pbConvBody">
+  
+    <meta http-equiv="Content-Type" content="text/html; 
+charset=windows-1252">
+  
+    Hey all.<br>
+    <br>
+    I've been working on <a moz-do-not-send="true" 
+href="https://issues.jboss.org/browse/WELD-1162" 
+class="moz-txt-link-freetext">https://issues.jboss.org/browse/WELD-1162</a>
+ and
+    need your opinion.<br>
+    <br>
+    Say we have:<br>
+    <br>
+    public interface Foo&lt;T&gt; {<br>
+       void doSomething(T t);<br>
+    }<br>
+    public interface StringFoo extends Foo&lt;String&gt; {}<br>
+    public class StringFooImpl implements StringFoo {}<br>
+    <br>
+    and<br>
+    <br>
+    @Inject StringFoo stringFoo;<br>
+    <br>
+    The proxy created by Weld is a subclass of StringFooImpl and
+    therefore has two declared methods:<br>
+    <br>
+    void doSomething(Object o) { doSomething((String) o); }<br>
+    void doSomething(String) {...}<br>
+    <br>
+    However, when StringFooImpl is a session bean, with StringFoo as its
+    local interface, the proxy is a subclass of Object and therefore the
+    proxy only has the following declared method:<br>
+    <br>
+    void doSomething(Object o);<br>
+    <br>
+    In both cases, when a client invokes stringFoo.doSomething("foo"),
+    the method doSomething(Object) is invoked. But there's a difference
+    in what happens next:<br>
+    <ul>
+      <li>In the non-ejb version, the bridge method then immediately
+        invokes doSomething(String) and only then is the proxy's method
+        handler invoked. The handler is therefore dealing with the
+        method doSomething(<b>String</b>)</li>
+      <li>in the EJB version, doSomething(Object) is not a bridge
+        method, and so the method handler is invoked directly and it
+        (the handler) is operating on doSomething(<b>Object</b>).</li>
+    </ul>
+    <p>In the second case, this ultimately means that Weld will check
+      whether doSomething(Object) is intercepted. It isn't, since
+      Beans.getInterceptableMethods() is ignoring bridge methods. The
+      interceptor will not be invoked. On the other hand, in the first
+      case, the interceptor _will_ be invoked, since Weld will be
+      checking whether doSomething(String) is intercepted. <br>
+    </p>
+    <p>My initial solution was to make Beans.getInterceptableMethods()
+      also return bridge methods, but now I'm thinking the actual
+      problem is in the proxy itself. IMO, when creating a proxy based
+      on an interface, we should also generate bridge methods on the
+      proxy (this should be either done by Weld or by Javassist
+      directly). These bridge methods should be perfectly normal bridge
+      methods and should not invoke the method handler directly. They
+      should simply invoke the non-bridge method and the non-bridge
+      method should then invoke the method handler.<br>
+    </p>
+    <p>The java compiler can't add bridge methods directly to interfaces
+      which require them, so it adds them to all the classes
+      implementing the interface (StringFooImpl in our case). Since we
+      are creating StringFoo$Proxy, which is also a class implementing
+      an interface which requires bridge methods, we should add the
+      bridge methods <br>
+      to it - exactly as the java compiler would.<br>
+    </p>
+    <p>This would solve the interceptor problem and possibly other
+      similar problems as well.<br>
+    </p>
+    What do you think?<br>
+    <p>Marko<br>
+    </p>
+    <p><br>
+    </p>
+  <div>_______________________________________________<br>weld-dev 
+mailing list<br><a class="moz-txt-link-abbreviated" href="mailto:weld-dev@lists.jboss.org">weld-dev@lists.jboss.org</a><br><a class="moz-txt-link-freetext" href="https://lists.jboss.org/mailman/listinfo/weld-dev">https://lists.jboss.org/mailman/listinfo/weld-dev</a></div></div>
+</blockquote>
+</body></html>
+
+--------------030406030301000305010206
+Content-Type: image/jpeg; x-apple-mail-type=stationery;
+	name="postbox-contact.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <part1.05060108.08080008@gmail.com>
+Content-Disposition: inline;
+ filename="postbox-contact.jpg"
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgK
+CgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkL
+EBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAAR
+CAAZABkDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAA
+AgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkK
+FhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWG
+h4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl
+5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYk
+NOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOE
+hYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk
+5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6g1Hw1o+lfDaTx94sayv5tL8PS3+pXN7Y
+wzG5ZIDI8jsV3HkdAQAOAMYFelGpFQTPKlBykfmV4NtPiD8StVfxRJ4w8NaPc307y2tlcaJa
+GEAn5Yz8oOQMDjJrzZY2tCpzR3PZp4CnOlyvY+j/AAJ4l079ob4f6v8ACnxRZaXpXxK8F3wm
+s5obOGIyNC2P3LqisNwUjIwwyCDkZr1Y1IYylzpa9f8AM8n3sBXUW9On+R8zf8NG/trf9Dx4
+l/78Q/8AxFcfsGer9ZpH2f41/aR+HJ+CfiX4P+LL2exkvfDtxp0d2CSp32+EIb0yRXrwyirU
+wccSno1c+W/tejTx0sE78ydttz47+AOj+HvEEb+G7u0DSQ6jBfWt15jqyuE27SAu3nJ7jJxX
+y1Zcrufc0Lch9E6xpfhLwJ8TE8dHUkt7nVo7eJ4gACkqADeCPmLMM54x+Jr0coqt1JRtpY8r
+NaUFTjU63PFf+Fl6L/0HX/8AHv8ACvVvHyPKvI888d28dr8Ad2q6rc3Ou6T5WmzrLEUZGLrl
+H3fMGjClcH3zVznKrlycJ25d16szpwowzGV4JyfX0Mz9mzxl4l0/xRaaba/Y4U1BF3T3KMxI
+HoM4PSvk8TK+x9Vh72se0+IPi7ZW3x88LeF9UtrWXTYLNo7i9u7hY1EzMzsx3DBAG0AD1r0M
+ka9pyyODOX+6dkU/+EC8Q/8AQgav/wCCqT/4mva9zujxLy7M4P8Abn/5LF8R/wDsM2//AKJj
+rzo/7tL5Hc/95X9dDx/wL/r9G/65t/M14svjl6nsU/hRsL/yXDwT/wBhyw/9K0rowu8jGtuj
+9v66DnP/2Q==
+--------------030406030301000305010206--
+
+--------------050304050306030507060401--
