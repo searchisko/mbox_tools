@@ -37,7 +37,7 @@ public class Mail {
     private final String[] html_messages;
     private final Integer html_messages_cnt;
 
-    private final String[] message_attachments;
+    private final MailAttachment[] message_attachments;
     private final Integer message_attachments_cnt;
 
     public Mail(final String messageId, final String message_id_original, final String[] to, final String subject_original,
@@ -45,7 +45,7 @@ public class Mail {
                     final String[] references, final String message_snippet, final String first_text_message,
                     final String first_text_message_without_quotes, final String first_html_message, final String[] text_messages,
                     final Integer text_messages_cnt, final String[] html_messages, final Integer html_messages_cnt,
-                    final String[] message_attachments, final Integer message_attachments_cnt) {
+                    final MailAttachment[] message_attachments, final Integer message_attachments_cnt) {
 
         this.message_id = messageId;
         this.message_id_original = message_id_original;
@@ -86,7 +86,7 @@ public class Mail {
     public Integer text_messages_cnt() { return text_messages_cnt; }
     public String[] html_messages() { return html_messages; }
     public Integer html_messages_cnt() { return html_messages_cnt; }
-    public String[] message_attachments() { return message_attachments; }
+    public MailAttachment[] message_attachments() { return message_attachments; }
     public Integer message_attachments_cnt() { return message_attachments_cnt; }
 
 }

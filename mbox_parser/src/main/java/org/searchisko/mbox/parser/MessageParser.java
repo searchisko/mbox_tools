@@ -25,6 +25,7 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.searchisko.mbox.dto.Mail;
+import org.searchisko.mbox.dto.MailAttachment;
 
 import java.io.IOException;
 import java.util.*;
@@ -69,6 +70,11 @@ public class MessageParser {
 
     private MessageParser() {};
 
+    /**
+     * Lazy initialize MessageBuilder instance.
+     * @return MessageBuilder instance
+     * @throws MimeException
+     */
     public static MessageBuilder getMessageBuilder() throws MimeException {
         MessageBuilder mb = messageBuilder;
         if (mb == null) {
@@ -140,7 +146,7 @@ public class MessageParser {
         Integer text_messages_cnt = null;
         String[] html_messages = null;
         Integer html_messages_cnt = null;
-        String[] message_attachments = null;
+        MailAttachment[] message_attachments = null;
         Integer message_attachments_cnt = null;
 
         Map<String, Field> headers = getMessageHeaders(message);
@@ -239,8 +245,8 @@ public class MessageParser {
         html_messages_cnt = content.getHtmlMessages().size();
 
         if (content.getAttachments().size() > 0) {
-            // TODO: handle attachments
             message_attachments_cnt = content.getAttachments().size();
+            message_attachments = content.getAttachments().toArray(new MailAttachment[message_attachments_cnt]);
         } else {
             message_attachments_cnt = 0;
         }

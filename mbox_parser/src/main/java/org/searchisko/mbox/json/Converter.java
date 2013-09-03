@@ -11,6 +11,7 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
 
 import org.searchisko.mbox.dto.Mail;
+import org.searchisko.mbox.dto.MailAttachment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -109,13 +110,13 @@ public class Converter {
 
             if (mail.message_attachments_cnt() > 0) {
                 generator.writeArrayFieldStart("message_attachments");
-//                for (String atchm : mail.message_attachments()) {
-//                    generator.writeStartObject();
-//                    generator.writeStringField("_content_type",atchm._content_type());
-//                    generator.writeStringField("_name", atchm._name());
-//                    generator.writeBinaryField("content", atchm.content());
-//                    generator.writeEndObject();
-//                }
+                for (MailAttachment atchm : mail.message_attachments()) {
+                    generator.writeStartObject();
+                    generator.writeStringField("content_type",atchm.getContentType());
+                    generator.writeStringField("filename", atchm.getFileName());
+                    generator.writeStringField("content", atchm.getContent());
+                    generator.writeEndObject();
+                }
                 generator.writeEndArray();
                 generator.writeNumberField("message_attachments_cnt", mail.message_attachments_cnt());
             }

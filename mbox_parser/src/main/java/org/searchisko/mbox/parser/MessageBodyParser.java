@@ -13,6 +13,10 @@ import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeUtility;
 import org.apache.commons.io.IOUtils;
 import org.apache.james.mime4j.dom.*;
 import org.apache.james.mime4j.message.BodyPart;
+import org.apache.tika.Tika;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.searchisko.mbox.dto.MailAttachment;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,22 +62,6 @@ public class MessageBodyParser {
 
 
     /**
-     * Represents parsed message attachment.
-     */
-    public class MailAttachment {
-
-        private String contentType;
-        private String fileName;
-//            private String contentInputStream;
-
-        public String getContentType() { return this.contentType; }
-        public void setContentType(String contentType) { this.contentType = contentType; }
-
-        public String getFileName() { return this.fileName; }
-        public void setFileName(String fileName) { this.fileName = fileName; }
-    }
-
-    /**
      * Represents parsed message body content.
      */
     public static class MailBodyContent {
@@ -105,6 +93,26 @@ public class MessageBodyParser {
         public List<String> getHtmlMessages() { return this.htmlMessages; }
 
         public List<MailAttachment> getAttachments() { return this.attachments; }
+    }
+
+    private static Tika tika;
+
+    /**
+     * Lazy initialize Tika instance.
+     * @return Tika instance
+     */
+    public static Tika getTika() {
+        Tika t = tika;
+        if (t == null) {
+            synchronized (MessageParser.class) {
+                t = tika;
+                if (t == null) {
+                    tika = new Tika();
+                    t = tika;
+                }
+            }
+        }
+        return t;
     }
 
     /**
@@ -235,7 +243,7 @@ public class MessageBodyParser {
         }*/
 
         if (filename != null) {
-//            addAttachment(bodyContent, body, mimeType, filename);
+            addAttachment(bodyContent, body, mimeType, filename);
         } else {
 
             String content = null;
@@ -318,8 +326,78 @@ public class MessageBodyParser {
         return cd.detect();
     }
 
-    private static MailBodyContent parseBinaryBody(MailBodyContent content, BinaryBody body, String mimeType, String contentTransferEncoding, String charset, String filename) {
+    private static MailBodyContent parseBinaryBody(MailBodyContent content, BinaryBody body, String mimeType, String contentTransferEncoding, String charset, String filename) throws IOException {
+        // log.trace("parsing binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+//        if (mimeType.equalsIgnoreCase("image/svg+xml")) {
+//            log.trace("svg - mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+//        }
+        if (mimeType != null &&
+                !mimeType.equals("application/pgp-signature") &&
+                !mimeType.equals("application/ms-tnef") &&
+                !mimeType.startsWith("image/")) {
+//            (!mimeType.startsWith("image/") || mimeType.equalsIgnoreCase("image/svg+xml"))) {
+            if (filename != null) {
+                addAttachment(content, body, mimeType, filename);
+                // log.trace("adding binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+//            } else
+//            if (mimeType.equalsIgnoreCase("application/pdf") /*|| mimeType.equalsIgnoreCase("image/svg+xml")*/) {
+                // fix for malformed filename > see "filename*0=" in msgs
+                // image/svg+xml commented out because binary body content needs to be first decoded using transfer encoding.
+//                addAttachment(body, mimeType, null);
+//                log.info("adding binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+            } else {
+                // log.debug("Ignoring binary mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+            }
+        } else {
+            // log.debug("Ignoring binary mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+        }
         return null;
+    }
+
+    /**
+     * Silently fail if Tika fails parsing the content.
+     * @param bodyContent
+     * @param content
+     * @param mimeType
+     * @param filename
+     * @throws IOException
+     */
+    private static void addAttachment(MailBodyContent bodyContent, SingleBody content, String mimeType, String filename) throws IOException {
+
+        MailAttachment attachment = new MailAttachment();
+        attachment.setContentType(mimeType);
+        attachment.setFileName(filename);
+
+        if (content instanceof BinaryBody)  {
+            Metadata metadata = new Metadata();
+            // TODO: add length limit
+            String fileContent = null;
+            try {
+                fileContent = removeWhiteSpaces(getTika().parseToString(content.getInputStream(), metadata, 100000));
+                attachment.setContent(fileContent);
+                bodyContent.getAttachments().add(attachment);
+            } catch (TikaException e) {
+                // TODO: log and ignore
+            }
+        } else if (content instanceof TextBody) {
+            bodyContent.getAttachments().add(attachment);
+            Metadata metadata = new Metadata();
+            // TODO: add length limit
+            String fileContent = null;
+            try {
+                fileContent = removeWhiteSpaces(getTika().parseToString(content.getInputStream(), metadata, 100000));
+                attachment.setContent(fileContent);
+                bodyContent.getAttachments().add(attachment);
+            } catch (TikaException e) {
+                // TODO: log and ignore
+            }
+        } else {
+            // log.warn("unsupported attachment type: {}", content.getClass().getCanonicalName());
+        }
+    }
+
+    private static String removeWhiteSpaces(String input) {
+        return input.replaceAll("\r\n"," ").replaceAll("\n"," ").replaceAll("\\s+"," ").trim();
     }
 
     private static String filterOutQuotedContent(String content) {
