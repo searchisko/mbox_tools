@@ -6,12 +6,11 @@
     "date" : "2009-07-07T21:16:59.000Z",
     "message_id_original" : "<13DE0AB9-9D5A-46A5-A978-0BF488A0D017@topiatechnology.com>",
     "message_id" : "<13DE0AB9-9D5A-46A5-A978-0BF488A0D017@topiatechnology.com>",
-    "references" : [ ],
     "message_snippet" : "I hope your molar problem is better Trustin. Mike Mike McGrady Principal Investigator AF081-028 AFRL SBIR Senior Engineer Topia Technology, Inc 1.253.720.3365 mmcgrady@topiatechnology.co",
     "first_text_message" : "I hope your molar problem is better Trustin.\n\nMike\n\nMike McGrady\nPrincipal Investigator AF081-028 AFRL SBIR\nSenior Engineer\nTopia Technology, Inc\n1.253.720.3365\nmmcgrady@topiatechnology.com\n\n\n",
     "first_text_message_without_quotes" : "I hope your molar problem is better Trustin. Mike Mike McGrady Principal Investigator AF081-028 AFRL SBIR Senior Engineer Topia Technology, Inc 1.253.720.3365 mmcgrady@topiatechnology.com",
     "text_messages" : [ "\n\n\n\n" ],
     "text_messages_cnt" : 1,
-    "html_messages" : [ ],
-    "html_messages_cnt" : 0
+    "html_messages_cnt" : 0,
+    "message_attachments_cnt" : 0
 }

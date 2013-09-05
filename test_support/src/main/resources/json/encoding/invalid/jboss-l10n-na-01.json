@@ -6,12 +6,10 @@
     "date" : "2012-01-26T03:24:46.000Z",
     "message_id_original" : "<CALwwXrUbvM54ze37755nwPepimF8WT8AN4TuSYqacL7_vd0=7g@mail.gmail.com>",
     "message_id" : "<CALwwXrUbvM54ze37755nwPepimF8WT8AN4TuSYqacL7_vd0=7g@mail.gmail.com>",
-    "references" : [ ],
     "message_snippet" : "The translation of the Weld Reference Guide (1.1) to Brazilian Portuguese is completed! Despite the need for an accurate review, this work involved some great hours of effort over two years [1]. Thanks to João Viragine for starting this laborious tas",
     "first_text_message" : "The translation of the Weld Reference Guide (1.1) to Brazilian\nPortuguese is completed!\n\nDespite the need for an accurate review, this work involved some great\nhours of effort over two years [1]. Thanks to João Viragine for\nstarting this laborious task which we can only be carried out in spare\nmoments. :-)\n\nRegards,\nBruno\n\n[1] https://issues.jboss.org/browse/WELD-17\n\n",
     "first_text_message_without_quotes" : "The translation of the Weld Reference Guide (1.1) to Brazilian Portuguese is completed! Despite the need for an accurate review, this work involved some great hours of effort over two years [1]. Thanks to João Viragine for starting this laborious task which we can only be carried out in spare moments. :-) Regards, Bruno [1] https://issues.jboss.org/browse/WELD-17",
-    "text_messages" : [ ],
     "text_messages_cnt" : 0,
-    "html_messages" : [ ],
-    "html_messages_cnt" : 0
+    "html_messages_cnt" : 0,
+    "message_attachments_cnt" : 0
 }

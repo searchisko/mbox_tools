@@ -6,12 +6,10 @@
     "date" : "2010-03-01T03:48:46.000Z",
     "message_id_original" : "<274971663.366291267415326061.JavaMail.jboss@clearspace02.app.mwc.hst.phx2.redhat.com>",
     "message_id" : "<274971663.366291267415326061.JavaMail.jboss@clearspace02.app.mwc.hst.phx2.redhat.com>",
-    "references" : [ ],
     "message_snippet" : "Wise Users, A new message was posted in the thread \"cant make wise to work\": http://community.jboss.org/message/529037#529037 Author : Alexandre LourenÃ§o Profile : http://community.jboss.org/people/alexandreesl Message: ----------------------------",
     "first_text_message" : "Wise Users,\r\n\r\nA new message was posted in the thread \"cant make wise to work\":\r\n\r\nhttp://community.jboss.org/message/529037#529037\r\n\r\nAuthor  : Alexandre LourenÃ§o\r\nProfile : http://community.jboss.org/people/alexandreesl\r\n\r\nMessage:\r\n--------------------------------------------------------------\r\nHym, I am trying to use Wise for the first time, but I get stuck on the wise generation of the jaxws, here is the code of my web service:\r\n \r\npackage com.ssgu.ws;\r\n--------------------------------------------------------------\r\n\r\nTo reply to this message visit the message page: http://community.jboss.org/message/529037#529037\r\n\r\n\r\n",
     "first_text_message_without_quotes" : "Wise Users, A new message was posted in the thread \"cant make wise to work\": http://community.jboss.org/message/529037#529037 Author  : Alexandre LourenÃ§o Profile : http://community.jboss.org/people/alexandreesl Message: -------------------------------------------------------------- Hym, I am trying to use Wise for the first time, but I get stuck on the wise generation of the jaxws, here is the code of my web service:   package com.ssgu.ws; -------------------------------------------------------------- To reply to this message visit the message page: http://community.jboss.org/message/529037#529037",
-    "text_messages" : [ ],
     "text_messages_cnt" : 0,
-    "html_messages" : [ ],
-    "html_messages_cnt" : 0
+    "html_messages_cnt" : 0,
+    "message_attachments_cnt" : 0
 }

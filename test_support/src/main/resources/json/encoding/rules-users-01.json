@@ -11,8 +11,7 @@
     "message_snippet" : "@Jörg: Why would Drools 5.1.1. not be usable with Java 1.7? Byte code is supposed to be upward compatible. -",
     "first_text_message" : "@Jörg:\n\n&gt;&gt;     On 04/04/2012 11:04, korgen wrote:\n&gt;&gt;    we updated Drools from 5.1.1 to 5.3.1 (as in 5.1.1\n&gt;&gt;     language level\n&gt;&gt;     &gt; 1.7 is not supported).\n\nWhy would Drools 5.1.1. not be usable with Java 1.7? Byte code is\nsupposed to be upward compatible.\n\n-W\n\n",
     "first_text_message_without_quotes" : "@Jörg: Why would Drools 5.1.1. not be usable with Java 1.7? Byte code is supposed to be upward compatible. -W",
-    "text_messages" : [ ],
     "text_messages_cnt" : 0,
-    "html_messages" : [ ],
-    "html_messages_cnt" : 0
+    "html_messages_cnt" : 0,
+    "message_attachments_cnt" : 0
 }

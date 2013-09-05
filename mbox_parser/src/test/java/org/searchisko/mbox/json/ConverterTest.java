@@ -32,19 +32,10 @@ import static org.junit.Assert.fail;
  * @author Lukáš Vlček (lvlcek@redhat.com)
  */
 @RunWith(JUnit4.class)
-public class ConverterTest extends MessageTestSupport {
-
-    private MessageBuilder mb;
-    private ObjectMapper mapper;
+public class ConverterTest extends ConverterTestSupport {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    @Before
-    public void setUp() throws MimeException {
-        mb = MessageParser.getMessageBuilder();
-        mapper = getMapper();
-    }
 
     /**
      * Test bunch of mails from lucene-user mail archive.
@@ -158,15 +149,9 @@ public class ConverterTest extends MessageTestSupport {
      */
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
-        Message msg = getMessage("mbox/attachments/gatein-dev-01.mbox", mb);
-        String prettyJson = Converter.toJSON(MessageParser.parse(msg), true);
+        Message msg = getMessage("mbox/encoding/hibernate-announce-01.mbox", mb);
+        String prettyJson = Converter.toJSON(MessageParser.parse(msg), null, true);
         System.out.println(prettyJson);
-    }
-
-    private ObjectMapper getMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper;
     }
 
     private JsonNode jsonNodeFromMessage(Message msg, ObjectMapper mapper) throws MessageParseException {
