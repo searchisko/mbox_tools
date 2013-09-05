@@ -160,7 +160,7 @@ public class ConverterTest extends MessageTestSupport {
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
         Message msg = getMessage("mbox/attachments/gatein-dev-01.mbox", mb);
         String prettyJson = Converter.toJSON(MessageParser.parse(msg), true);
-//        System.out.println(prettyJson);
+        System.out.println(prettyJson);
     }
 
     private ObjectMapper getMapper() {

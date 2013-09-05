@@ -383,7 +383,6 @@ public class MessageBodyParser {
                 log.warn("ignoring attachment: parsing error", e);
             }
         } else if (content instanceof TextBody) {
-            bodyContent.getAttachments().add(attachment);
             Metadata metadata = new Metadata();
             // TODO: add length limit
             String fileContent = null;
