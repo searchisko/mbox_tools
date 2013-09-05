@@ -17,6 +17,8 @@ import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.searchisko.mbox.dto.MailAttachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,8 @@ import java.util.List;
  * @author Lukáš Vlček (lvlcek@redhat.com)
  */
 public class MessageBodyParser {
+
+    private static Logger log = LoggerFactory.getLogger(MessageBodyParser.class);
 
     /**
      * Supported message body subtypes.
@@ -136,16 +140,15 @@ public class MessageBodyParser {
 
         if ("x-gbk".equalsIgnoreCase(charset)) {
             // hardcoded fix for java.io.UnsupportedEncodingException: x-gbk
-//            log.warn("Unsupported encoding found: 'x-gbk', using 'gbk' instead.");
+            log.warn("Unsupported encoding found: 'x-gbk', using 'gbk' instead.");
             charset = "gbk";
         }
-        /*
+
         if (log.isTraceEnabled()) {
-            log.trace("parsing Entity, mimeType: {}, filename: {}", mimeType, filename);
-            log.trace("contentTransferEncoding: {}", contentTransferEncoding);
-            log.trace("charset: {}", charset);
+            log.trace("parsing Entity, mimeType: '{}', filename: '{}'", new Object[]{mimeType, filename});
+            log.trace("contentTransferEncoding: '{}'", contentTransferEncoding);
+            log.trace("charset: '{}'", charset);
         }
-        */
 
         if (body instanceof Multipart) {
             parseMultipartBody(content, (Multipart)body);
@@ -195,7 +198,7 @@ public class MessageBodyParser {
                         if (part.getBody() instanceof Multipart) {
                             parseMultipartBody(content, (Multipart)part.getBody());
                         } else {
-//                            log.warn("Body of type [{}] not supported! Ignoring.", part.getBody().getClass().getCanonicalName());
+                            log.warn("Body of type [{}] not supported! Ignoring.", part.getBody().getClass().getCanonicalName());
                         }
                     }
                 }
@@ -237,10 +240,10 @@ public class MessageBodyParser {
 
     private static MailBodyContent parseTextBody(MailBodyContent bodyContent, TextBody body, String mimeType, String contentTransferEncoding, String charset, String filename) throws IOException {
 
-        /* if (log.isTraceEnabled()) {
-            log.trace("parsing text body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}",
+        if (log.isTraceEnabled()) {
+            log.trace("parsing text body, mimeType: '{}', contentTransferEncoding: '{}', charset: '{}', filename: '{}'",
                     new Object[]{mimeType, contentTransferEncoding, charset, filename});
-        }*/
+        }
 
         if (filename != null) {
             addAttachment(bodyContent, body, mimeType, filename);
@@ -250,10 +253,10 @@ public class MessageBodyParser {
             InputStream output = null;
 
             if (contentTransferEncoding != null && contentTransferEncoding.length() > 0) {
-                /* if (log.isTraceEnabled()) {
-                    log.trace("decoding: {}", contentTransferEncoding);
-                    log.trace("charset: {}", charset);
-                }*/
+                if (log.isTraceEnabled()) {
+                    log.trace("decoding: '{}'", contentTransferEncoding);
+                    log.trace("charset: '{}'", charset);
+                }
                 try {
                     // com.sun.xml.messaging.saaj.packaging.mime.util.BASE64DecoderStream.decode() seems to be buggy
                     if ("base64".equalsIgnoreCase(contentTransferEncoding)) {
@@ -262,16 +265,16 @@ public class MessageBodyParser {
                         output = MimeUtility.decode(body.getInputStream(), contentTransferEncoding.toLowerCase());
                     }
 
+                    // check for 'ISO-8859'* and aliases
                     if (charset.toUpperCase().startsWith("ISO-8859") || charset.toUpperCase().startsWith("ISO8859")) {
                         CharsetMatch detectedCharset = detectCharset(output);
                         if (detectedCharset != null) {
                             int conf = detectedCharset.getConfidence();
                             if (conf >= 80) {
+                                log.trace("Heuristics: overriding charset from '{}' to '{}' with confidence: {}",
+                                        new Object[]{detectedCharset.getName(), charset, conf});
                                 charset = detectedCharset.getName();
                             }
-//                            log this !!!
-//                            System.out.println("--- detected charset ---");
-//                            System.out.println(charset + ", conf = " + conf);
                         }
                     }
 
@@ -279,7 +282,7 @@ public class MessageBodyParser {
                     IOUtils.copy(output, writer, charset);
                     content = writer.toString();
                 } catch (MessagingException e) {
-//                    log.error("Error decoding transfer coding.", e);
+                    log.trace("Error decoding transfer coding.", e);
                     content = getTextBodyContent(body.getReader()).replaceAll("=\n","");
                 }
             } else {
@@ -327,10 +330,7 @@ public class MessageBodyParser {
     }
 
     private static MailBodyContent parseBinaryBody(MailBodyContent content, BinaryBody body, String mimeType, String contentTransferEncoding, String charset, String filename) throws IOException {
-        // log.trace("parsing binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
-//        if (mimeType.equalsIgnoreCase("image/svg+xml")) {
-//            log.trace("svg - mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
-//        }
+        log.trace("parsing binary body, mimeType: '{}', contentTransferEncoding: '{}', charset: '{}', filename: '{}'", new Object[]{mimeType, contentTransferEncoding, charset, filename});
         if (mimeType != null &&
                 !mimeType.equals("application/pgp-signature") &&
                 !mimeType.equals("application/ms-tnef") &&
@@ -338,7 +338,6 @@ public class MessageBodyParser {
 //            (!mimeType.startsWith("image/") || mimeType.equalsIgnoreCase("image/svg+xml"))) {
             if (filename != null) {
                 addAttachment(content, body, mimeType, filename);
-                // log.trace("adding binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
 //            } else
 //            if (mimeType.equalsIgnoreCase("application/pdf") /*|| mimeType.equalsIgnoreCase("image/svg+xml")*/) {
                 // fix for malformed filename > see "filename*0=" in msgs
@@ -346,10 +345,12 @@ public class MessageBodyParser {
 //                addAttachment(body, mimeType, null);
 //                log.info("adding binary body, mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
             } else {
-                // log.debug("Ignoring binary mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+                log.trace("Ignoring binary mimeType: '{}', contentTransferEncoding: '{}', charset: '{}', filename: '{}'",
+                        new Object[]{mimeType, contentTransferEncoding, charset, filename});
             }
         } else {
-            // log.debug("Ignoring binary mimeType: {}, contentTransferEncoding: {}, charset: {}, filename: {}", new Object[]{mimeType, contentTransferEncoding, charset, filename});
+            log.trace("Ignoring binary mimeType: '{}', contentTransferEncoding: '{}', charset: '{}', filename: '{}'",
+                    new Object[]{mimeType, contentTransferEncoding, charset, filename});
         }
         return null;
     }
@@ -364,6 +365,8 @@ public class MessageBodyParser {
      */
     private static void addAttachment(MailBodyContent bodyContent, SingleBody content, String mimeType, String filename) throws IOException {
 
+        log.trace("processing attachment: Mime-Type='{}', filename='{}'", new Object[]{mimeType, filename});
+
         MailAttachment attachment = new MailAttachment();
         attachment.setContentType(mimeType);
         attachment.setFileName(filename);
@@ -377,7 +380,7 @@ public class MessageBodyParser {
                 attachment.setContent(fileContent);
                 bodyContent.getAttachments().add(attachment);
             } catch (TikaException e) {
-                // TODO: log and ignore
+                log.warn("ignoring attachment: parsing error", e);
             }
         } else if (content instanceof TextBody) {
             bodyContent.getAttachments().add(attachment);
@@ -389,10 +392,10 @@ public class MessageBodyParser {
                 attachment.setContent(fileContent);
                 bodyContent.getAttachments().add(attachment);
             } catch (TikaException e) {
-                // TODO: log and ignore
+                log.warn("ignoring attachment: parsing error", e);
             }
         } else {
-            // log.warn("unsupported attachment type: {}", content.getClass().getCanonicalName());
+            log.warn("ignoring attachment: unsupported attachment type: '{}'", content.getClass().getCanonicalName());
         }
     }
 
