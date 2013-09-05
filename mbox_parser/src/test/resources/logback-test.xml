@@ -24,9 +24,9 @@
         <!--</encoder>-->
     <!--</appender>-->
 
-    <logger name="org.searchisko.mbox.parser" level="TRACE"/>
+    <logger name="org.searchisko.mbox.parser" level="ERROR"/>
 
-    <root level="debug">
+    <root level="ERROR">
         <appender-ref ref="STDOUT"/>
         <!--<appender-ref ref="FILE" />-->
     </root>
