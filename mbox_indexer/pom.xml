@@ -11,5 +11,13 @@
 
     <artifactId>mbox_indexer</artifactId>
 
+    <dependencies>
 
+        <dependency>
+            <groupId>org.searchisko</groupId>
+            <artifactId>mbox_parser</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
 </project>
