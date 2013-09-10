@@ -219,7 +219,8 @@ public class MessageParser {
             // TODO get text snippet from other fields
         }
         snippet = snippet.substring(0,(snippet.length() > 250 ? 250 : (snippet.length() > 0 ? snippet.length()-1 : 0))) // index can be -1 if length = 0 !!!
-                .replaceAll(">*", "")
+//                .replaceAll(">*", "")
+                .replaceAll("^>From", "From")
                 .replaceAll("\\s+", " ")
                 .trim();
         message_snippet = snippet;

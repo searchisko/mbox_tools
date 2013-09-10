@@ -292,20 +292,19 @@ public class MessageBodyParser {
             if (mimeType.equals("text/plain")) {
                 content = content
 //                        .replaceAll(">","&gt;")
-                        .replaceAll("<", "&lt;")
+//                        .replaceAll("<", "&lt;")
                         .replaceAll("^>From","From");
                 if (bodyContent.getFirstTextContent() == null && bodyContent.getFirstHtmlContent() == null) {
                     bodyContent.setFirstTextContentWithoutQuotes(filterOutQuotedContent(content));
-                    if (bodyContent.getFirstTextContentWithoutQuotes().length() > 0) {
-                        bodyContent.setFirstTextContentWithoutQuotes(bodyContent.getFirstTextContentWithoutQuotes().replaceAll(">","&gt;"));
-                    }
-                    bodyContent.setFirstTextContent(content.replaceAll(">","&gt;"));
+//                    if (bodyContent.getFirstTextContentWithoutQuotes().length() > 0) {
+//                        bodyContent.setFirstTextContentWithoutQuotes(bodyContent.getFirstTextContentWithoutQuotes().replaceAll(">","&gt;"));
+//                    }
+                    bodyContent.setFirstTextContent(content/*.replaceAll(">","&gt;")*/);
 
                 } else {
-                    bodyContent.getTextMessages().add(content.replaceAll(">","&gt;"));
+                    bodyContent.getTextMessages().add(content/*.replaceAll(">","&gt;")*/);
                 }
-            } else
-            if (mimeType.equals("text/html")) {
+            } else if (mimeType.equals("text/html")) {
                 // TODO clean possible html tags?
                 if (bodyContent.getFirstTextContent() == null && bodyContent.getFirstHtmlContent() == null) {
                     bodyContent.setFirstHtmlContent(content);

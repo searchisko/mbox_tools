@@ -1,0 +1,15 @@
+{
+    "author" : "Heping Zhang <phoenix.zhp@gmail.com>",
+    "to" : [ "hibernate-users@lists.jboss.org" ],
+    "subject_original" : "[hibernate-users] how can I change the order of the classes handed        to AnnotationConfiguration",
+    "subject" : "how can I change the order of the classes handed to AnnotationConfiguration",
+    "date" : "2007-05-19T04:53:01.000Z",
+    "message_id_original" : "<e17fb0540705182153r10c6c0eekb943fd6b3861362d@mail.gmail.com>",
+    "message_id" : "<e17fb0540705182153r10c6c0eekb943fd6b3861362d@mail.gmail.com>",
+    "message_snippet" : "hi, I've got a NullPointerException at org.hibernate.cfg.OneToOneSecondPass.doSecondPass when deplor my ejb3 app. And I searched on the web and find out that changing the order of the classes handed to AnnotationConfiguration may work around the prob",
+    "first_text_message" : "hi, I've got a NullPointerException at\norg.hibernate.cfg.OneToOneSecondPass.doSecondPass when deplor my ejb3 app.\nAnd I searched on the web and find out that changing the order of the\nclasses handed to AnnotationConfiguration may work around the problem.  But\nI don't know how to do it? could anyone give me some help? thanks!\n",
+    "first_text_message_without_quotes" : "hi, I've got a NullPointerException at org.hibernate.cfg.OneToOneSecondPass.doSecondPass when deplor my ejb3 app. And I searched on the web and find out that changing the order of the classes handed to AnnotationConfiguration may work around the problem.  But I don't know how to do it? could anyone give me some help? thanks!",
+    "text_messages_cnt" : 0,
+    "html_messages_cnt" : 0,
+    "message_attachments_cnt" : 0
+}

@@ -1,0 +1,46 @@
+From phoenix.zhp@gmail.com Sat May 19 00:53:02 2007
+Received: by 0.0.0.0 with SMTP id j9mr673701huf.1179550381960;
+        Fri, 18 May 2007 21:53:01 -0700 (PDT)
+Received: by 10.78.155.17 with HTTP; Fri, 18 May 2007 21:53:01 -0700 (PDT)
+Message-ID: <e17fb0540705182153r10c6c0eekb943fd6b3861362d@mail.gmail.com>
+Date: Sat, 19 May 2007 12:53:01 +0800
+From: "Heping Zhang" <phoenix.zhp@gmail.com>
+To: hibernate-users@lists.jboss.org
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+        boundary="----=_Part_33814_10818184.1179550381926"
+Subject: [hibernate-users] how can I change the order of the classes handed
+        to AnnotationConfiguration
+X-BeenThere: hibernate-users@lists.jboss.org
+X-Mailman-Version: 2.1.5
+Precedence: list
+List-Id: Hibernate Users List <hibernate-users.lists.jboss.org>
+List-Unsubscribe: <https://lists.jboss.org/mailman/listinfo/hibernate-users>,
+        <mailto:hibernate-users-request@lists.jboss.org?subject=unsubscribe>
+List-Archive: <http://lists.jboss.org/pipermail/hibernate-users>
+List-Post: <mailto:hibernate-users@lists.jboss.org>
+List-Help: <mailto:hibernate-users-request@lists.jboss.org?subject=help>
+List-Subscribe: <https://lists.jboss.org/mailman/listinfo/hibernate-users>,
+        <mailto:hibernate-users-request@lists.jboss.org?subject=subscribe>
+X-List-Received-Date: Sat, 19 May 2007 04:53:02 -0000
+
+------=_Part_33814_10818184.1179550381926
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+hi, I've got a NullPointerException at
+org.hibernate.cfg.OneToOneSecondPass.doSecondPass when deplor my ejb3 app.
+And I searched on the web and find out that changing the order of the
+classes handed to AnnotationConfiguration may work around the problem.  But
+I don't know how to do it? could anyone give me some help? thanks!
+
+------=_Part_33814_10818184.1179550381926
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+<br>hi, I&#39;ve got a NullPointerException at org.hibernate.cfg.OneToOneSecondPass.doSecondPass when deplor my ejb3 app. And I searched on the web and find out that changing the order of the classes handed to AnnotationConfiguration may work around the problem.&nbsp; But I don&#39;t know how to do it? could anyone give me some help? thanks!
+<br>
+
+------=_Part_33814_10818184.1179550381926--

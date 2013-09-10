@@ -20,7 +20,7 @@ public class StringUtil {
     public static class URLInfo {
 
         // Does not allow to create instances of this class outside of parent class.
-        private URLInfo() {};
+        private URLInfo() {}
 
         public String project;
         public String listType;

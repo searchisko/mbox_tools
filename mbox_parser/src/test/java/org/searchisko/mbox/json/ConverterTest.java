@@ -132,6 +132,11 @@ public class ConverterTest extends ConverterTestSupport {
         shouldEquals("mbox/encoding/rules-users-01.mbox","json/encoding/rules-users-01.json");
     }
 
+    @Test
+    public void preferTextContentOverHTML() throws MimeException, MessageParseException, IOException {
+        shouldEquals("mbox/html/hibernate-users-03.mbox", "json/html/hibernate-users-03.json");
+    }
+
     public void shouldEquals(String sourceMBoxPath, String expectedFilePath) throws IOException, MimeException, MessageParseException {
 
         Message msg = getMessage(sourceMBoxPath, mb);
