@@ -89,16 +89,14 @@
             <version>2.2</version>
         </dependency>
 
+        <!-- logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
         </dependency>
-
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.0.13</version>
         </dependency>
 
         <!-- for testing -->
@@ -106,7 +104,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.searchisko</groupId>
             <artifactId>test_support</artifactId>

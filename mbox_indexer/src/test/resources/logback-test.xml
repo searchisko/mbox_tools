@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--<encoder>-->
+        <!--<pattern>[%d{ISO8601}]%5p%6.6r[%t]%x - %C.%M(%F:%L) - %m%n</pattern>-->
+        <!--</encoder>-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d [%thread] %level %logger - %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+    <!--<file>c:/dev/logs_test/log_01.log</file>-->
+    <!--<encoder>-->
+    <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -> %msg%n</pattern>-->
+    <!--</encoder>-->
+    <!--</appender>-->
+
+    <logger name="org.apache.http.impl" level="info"/>
+    <logger name="org.searchisko.http.client" level="trace"/>
+    <logger name="org.searchisko.mbox.task" level="debug"/>
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+        <!--<appender-ref ref="FILE" />-->
+    </root>
+
+</configuration>
