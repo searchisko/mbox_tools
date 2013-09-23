@@ -13,7 +13,8 @@
         <module>mbox_indexer</module>
         <module>test_support</module>
         <module>assembly</module>
-    </modules>
+		<module>controller</module>
+	</modules>
 
     <packaging>pom</packaging>
 
@@ -24,6 +25,30 @@
 
     <dependencyManagement>
         <dependencies>
+
+			<dependency>
+				<groupId>org.searchisko</groupId>
+				<artifactId>assembly</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.searchisko</groupId>
+				<artifactId>controller</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.searchisko</groupId>
+				<artifactId>mbox_indexer</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.searchisko</groupId>
+				<artifactId>mbox_parser</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
             <dependency>
                 <groupId>commons-io</groupId>
@@ -80,5 +105,17 @@
             </plugin>
         </plugins>
     </build>
+
+	<profiles>
+		<profile>
+			<id>localhost</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profile.config.folder>localhost</profile.config.folder>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

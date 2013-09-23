@@ -73,7 +73,7 @@ public class IndexMboxArchiveTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        String path = "mboxArchive/simple10.mbox";
+        String path = "mboxArchive/simple6.mbox";
         int numberOfThreads = 2;
         String serviceHost = "http://localhost:8089";
         String servicePath = "/service";

@@ -11,5 +11,178 @@
 
     <artifactId>assembly</artifactId>
 
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.searchisko</groupId>
+			<artifactId>controller</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.searchisko</groupId>
+			<artifactId>mbox_parser</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.searchisko</groupId>
+			<artifactId>mbox_indexer</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<finalName>
+			<!--${project.groupId}.${project.artifactId}-${project.version}-->
+			mailman_searchisko_integration
+		</finalName>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<!-- ${project.build.directory}/release-${project.version}/lib -->
+							<outputDirectory>
+								${project.build.directory}/distribution/lib
+							</outputDirectory>
+							<includeScope>runtime</includeScope>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.searchisko.mbox.command.Starter</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathLayoutType>custom</classpathLayoutType>
+							<customClasspathLayout>lib/$${artifact.artifactId}-$${artifact.version}$${dashClassifier?}.$${artifact.extension}</customClasspathLayout>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-shell-scripts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution</outputDirectory>
+							<encoding>UTF-8</encoding>
+							<resources>
+								<resource>
+									<directory>src/sh</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>reindex_all.sh</include>
+										<include>index_delta.sh</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-config-templates</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/distribution/config</outputDirectory>
+							<encoding>UTF-8</encoding>
+							<resources>
+								<resource>
+									<directory>src/main/profiles/${profile.config.folder}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>config.properties</include>
+										<!--
+											Include both versions of log configuration
+											and let eng ops choose what they want.
+											Note that specific log configuration is
+											referenced in shell scripts.
+										-->
+										<include>log4j.xml</include>
+										<include>log4j.properties</include>
+										<include>log4j-provided.dtd</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>copy-final-jar</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<copy
+										file="${project.build.directory}/${project.build.finalName}.${project.packaging}"
+										todir="${project.build.directory}/distribution"
+										/>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--
+				Finally, zip distribution into a single file so that MEAD can easily build
+				rpm out of this maven artifact.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.2</version>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>${basedir}/src/assembly/distribution.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>
