@@ -90,7 +90,7 @@ public class IndexMboxArchiveTest {
         verify(6, postRequestedFor(urlMatching("/service/ct/[0-9]+")));
     }
 
-//    @Test
+    @Test
     public void hugeFileShouldPass() {
 
         stubFor(post(urlMatching("/service/ct/[0-9]+"))
@@ -100,8 +100,8 @@ public class IndexMboxArchiveTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        String path = "mboxArchive/hibernate-dev.mbox";
-        int numberOfThreads = 100;
+        String path = "mboxArchive/lucene-java-user-201301.mbox";
+        int numberOfThreads = 10;
         String serviceHost = "http://localhost:8089";
         String servicePath = "/service";
         String contentType = "ct";
@@ -113,6 +113,10 @@ public class IndexMboxArchiveTest {
         IndexMboxArchive.main(new String[]{path, Integer.toString(numberOfThreads),
                 serviceHost, servicePath, contentType, username, password,
                 mailListName, mailListCategory});
+
+        // according to mailman stats there should be 449 mails in January 2013
+        // http://mail-archives.apache.org/mod_mbox/lucene-java-user/201301.mbox/thread
+        verify(449, postRequestedFor(urlMatching("/service/ct/[0-9]+")));
 
     }
 }

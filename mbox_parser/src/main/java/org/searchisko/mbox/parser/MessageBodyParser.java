@@ -20,10 +20,7 @@ import org.searchisko.mbox.dto.MailAttachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -323,6 +320,8 @@ public class MessageBodyParser {
 
     private static CharsetMatch detectCharset(InputStream inputStream) throws IOException {
         CharsetDetector cd = new CharsetDetector();
+        // CharDetector requires support of mark/reset
+        inputStream = inputStream.markSupported() ? inputStream : new BufferedInputStream(inputStream);
         cd.setText(inputStream);
         cd.enableInputFilter(true);
         return cd.detect();

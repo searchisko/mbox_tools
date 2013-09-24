@@ -18,8 +18,9 @@
     <!--</appender>-->
 
     <logger name="org.apache.http.impl" level="info"/>
-    <logger name="org.searchisko.http.client" level="trace"/>
+    <logger name="org.searchisko.http.client" level="info"/>
     <logger name="org.searchisko.mbox.task" level="debug"/>
+    <logger name="org.searchisko.mbox.parser" level="warn"/>
 
     <root level="ERROR">
         <appender-ref ref="STDOUT"/>
