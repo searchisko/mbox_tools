@@ -1,0 +1,87 @@
+From java-user-return-27207-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Wed Mar 28 03:00:42 2007
+Return-Path: <java-user-return-27207-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 2560 invoked from network); 28 Mar 2007 03:00:41 -0000
+Received: from hermes.apache.org (HELO mail.apache.org) (140.211.11.2)
+  by minotaur.apache.org with SMTP; 28 Mar 2007 03:00:41 -0000
+Received: (qmail 35125 invoked by uid 500); 28 Mar 2007 03:00:41 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 35098 invoked by uid 500); 28 Mar 2007 03:00:41 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 35087 invoked by uid 99); 28 Mar 2007 03:00:41 -0000
+Received: from herse.apache.org (HELO herse.apache.org) (140.211.11.133)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Tue, 27 Mar 2007 20:00:41 -0700
+X-ASF-Spam-Status: No, hits=-0.0 required=10.0
+	tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Check-By: apache.org
+Received-SPF: pass (herse.apache.org: domain of jak-lucene-user@m.gmane.org designates 80.91.229.2 as permitted sender)
+Received: from [80.91.229.2] (HELO ciao.gmane.org) (80.91.229.2)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Tue, 27 Mar 2007 20:00:32 -0700
+Received: from root by ciao.gmane.org with local (Exim 4.43)
+	id 1HWOOH-00043k-TN
+	for java-user@lucene.apache.org; Wed, 28 Mar 2007 05:00:02 +0200
+Received: from c210-49-99-152.kelvn1.qld.optusnet.com.au ([210.49.99.152])
+        by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+        id 1AlnuQ-0007hv-00
+        for <java-user@lucene.apache.org>; Wed, 28 Mar 2007 05:00:01 +0200
+Received: from roger.keays by c210-49-99-152.kelvn1.qld.optusnet.com.au with local (Gmexim 0.1 (Debian))
+        id 1AlnuQ-0007hv-00
+        for <java-user@lucene.apache.org>; Wed, 28 Mar 2007 05:00:01 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: java-user@lucene.apache.org
+From:  Roger Keays <roger.keays@ninthavenue.com.au>
+Subject:  IndexWriter.deleteDocuments(term) deletes everything
+Date:  Wed, 28 Mar 2007 12:58:26 +1000
+Lines: 30
+Message-ID: <euclk4$i33$1@sea.gmane.org>
+Mime-Version:  1.0
+Content-Type:  text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding:  7bit
+X-Complaints-To: usenet@sea.gmane.org
+X-Gmane-NNTP-Posting-Host: c210-49-99-152.kelvn1.qld.optusnet.com.au
+User-Agent: Thunderbird 1.5.0.8 (X11/20061115)
+Sender: news <news@sea.gmane.org>
+X-Virus-Checked: Checked by ClamAV on apache.org
+
+Hi there,
+
+I'm trying to delete a single document by using its uuid field:
+
+     uuid = new Term("uuid", item.getUuid().toString());
+     writer.deleteDocuments(uuid);
+     writer.close();
+
+However, it appears that this operation is deleting *every* document,
+whether the uuid matches or not. The uuid field is created with
+
+     doc.add(new Field("uuid", item.getUuid().toString(),
+             Field.Store.YES, Field.Index.UN_TOKENIZED));
+
+and I can make queries like uuid:76 which return the correct document.
+Is there something wrong with the way I am using deleteDocuments()? I'm
+using lucene-2.1.0.
+
+Thanks in advance,
+
+Roger
+
+--
+----------------------------------------
+Ninth Avenue Software
+p: +61 7 3137 1351 (UTC +10)
+f: +61 7 3102 9141
+w: http://www.ninthavenue.com.au
+e: info@ninthavenue.com.au
+----------------------------------------
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org

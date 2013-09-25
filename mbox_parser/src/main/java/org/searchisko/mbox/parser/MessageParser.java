@@ -26,6 +26,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.searchisko.mbox.dto.Mail;
 import org.searchisko.mbox.dto.MailAttachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -36,6 +38,8 @@ import java.util.*;
  * @author Lukáš Vlček (lvlcek@redhat.com)
  */
 public class MessageParser {
+
+    private static Logger log = LoggerFactory.getLogger(MessageParser.class);
 
     /**
      * We are interested in parsing only the following message header fields
@@ -169,7 +173,14 @@ public class MessageParser {
                     subject = normalizeSubject(subject_original);
                     break;
                 case DATE:
-                    date = defaultDatePrinter.print( extractValue((DateTimeField)f).getTime() );
+                    Date d = extractValue((DateTimeField)f);
+                    if (d != null) {
+                        date = defaultDatePrinter.print(d.getTime());
+                    } else {
+                        String mid = headers.get(MessageHeader.MESSAGE_ID.toString()).getBody();
+                        log.warn("Unable to parse header field '{}' for message-id: '{}'", f, mid);
+                        throw new MessageParseException("Unable to parsed a date field. Skipping message ["+mid+"]");
+                    }
                     break;
                 case MESSAGE_ID:
                     String id = extractValue((UnstructuredField)f);
@@ -325,10 +336,13 @@ public class MessageParser {
      * @return
      */
     public static Date extractValue(DateTimeField field) {
-        if (field.getParseException() != null) {
-//            log.warn("The date field [{}] can not be parsed: {}", field, field.getParseException());
+        if (field.isValidField()) {
+            return field.getDate();
         }
-        return field.getDate();
+        if (field.getParseException() != null) {
+            log.warn("The date field [{}] can not be parsed: {}", field, field.getParseException());
+        }
+        return null;
     }
 
     /**

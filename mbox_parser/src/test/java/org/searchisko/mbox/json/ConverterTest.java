@@ -58,7 +58,7 @@ public class ConverterTest extends ConverterTestSupport {
     @Test
     public void shouldFailsParsingInvalidDate1() throws IOException, MimeException, MessageParseException {
         Message msg = getMessage("mbox/spam/jbossws-dev-01.mbox", mb);
-        thrown.expect(NullPointerException.class);
+        thrown.expect(org.searchisko.mbox.parser.MessageParseException.class);
         MessageParser.parse(msg);
     }
 
@@ -68,7 +68,27 @@ public class ConverterTest extends ConverterTestSupport {
     @Test
     public void shouldFailsParsingInvalidDate2() throws IOException, MimeException, MessageParseException {
         Message msg = getMessage("mbox/spam/jbossws-dev-02.mbox", mb);
-        thrown.expect(NullPointerException.class);
+        thrown.expect(org.searchisko.mbox.parser.MessageParseException.class);
+        MessageParser.parse(msg);
+    }
+
+    /**
+     * Once MIME4J-232 is fixed this should go away.
+     */
+    @Test
+    public void shouldFailsParsingInvalidDate3() throws IOException, MimeException, MessageParseException {
+        Message msg = getMessage("mbox/date/lucene-java-users-200703.01.mbox", mb);
+        thrown.expect(org.searchisko.mbox.parser.MessageParseException.class);
+        MessageParser.parse(msg);
+    }
+
+    /**
+     * Once MIME4J-232 is fixed this should go away.
+     */
+    @Test
+    public void shouldFailsParsingInvalidDate4() throws IOException, MimeException, MessageParseException {
+        Message msg = getMessage("mbox/date/lucene-java-users-200703.02.mbox", mb);
+        thrown.expect(org.searchisko.mbox.parser.MessageParseException.class);
         MessageParser.parse(msg);
     }
 
@@ -154,7 +174,7 @@ public class ConverterTest extends ConverterTestSupport {
      */
 //    @Test
     public void shouldNotBeIncludedInTests() throws IOException, MimeException, MessageParseException {
-        Message msg = getMessage("mbox/encoding/hibernate-announce-01.mbox", mb);
+        Message msg = getMessage("mbox/date/lucene-java-users-200703.02.mbox", mb);
         String prettyJson = Converter.toJSON(MessageParser.parse(msg), null, true);
         System.out.println(prettyJson);
     }
