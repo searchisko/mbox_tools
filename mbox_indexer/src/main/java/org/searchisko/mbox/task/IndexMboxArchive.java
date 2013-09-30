@@ -10,6 +10,7 @@ import org.apache.james.mime4j.MimeException;
 import org.apache.james.mime4j.dom.Message;
 import org.apache.james.mime4j.dom.MessageBuilder;
 import org.searchisko.http.client.Client;
+import org.searchisko.mbox.dto.Mail;
 import org.searchisko.mbox.json.Converter;
 import org.searchisko.mbox.parser.MessageParser;
 import org.slf4j.Logger;
@@ -63,9 +64,11 @@ public class IndexMboxArchive {
                 try {
                     Message msg = mb.parseMessage(new ByteArrayInputStream(message.getBytes()));
                     Map<String, String> metadata = new HashMap<>();
-                    String messageJSON = Converter.toJSON(MessageParser.parse(msg), metadata);
+                    Mail mail = MessageParser.parse(msg);
+                    String messageId = mail.message_id(); // "sys_content_id"
+                    String messageJSON = Converter.toJSON(mail, metadata);
 
-                    Object response = httpClient.post(messageJSON, "1");
+                    Object response = httpClient.post(messageJSON, messageId);
 
                     log.trace("{}", response);
 
@@ -79,6 +82,7 @@ public class IndexMboxArchive {
 
     public static File getFile(String path) {
         URL url = IndexMboxArchive.class.getClassLoader().getResource(path);
+        log.trace("file url: {}",url);
         String filesPathAndName = url.getPath();
         log.info("trying to get file {}", filesPathAndName);
         return new File(filesPathAndName);
@@ -99,8 +103,8 @@ public class IndexMboxArchive {
             sb.append("serviceHost - service host URL\n");
             sb.append("servicePath - service path\n");
             sb.append("contentType - Searchisko provider sys_content_type\n");
-            sb.append("username - Searchisko provider username\n");
-            sb.append("password - Searchisko provider password\n");
+            sb.append("username - Searchisko provider username (plaintext)\n");
+            sb.append("password - Searchisko provider password (plaintext)\n");
             sb.append("mailListName - name of mail_list, it is needed for document URL creation\n");
             sb.append("mailListCategory - mail_list category [dev,users,announce,...etc]\n");
             sb.append("numberOffset - public URL numbering offset\n");

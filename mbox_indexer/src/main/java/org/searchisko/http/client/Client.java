@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Http Client is used to handle Http communication with REST service (Searchisko).
@@ -78,6 +80,8 @@ public class Client {
             log.trace("  servicePath: '{}'", config.servicePath);
             log.trace("  contentType: '{}'", config.contentType);
             log.trace("  connectionsPerRoute: '{}'", config.connectionsPerRoute);
+            log.trace("  user: '{}'", config.username);
+            log.trace("  password not empty: '{}'", config.password.length() > 0);
         }
 
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
@@ -111,7 +115,9 @@ public class Client {
 
     public Object post(final String messageBody, final String id) throws IOException {
 
-        String uri = config.serviceHost + config.servicePath + "/" + config.contentType+ "/" + id;
+        String idURLEncoded = URLEncoder.encode(id, StandardCharsets.UTF_8.name());
+
+        String uri = config.serviceHost + config.servicePath + "/" + config.contentType+ "/" + idURLEncoded;
 
         log.trace("making POST to '{}'", uri);
 

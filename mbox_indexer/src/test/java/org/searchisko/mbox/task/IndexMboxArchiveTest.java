@@ -151,4 +151,25 @@ public class IndexMboxArchiveTest {
         verify(769, postRequestedFor(urlMatching("/service3/ct/[0-9]+")));
 
     }
+
+//    @Test
+    public void indexIntoDCP() {
+
+//        String mboxFilePath = "mboxArchive/lucene-java-user-200703.mbox";
+        String mboxFilePath = "mbox/multipart/weld-dev-01.mbox";
+//        String mboxFilePath = "mbox/multipart/wise-users-01.mbox"; //author <>
+        int numberOfThreads = 4;
+        String serviceHost = "http://10.34.2.178:8080"; // non-public
+        String servicePath = "/v1/rest/content";
+        String contentType = "jbossorg_mailing_list"; // "sys_content_type"
+        String username = "jbossorg";
+        String password = "jbossorgjbossorg";
+        String mailListName = "weld";
+        String mailListCategory = "dev";
+
+        IndexMboxArchive.main(new String[]{mboxFilePath, Integer.toString(numberOfThreads),
+                serviceHost, servicePath, contentType, username, password,
+                mailListName, mailListCategory});
+
+    }
 }
