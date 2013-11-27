@@ -22,7 +22,7 @@ Get some mbox files:
 
     --TBD--
     
-Given Searchisko is properly configured and running at `http:localhost:8080` you can parse and send mbox data to it using the following approach:
+Given Searchisko is properly configured and running at `http://localhost:8080` you can parse and send mbox data to it using the following approach:
 
     --TBD--
 

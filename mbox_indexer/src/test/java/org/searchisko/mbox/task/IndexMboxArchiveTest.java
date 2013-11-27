@@ -93,7 +93,7 @@ public class IndexMboxArchiveTest {
     @Test
     public void hugeFileShouldPass449() {
 
-        stubFor(post(urlMatching("/service2/ct/[0-9]+"))
+        stubFor(post(urlMatching("/service2/ct/.+"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withFixedDelay(10) // simulate a small delay
@@ -116,14 +116,14 @@ public class IndexMboxArchiveTest {
 
         // according to mailman stats there should be 449 mails in January 2013
         // http://mail-archives.apache.org/mod_mbox/lucene-java-user/201301.mbox/thread
-        verify(449, postRequestedFor(urlMatching("/service2/ct/[0-9]+")));
+        verify(449, postRequestedFor(urlMatching("/service2/ct/.+")));
 
     }
 
     @Test
     public void hugeFileShouldPass771() {
 
-        stubFor(post(urlMatching("/service3/ct/[0-9]+"))
+        stubFor(post(urlMatching("/service3/ct/.+"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withFixedDelay(10) // simulate a small delay
@@ -148,7 +148,7 @@ public class IndexMboxArchiveTest {
         // http://mail-archives.apache.org/mod_mbox/lucene-java-user/200703.mbox/thread
         // but we detect 771 !
         // however, until MIME4J-232 is fixed we parse successfully only 769 messages
-        verify(769, postRequestedFor(urlMatching("/service3/ct/[0-9]+")));
+        verify(769, postRequestedFor(urlMatching("/service3/ct/.+")));
 
     }
 

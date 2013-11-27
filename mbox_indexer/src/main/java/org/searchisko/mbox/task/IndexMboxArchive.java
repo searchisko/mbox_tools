@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static org.searchisko.http.client.Client.getConfig;
 import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
@@ -54,6 +55,8 @@ public class IndexMboxArchive {
     private static Logger log = LoggerFactory.getLogger(IndexMboxArchive.class);
     private static MessageBuilder mb;
     private static Client httpClient;
+	private static AtomicLong taskCount = new AtomicLong();
+	private static long messageCount = 0;
 
     private static Runnable prepareTask(final String message) {
         return new Runnable() {
@@ -61,11 +64,13 @@ public class IndexMboxArchive {
             public void run() {
                 // 1. Convert mail to JSON representation with added metadata.
                 // 2. Send mail to the server, using blocking operation.
+				taskCount.incrementAndGet();
+				String messageId = null;
                 try {
                     Message msg = mb.parseMessage(new ByteArrayInputStream(message.getBytes()));
                     Map<String, String> metadata = new HashMap<>();
                     Mail mail = MessageParser.parse(msg);
-                    String messageId = mail.message_id(); // "sys_content_id"
+                    messageId = mail.message_id(); // "sys_content_id"
                     String messageJSON = Converter.toJSON(mail, metadata);
 
                     Object response = httpClient.post(messageJSON, messageId);
@@ -73,7 +78,7 @@ public class IndexMboxArchive {
                     log.trace("{}", response);
 
                 } catch (Exception e) {
-                    log.warn("Error processing message", e);
+                    log.warn("Error processing message {}", messageId, e);
                 }
 
             }
@@ -162,8 +167,6 @@ public class IndexMboxArchive {
                 new ArrayBlockingQueue<Runnable>(numberOfThreads, true),
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
-        int totalcnt = 0;
-
         try {
             mb = getMessageBuilder();
 
@@ -180,7 +183,7 @@ public class IndexMboxArchive {
                 if (line.startsWith("From ")) {
                     if (messageSB.length() > 0) {
                         executor.submit(prepareTask(messageSB.toString()));
-                        totalcnt++;
+                        messageCount++;
                         messageSB.setLength(0);
                     }
                 }
@@ -189,7 +192,7 @@ public class IndexMboxArchive {
             // process last message
             if (messageSB.length() > 0) {
                 executor.submit(prepareTask(messageSB.toString()));
-                totalcnt++;
+                messageCount++;
                 messageSB.setLength(0);
             }
 
@@ -198,7 +201,10 @@ public class IndexMboxArchive {
 
             Date end = new Date();
 
-            log.debug("Processed {} mails in {} millis, Start: {}, End: {}", new Object[]{totalcnt, end.getTime() - start.getTime(), start, end});
+			if (log.isInfoEnabled()) {
+            	log.info("Processed {} mails in {} millis", messageCount, end.getTime() - start.getTime());
+				log.info("Tasks created: {}", taskCount.get());
+			}
 
         } catch (InterruptedException e) {
             // TODO: stop processing ... due to timeout
