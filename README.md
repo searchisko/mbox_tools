@@ -3,7 +3,7 @@
 Collection of tools that can be used to:
 
 1. parse mbox files and turn them into JSON objects
-2. enhance or override JSON objects with custom metadata
+2. enhance or override JSON fields with custom metadata
 3. send JSON object via HTTP
 
 We use these tools to parse mbox files and archives from services like <https://lists.jboss.org/mailman/listinfo>, we add specific metadata to each JSON and, finally, we send resulting JSON objects to correctly configured Searchisko for indexing.
@@ -12,18 +12,75 @@ The code has been tailored specifically for Searchisko API but generally it shou
 
 ## How to use it
 
-Get the code and build it (Java 1.7 required):
+We will show how to build a command line tool that is used to run sequence of steps to process mbox files in specific way. We use it for indexing mails from Mailman. However, it should be noted that both [mbox parser](mbox_parser) and [mbox indexer](mbox_indexer) can be used on its own and they are available as standalone artefacts.
+
+### Build the code (Java 1.7 required)
 
     git clone https://github.com/searchisko/mbox_integration;
     cd mbox_integration;
     mvn clean package;
     
+Some tests will print _stack trace_ but stay cool, that is expected.
+
+### Install
+
+Copy final artefact to `~/mbox_tools` folder and unzip it:
+
+    mkdir ~/mbox_tools;
+    cp assembly/target/mailman_searchisko_integration-bin.zip ~/mbox_tools;
+    cd ~/mbox_tools;
+    unzip mailman_searchisko_integration-bin.zip;
+    
+### Run it
+
+    java -jar mailman_searchisko_integration.jar
+    
+    # Invalid parameters!
+	# Usage: Starter [ -delta | other_params ]
+
+This tool has two execution modes:
+
+ - normal
+ - delta
+
+#### Normal mode
+
+Normal mode is used to parse and push content of a single mbox cumulative archive file into Searchisko. This is used for (re-)indexing from mailman archive.
+
+    java -jar mailman_searchisko_integration.jar -?
+    
+    # Invalid parameters!
+    # Usage: mboxFilePath numberOfThreads mailListName mailListCategory [numberOffset]
+    # mboxFilePath - path to mbox file
+    # maxThreads - max threads used for processing tasks
+    # serviceHost - service host URL
+    # servicePath - service path
+    # contentType - Searchisko provider sys_content_type
+    # username - Searchisko provider username (plaintext)
+    # password - Searchisko provider password (plaintext)
+    # mailListName - name of mail_list, it is needed for document URL creation
+    # mailListCategory - mail_list category [dev,users,announce,...etc]
+    # numberOffset - public URL numbering offset
+ 
+#### Delta mode
+
+Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that were added to the mailman archive since some time. Typically, this job is started from cron every few minutes. It requires mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple mailman plugin for this).
+
+    java -jar mailman_searchisko_integration.jar -delta -?
+    
+    # --TDB-- 
+    
+## Quick Example of Normal Mode 
+
+The following is example how to build and use prepared command line utility to run sequence of steps which will parse mbox archive, enhance each individual JSON object and send the data to REST service in several parallel threads.  
+    
 Get some mbox files:
 
-    --TBD--
+    wget http://mail-archives.apache.org/mod_mbox/lucene-java-user/201301.mbox
     
 Given Searchisko is properly configured and running at `http://localhost:8080` you can parse and send mbox data to it using the following approach:
 
+    java -jar mailman_searchisko_integration.jar
     --TBD--
 
 ## More about "mbox" format

@@ -102,7 +102,7 @@ public class IndexMboxArchive {
         if (args.length < 8) {
             StringBuilder sb = new StringBuilder();
             sb.append("Invalid parameters!\n");
-            sb.append("Usage: IndexMboxArchive mboxFilePath numberOfThreads mailListName mailListCategory [numberOffset]\n");
+            sb.append("Usage: mboxFilePath numberOfThreads mailListName mailListCategory [numberOffset]\n");
             sb.append("mboxFilePath - path to mbox file\n");
             sb.append("maxThreads - max threads used for processing tasks\n");
             sb.append("serviceHost - service host URL\n");
