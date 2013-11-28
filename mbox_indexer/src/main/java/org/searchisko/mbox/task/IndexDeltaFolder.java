@@ -162,7 +162,7 @@ public class IndexDeltaFolder {
         log.info("Done.");
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
 		if (args.length < 8) {
 			StringBuilder sb = new StringBuilder();
@@ -205,11 +205,18 @@ public class IndexDeltaFolder {
 
 		// load properties conf
 		Properties prop = new Properties();
-		prop.load(IndexDeltaFolder.class.getClassLoader().getResourceAsStream(activeMailListsConf));
-		Collection<String> activeMailLists = prop.stringPropertyNames();
 
-        File[] files = read(pathToDeltaArchive);
-        files = filter(files, activeMailLists);
-        index(files);
+		try {
+
+			prop.load(IndexDeltaFolder.class.getClassLoader().getResourceAsStream(activeMailListsConf));
+			Collection<String> activeMailLists = prop.stringPropertyNames();
+
+			File[] files = read(pathToDeltaArchive);
+			files = filter(files, activeMailLists);
+			index(files);
+
+		} catch (IOException e) {
+			log.error("Error occurred", e);
+		}
     }
 }

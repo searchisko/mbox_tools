@@ -7,17 +7,21 @@
 package org.searchisko.mbox.task;
 
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
+import org.apache.commons.io.FileUtils;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Lukáš Vlček (lvlcek@redhat.com)
@@ -60,6 +64,79 @@ public class IndexDeltaFolderTest {
 		assertThat(sb.toString(), containsString("Parameters: "));
 
 		System.setOut(origOut);
+	}
+
+	@Test
+	public void shouldPass() {
+
+		stubFor(post(urlMatching("/service1/ct/.+"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withFixedDelay(200) // simulate a small delay
+						.withHeader("Content-Type", "application/json")
+						.withBody("{\"foo\":\"bar\"}")));
+
+		String path = "mbox_indexer/src/test/resources/deltaTask";
+		String tmpDir = "folder_copy";
+		assertTrue("Preparation of tmp files failed!", prepareTmpContent(path, "folder_master", tmpDir));
+		String tmpPath = path+"/"+tmpDir;
+		int numberOfThreads = 2;
+		String serviceHost = "http://localhost:8089";
+		String servicePath = "/service1";
+		String contentType = "ct";
+		String username = "john.doe";
+		String password = "not_defined";
+		String activeMailListsConf = "deltaTask/allowedLists.properties";
+
+		IndexDeltaFolder.main(new String[]{tmpPath, Integer.toString(numberOfThreads),
+				serviceHost, servicePath, contentType, username, password,
+				activeMailListsConf
+		});
+
+		verify(0, postRequestedFor(urlMatching("/service1/ct/.+")));
+
+	}
+
+	/**
+	 * Prepare temporary directory for test. The directory will be deleted on JVM exit.
+	 * The idea is to have some "golden" master ad make a copy of it for tests because tests will modify and delete it.
+	 *
+	 * @param path
+	 * @param masterFolder
+	 * @param copyFolder
+	 * @return
+	 */
+	private boolean prepareTmpContent(String path, String masterFolder,  String copyFolder) {
+		File p = new File(path);
+		if (!p.exists()) { return false; }
+
+		File masterDir = new File(p, masterFolder);
+		// if master does not exists we have nothing to test (considered fail)
+		if (!masterDir.exists()) { return false; }
+
+		File copyDir = new File(p, copyFolder);
+		// delete copy if exists
+		if (copyDir.exists()) {
+			if (copyDir.canWrite()) {
+				if (!copyDir.delete()) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		// create
+		if (!copyDir.mkdir()) { return false; }
+		copyDir.deleteOnExit();
+
+		// copy from maser to copy
+		try {
+			FileUtils.copyDirectory(masterDir, copyDir);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 }
