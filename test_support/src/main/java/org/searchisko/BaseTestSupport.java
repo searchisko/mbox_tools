@@ -18,14 +18,7 @@ import static java.lang.ClassLoader.getSystemClassLoader;
 public abstract class BaseTestSupport {
 
     protected InputStream getInputStream(String path) throws FileNotFoundException {
-        InputStream is = null;
-        is = getSystemClassLoader().getResourceAsStream(path);
-//        if (is == null) {
-//            is = ClassLoader.getSystemResourceAsStream(path);
-//        }
-//        if (is == null) {
-//            is = new FileInputStream(new File(path, "UTF-8"));
-//        }
+        InputStream is = getSystemClassLoader().getResourceAsStream(path);
         return is;
     }
 
