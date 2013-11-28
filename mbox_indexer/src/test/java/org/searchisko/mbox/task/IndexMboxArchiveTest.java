@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -77,7 +78,7 @@ public class IndexMboxArchiveTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        String path = "mboxArchive/simple6.mbox";
+        String path = "mboxArchive"+File.separator+"simple6.mbox";
         int numberOfThreads = 2;
         String serviceHost = "http://localhost:8089";
         String servicePath = "/service1";
@@ -104,7 +105,7 @@ public class IndexMboxArchiveTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        String path = "mboxArchive/lucene-java-user-201301.mbox";
+        String path = "mboxArchive"+File.separator+"lucene-java-user-201301.mbox";
         int numberOfThreads = 10;
         String serviceHost = "http://localhost:8089";
         String servicePath = "/service2";
@@ -134,7 +135,7 @@ public class IndexMboxArchiveTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        String path = "mboxArchive/lucene-java-user-200703.mbox";
+        String path = "mboxArchive"+File.separator+"lucene-java-user-200703.mbox";
         int numberOfThreads = 10;
         String serviceHost = "http://localhost:8089";
         String servicePath = "/service3";

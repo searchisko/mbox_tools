@@ -1,0 +1,124 @@
+From java-user-return-45256-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org Tue Mar 02 13:40:49 2010
+Return-Path: <java-user-return-45256-apmail-lucene-java-user-archive=lucene.apache.org@lucene.apache.org>
+Delivered-To: apmail-lucene-java-user-archive@www.apache.org
+Received: (qmail 21637 invoked from network); 2 Mar 2010 13:40:49 -0000
+Received: from unknown (HELO mail.apache.org) (140.211.11.3)
+  by 140.211.11.9 with SMTP; 2 Mar 2010 13:40:49 -0000
+Received: (qmail 68693 invoked by uid 500); 2 Mar 2010 13:40:43 -0000
+Delivered-To: apmail-lucene-java-user-archive@lucene.apache.org
+Received: (qmail 68551 invoked by uid 500); 2 Mar 2010 13:40:43 -0000
+Mailing-List: contact java-user-help@lucene.apache.org; run by ezmlm
+Precedence: bulk
+List-Help: <mailto:java-user-help@lucene.apache.org>
+List-Unsubscribe: <mailto:java-user-unsubscribe@lucene.apache.org>
+List-Post: <mailto:java-user@lucene.apache.org>
+List-Id: <java-user.lucene.apache.org>
+Reply-To: java-user@lucene.apache.org
+Delivered-To: mailing list java-user@lucene.apache.org
+Received: (qmail 68519 invoked by uid 99); 2 Mar 2010 13:40:43 -0000
+Received: from athena.apache.org (HELO athena.apache.org) (140.211.11.136)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Tue, 02 Mar 2010 13:40:43 +0000
+X-ASF-Spam-Status: No, hits=-0.0 required=10.0
+	tests=SPF_PASS
+X-Spam-Check-By: apache.org
+Received-SPF: pass (athena.apache.org: local policy)
+Received: from [149.8.64.10] (HELO mclmx.mail.saic.com) (149.8.64.10)
+    by apache.org (qpsmtpd/0.29) with ESMTP; Tue, 02 Mar 2010 13:40:35 +0000
+Received: from 0015-its-sbg01.saic.com ([149.8.64.21] [149.8.64.21]) by mclmx.mail.saic.com with ESMTP id BT-MMP-3835268 for java-user@lucene.apache.org; Tue, 2 Mar 2010 08:40:00 -0500
+X-AuditID: 9508401a-b7c69ae000000d5c-81-4b8d15301ba1
+Received: from 0015-its-exbh03.us.saic.com (mcl-sixl-nat.saic.com [149.8.64.21])
+	by 0015-its-sbg01.saic.com (Symantec Brightmail Gateway) with SMTP id 0D.C4.03420.0351D8B4; Tue,  2 Mar 2010 08:40:00 -0500 (EST)
+Received: from 0015-its-exmb01.us.saic.com ([10.43.229.16]) by 0015-its-exbh03.us.saic.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Tue, 2 Mar 2010 08:40:00 -0500
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+Content-class: urn:content-classes:message
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Subject: RE: Lucene Indexing out of memory
+Date: Tue, 2 Mar 2010 08:40:02 -0500
+Message-Id: <002052E02A48964A8035D9B6E8A1647DBA3E75@0015-its-exmb01.us.saic.com>
+In-Reply-To: <27755872.post@talk.nabble.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: Lucene Indexing out of memory
+Thread-Index: Acq6DD2s/o3awAlbRBKB3aZEYVAYZAAAUiag
+References: <27755872.post@talk.nabble.com>
+From: "Murdoch, Paul" <PAUL.B.MURDOCH@saic.com>
+To: <java-user@lucene.apache.org>
+X-OriginalArrivalTime: 02 Mar 2010 13:40:00.0990 (UTC) FILETIME=[DB4A47E0:01CABA0D]
+X-Brightmail-Tracker: AAAAAA==
+
+Ajay,
+
+I've posted a few times on OOM issues.  Here is one thread.
+
+http://mail-archives.apache.org/mod_mbox//lucene-java-user/200909.mbox/%
+3C5B20DEF02611534DB08854076CE825D80362652A@sc1exc2.corp.emainc.com%3E
+
+I'll try and get some more links to you from some other threads I
+started for OOM issues and Lucene.  I've not solved this problem yet.
+Please let me know if you come up with a solution.  Hope this helps.
+
+Paul
+
+
+
+-----Original Message-----
+From: java-user-return-45254-PAUL.B.MURDOCH=3Dsaic.com@lucene.apache.org
+[mailto:java-user-return-45254-PAUL.B.MURDOCH=3Dsaic.com@lucene.apache.or=
+g
+] On Behalf Of ajay_gupta
+Sent: Tuesday, March 02, 2010 8:28 AM
+To: java-user@lucene.apache.org
+Subject: Lucene Indexing out of memory
+
+
+Hi,
+It might be general question though but I couldn't find the answer yet.
+I
+have around 90k documents sizing around 350 MB. Each document contains a
+record which has some text content. For each word in this text I want to
+store context for that word and index it so I am reading each document
+and
+for each word in that document I am appending fixed number of
+surrounding
+words. To do that first I search in existing indices if this word
+already
+exist and if it is then I get the content and append the new context and
+update the document. In case no context exist I create a document with
+fields "word" and "context" and add these two fields with values as word
+value and context value.
+
+I tried this in RAM but after certain no of docs it gave out of memory
+error
+so I thought to use FSDirectory method but surprisingly after 70k
+documents
+it also gave OOM error. I have enough disk space but still I am getting
+this
+error.I am not sure even for disk based indexing why its giving this
+error.
+I thought disk based indexing will be slow but atleast it will be
+scalable.=20
+Could someone suggest what could be the issue ?
+
+Thanks
+Ajay
+--=20
+View this message in context:
+http://old.nabble.com/Lucene-Indexing-out-of-memory-tp27755872p27755872.
+html
+Sent from the Lucene - Java Users mailing list archive at Nabble.com.
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: java-user-unsubscribe@lucene.apache.org
+For additional commands, e-mail: java-user-help@lucene.apache.org
+
+
