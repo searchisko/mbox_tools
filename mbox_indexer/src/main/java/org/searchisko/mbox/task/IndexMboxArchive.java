@@ -64,7 +64,8 @@ public class IndexMboxArchive {
             public void run() {
                 // 1. Convert mail to JSON representation with added metadata.
                 // 2. Send mail to the server, using blocking operation.
-				taskCount.incrementAndGet();
+				long taskId = taskCount.incrementAndGet();
+				log.debug("starting task [{}]", taskId);
 				String messageId = null;
                 try {
                     Message msg = mb.parseMessage(new ByteArrayInputStream(message.getBytes()));
@@ -78,7 +79,7 @@ public class IndexMboxArchive {
                     log.trace("{}", response);
 
                 } catch (Exception e) {
-                    log.warn("Error processing message {}", messageId, e);
+                    log.warn("Error processing message {} in task [{}], caused: {}", new Object[]{ messageId, taskId, e.getMessage() });
                 }
 
             }
@@ -101,10 +102,10 @@ public class IndexMboxArchive {
 
         if (args.length < 8) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Invalid parameters!\n");
-            sb.append("Usage: mboxFilePath numberOfThreads mailListName mailListCategory [numberOffset]\n");
+            sb.append("Parameters: ");
+            sb.append("mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset]\n\n");
             sb.append("mboxFilePath - path to mbox file\n");
-            sb.append("maxThreads - max threads used for processing tasks\n");
+            sb.append("numberOfThreads - max threads used for processing tasks\n");
             sb.append("serviceHost - service host URL\n");
             sb.append("servicePath - service path\n");
             sb.append("contentType - Searchisko provider sys_content_type\n");
@@ -206,13 +207,11 @@ public class IndexMboxArchive {
 				log.info("Tasks created: {}", taskCount.get());
 			}
 
-        } catch (InterruptedException e) {
-            // TODO: stop processing ... due to timeout
         } catch (IOException e) {
             log.error("Error occurred", e);
         } catch (MimeException e) {
             log.error("Unable to instantiate MessageBuilder", e);
-        } catch (Throwable e) {
+        } catch (/*InterruptedException | */ Throwable e) {
             log.error("Unexpected exception", e);
         } finally {
 

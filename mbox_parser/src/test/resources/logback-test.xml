@@ -18,6 +18,7 @@
     <!--</appender>-->
 
     <logger name="org.searchisko.mbox.parser" level="debug"/>
+    <logger name="org.searchisko.mbox.parser.MessageBodyParser" level="error"/>
 	<logger name="org.searchisko.mbox.task" level="debug"/>
 
     <root level="ERROR">

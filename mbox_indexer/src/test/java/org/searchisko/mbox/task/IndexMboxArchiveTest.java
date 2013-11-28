@@ -53,7 +53,7 @@ public class IndexMboxArchiveTest {
 
         IndexMboxArchive.main(new String[]{""});
 
-        assertThat(sb.toString(), containsString("Invalid parameters!"));
+        assertThat(sb.toString(), containsString("Parameters: "));
 
         System.setOut(origOut);
     }

@@ -14,13 +14,11 @@ The code has been tailored specifically for Searchisko API but generally it shou
 
 We will show how to build a command line tool that is used to run sequence of steps to process mbox files in specific way. We use it for indexing mails from Mailman. However, it should be noted that both [mbox parser](mbox_parser) and [mbox indexer](mbox_indexer) can be used on its own and they are available as standalone artefacts.
 
-### Build the code (Java 1.7 required)
+### Build from source code (Java 1.7 required)
 
     git clone https://github.com/searchisko/mbox_integration;
     cd mbox_integration;
     mvn clean package;
-    
-Some tests will print _stack trace_ but stay cool, that is expected.
 
 ### Install
 
@@ -40,8 +38,8 @@ Copy final artefact to `~/mbox_tools` folder and unzip it:
 
 This tool has two execution modes:
 
- - normal
- - delta
+ - Normal mode
+ - Delta mode
 
 #### Normal mode
 
@@ -49,10 +47,10 @@ Normal mode is used to parse and push content of a single mbox cumulative archiv
 
     java -jar mailman_searchisko_integration.jar -?
     
-    # Invalid parameters!
-    # Usage: mboxFilePath numberOfThreads mailListName mailListCategory [numberOffset]
+    # Parameters: mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset]
+    #
     # mboxFilePath - path to mbox file
-    # maxThreads - max threads used for processing tasks
+    # numberOfThreads - max threads used for processing tasks
     # serviceHost - service host URL
     # servicePath - service path
     # contentType - Searchisko provider sys_content_type
@@ -60,8 +58,8 @@ Normal mode is used to parse and push content of a single mbox cumulative archiv
     # password - Searchisko provider password (plaintext)
     # mailListName - name of mail_list, it is needed for document URL creation
     # mailListCategory - mail_list category [dev,users,announce,...etc]
-    # numberOffset - public URL numbering offset
- 
+    # numberOffset - public URL numbering offset 
+    
 #### Delta mode
 
 Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that were added to the mailman archive since some time. Typically, this job is started from cron every few minutes. It requires mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple mailman plugin for this).
