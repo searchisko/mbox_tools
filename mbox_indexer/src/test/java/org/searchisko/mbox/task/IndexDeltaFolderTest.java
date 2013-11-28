@@ -89,12 +89,12 @@ public class IndexDeltaFolderTest {
 	}
 
 	@Test
-	public void shouldPass() {
+	public void shouldPass() throws URISyntaxException {
 
 		stubFor(post(urlMatching("/service1/ct/.+"))
 				.willReturn(aResponse()
 						.withStatus(200)
-						.withFixedDelay(200) // simulate a small delay
+						.withFixedDelay(10) // simulate a small delay
 						.withHeader("Content-Type", "application/json")
 						.withBody("{\"foo\":\"bar\"}")));
 
@@ -112,7 +112,11 @@ public class IndexDeltaFolderTest {
 				activeMailListsConf
 		});
 
-//		verify(2, postRequestedFor(urlMatching("/service1/ct/.+")));
+		// verify all files from copy folder have been deleted
+		assertTrue(FileUtils.listFiles(new File(ClassLoader.getSystemResource(tmpPath).toURI()), new String[]{}, false).isEmpty());
+
+		// REST service has been called only twice (although we had four files in copy folder)
+		verify(2, postRequestedFor(urlMatching("/service1/ct/.+")));
 
 	}
 

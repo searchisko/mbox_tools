@@ -150,7 +150,7 @@ public class IndexMboxArchive {
         }
 
         httpClient = new Client(getConfig()
-                .connectionsPerRoute(numberOfThreads + 1) // tasks can be executed in the `main` thread as well
+                .connectionsPerRoute(numberOfThreads + 1) // because task can be executed in the `main` thread as well
                 .serviceHost(serviceHost)
                 .servicePath(servicePath)
                 .contentType(contentType)
@@ -238,7 +238,6 @@ public class IndexMboxArchive {
                 log.warn("Executor not terminated, forcing termination.");
                 executor.shutdownNow();
                 Thread.currentThread().interrupt();
-
             }
         }
 

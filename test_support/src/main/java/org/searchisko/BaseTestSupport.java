@@ -7,7 +7,6 @@
 package org.searchisko;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import static java.lang.ClassLoader.getSystemClassLoader;
@@ -18,18 +17,6 @@ import static java.lang.ClassLoader.getSystemClassLoader;
 public abstract class BaseTestSupport {
 
     protected InputStream getInputStream(String path) throws FileNotFoundException {
-        InputStream is = getSystemClassLoader().getResourceAsStream(path);
-        return is;
-    }
-
-    protected String getFileContent(String path) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        InputStream is = getInputStream(path);
-        int c;
-        while ((c = is.read()) != -1) {
-            sb.append((char) c);
-        }
-        is.close();
-        return sb.toString();
+        return getSystemClassLoader().getResourceAsStream(path);
     }
 }

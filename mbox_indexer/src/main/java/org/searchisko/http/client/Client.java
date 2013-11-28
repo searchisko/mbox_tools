@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Http Client is used to handle Http communication with REST service (Searchisko).
- * It is thread-safe and it is recommended to single a single instance between many threads.
+ * It is thread-safe and it is recommended to share a single instance for many threads.
  *
  * @author Lukáš Vlček
  */

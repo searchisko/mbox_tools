@@ -9,7 +9,9 @@ package org.searchisko.mbox.task;
 import org.apache.james.mime4j.MimeException;
 import org.apache.james.mime4j.dom.Message;
 import org.apache.james.mime4j.dom.MessageBuilder;
+import org.searchisko.http.client.Client;
 import org.searchisko.mbox.dto.Mail;
+import org.searchisko.mbox.json.Converter;
 import org.searchisko.mbox.parser.MessageParser;
 import org.searchisko.mbox.util.DirUtil;
 import org.searchisko.mbox.util.StringUtil;
@@ -21,11 +23,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
+import static org.searchisko.http.client.Client.getConfig;
 import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
 
 /**
@@ -34,6 +37,36 @@ import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
 public class IndexDeltaFolder {
 
     private static Logger log = LoggerFactory.getLogger(IndexDeltaFolder.class);
+	private static MessageBuilder mb;
+	private static Client httpClient;
+
+	private static Runnable prepareTask(final File file) {
+		return new Runnable() {
+			@Override
+			public void run() {
+				String mailURL = StringUtil.decodeFilenameSafe(file.getName());
+				// Note: StringUtil.getInfo() can fire unchecked exception but as long as
+				// #filter() is called before #index() we should not get file with invalid name
+				StringUtil.URLInfo info = StringUtil.getInfo(file.getName());
+				String messageId = null;
+				try {
+					Message message = mb.parseMessage(new FileInputStream(file));
+					Map<String, String> metadata = new HashMap<>();
+					Mail mail = MessageParser.parse(message);
+					messageId = mail.message_id(); // "sys_content_id"
+					String messageJSON = Converter.toJSON(mail, metadata);
+
+					Object response = httpClient.post(messageJSON, messageId);
+
+					log.trace("{}", response);
+
+				} catch (Throwable e) {
+					log.error("Error processing mail [{}]", mailURL);
+					log.debug("Error details", e);
+				}
+			}
+		};
+	}
 
     /**
      * Calls #read(deltaArchivePath, 2000)
@@ -132,35 +165,23 @@ public class IndexDeltaFolder {
         return filesFiltered.toArray(new File[filesFiltered.size()]);
     }
 
-    public static void index(File[] filesToProcess) {
+	/**
+	 * This method is not thread safe.
+	 * @param filesToProcess
+	 * @param executor
+	 */
+    public static void index(File[] filesToProcess, ThreadPoolExecutor executor) {
         log.info("Starting to index {} files", filesToProcess.length);
         if (filesToProcess.length > 0) {
-            MessageBuilder mb;
             try {
-                mb = getMessageBuilder();
+                mb = getMessageBuilder(); // not thread safe
             } catch (MimeException e) {
                 log.error("Could not get MessageBuilder", e);
                 throw new RuntimeException(e);
             }
 
             for (File file : filesToProcess) {
-                String mailURL = StringUtil.decodeFilenameSafe(file.getName());
-                // Note: StringUtil.getInfo() can fire unchecked exception but as long as
-                // #filter() is called before #index() we should not get file with invalid name
-                StringUtil.URLInfo info = StringUtil.getInfo(file.getName());
-
-                try {
-
-                    Message message = mb.parseMessage(new FileInputStream(file));
-                    Mail mail = MessageParser.parse(message);
-
-                    // TODO...
-
-
-                } catch (Throwable e) {
-                    log.error("Error processing mail [{}]", mailURL);
-                    log.debug("Error details", e);
-                }
+				executor.submit(prepareTask(file));
             }
         }
         log.info("Done.");
@@ -207,6 +228,22 @@ public class IndexDeltaFolder {
 			throw new IllegalArgumentException("numberOfThreads must be at least 1");
 		}
 
+		httpClient = new Client(getConfig()
+				.connectionsPerRoute(numberOfThreads + 1) // because task can be executed in the `main` thread as well
+				.serviceHost(serviceHost)
+				.servicePath(servicePath)
+				.contentType(contentType)
+				.username(username)
+				.password(password)
+		);
+
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(
+				numberOfThreads,
+				numberOfThreads,
+				3, TimeUnit.SECONDS ,
+				new ArrayBlockingQueue<Runnable>(numberOfThreads, true),
+				new ThreadPoolExecutor.CallerRunsPolicy());
+
 		// load properties conf
 		Properties prop = new Properties();
 
@@ -217,10 +254,22 @@ public class IndexDeltaFolder {
 
 			File[] files = read(pathToDeltaArchive);
 			files = filter(files, activeMailLists);
-			index(files);
+			index(files, executor);
+
+			executor.shutdown();
+			executor.awaitTermination(10L, TimeUnit.SECONDS);
 
 		} catch (IOException e) {
 			log.error("Error occurred", e);
+		} catch (InterruptedException e) {
+			log.error("Unexpected exception", e);
+		} finally {
+			// try to force executor termination if needed
+			if (!executor.isTerminated()) {
+				log.warn("Executor not terminated, forcing termination.");
+				executor.shutdownNow();
+				Thread.currentThread().interrupt();
+			}
 		}
-    }
+	}
 }
