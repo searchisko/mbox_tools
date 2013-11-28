@@ -51,9 +51,13 @@ public class IndexMboxArchiveTest {
         PrintStream interceptor = new Interceptor(origOut);
         System.setOut(interceptor);
 
+		// no args
         IndexMboxArchive.main(new String[]{""});
-
         assertThat(sb.toString(), containsString("Parameters: "));
+
+		// not enough args
+		IndexMboxArchive.main(new String[]{"1","2","3","4","5","6","7","8"});
+		assertThat(sb.toString(), containsString("Parameters: "));
 
         System.setOut(origOut);
     }
@@ -152,7 +156,8 @@ public class IndexMboxArchiveTest {
 
     }
 
-//    @Test
+	/*
+    @Test
     public void indexIntoDCP() {
 
 //        String mboxFilePath = "mboxArchive/lucene-java-user-200703.mbox";
@@ -172,4 +177,5 @@ public class IndexMboxArchiveTest {
                 mailListName, mailListCategory});
 
     }
+    */
 }

@@ -100,7 +100,7 @@ public class IndexMboxArchive {
      */
     public static void main(String[] args) {
 
-        if (args.length < 8) {
+        if (args.length < 9) {
             StringBuilder sb = new StringBuilder();
             sb.append("Parameters: ");
             sb.append("mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset]\n\n");
@@ -118,20 +118,20 @@ public class IndexMboxArchive {
             return;
         }
 
-        String mboxFilePath = args[0];
-        int numberOfThreads = Integer.parseInt(args[1]);
+        String mboxFilePath = args[0].trim();
+        int numberOfThreads = Integer.parseInt(args[1].trim());
 
-        String serviceHost = args[2];
-        String servicePath = args[3];
-        String contentType = args[4];
-        String username = args[5];
-        String password = args[6];
+        String serviceHost = args[2].trim();
+        String servicePath = args[3].trim();
+        String contentType = args[4].trim();
+        String username = args[5].trim();
+        String password = args[6].trim();
 
-        String mailListName = args[7];
-        String mailListCategory = args[8];
+        String mailListName = args[7].trim();
+        String mailListCategory = args[8].trim();
         int offset = 0;
         if (args.length > 9) {
-            offset = Integer.parseInt(args[9]);
+            offset = Integer.parseInt(args[9].trim());
         }
 
         if (log.isDebugEnabled()) {

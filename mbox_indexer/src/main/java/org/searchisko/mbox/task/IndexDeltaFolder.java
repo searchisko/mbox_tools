@@ -19,8 +19,11 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 
 import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
 
@@ -78,16 +81,16 @@ public class IndexDeltaFolder {
     }
 
     /**
-     * Filter out all files that do not belong to any activated mail list.
+     * Filter out all files that do not belong to any of provided mail list collection.
      * Files that are filtered out are also immediately deleted from the filesystem.
      *
      * @param filesToProcess
      * @param activeMailLists
      * @return
      */
-    public static File[] filter(File[] filesToProcess, List<String> activeMailLists) {
+    public static File[] filter(File[] filesToProcess, Collection<String> activeMailLists) {
 
-        List<File> filesFiltered = new ArrayList<File>();
+        List<File> filesFiltered = new ArrayList<>();
         int countOfOriginalFiles = filesToProcess.length;
 
         for (File file : filesToProcess) {
@@ -128,7 +131,7 @@ public class IndexDeltaFolder {
     public static void index(File[] filesToProcess) {
         log.info("Starting to index {} files", filesToProcess.length);
         if (filesToProcess.length > 0) {
-            MessageBuilder mb = null;
+            MessageBuilder mb;
             try {
                 mb = getMessageBuilder();
             } catch (MimeException e) {
@@ -159,10 +162,51 @@ public class IndexDeltaFolder {
         log.info("Done.");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        List<String> activeMailLists = new ArrayList();
-        String pathToDeltaArchive = "";
+		if (args.length < 8) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Parameters: ");
+			sb.append("pathToDeltaArchive numberOfThreads serviceHost servicePath contentType username password activeMailListsConf\n\n");
+			sb.append("pathToDeltaArchive - path to folder with delta mbox files\n");
+			sb.append("numberOfThreads - max threads used for processing tasks\n");
+			sb.append("serviceHost - service host URL\n");
+			sb.append("servicePath - service path\n");
+			sb.append("contentType - Searchisko provider sys_content_type\n");
+			sb.append("username - Searchisko provider username (plaintext)\n");
+			sb.append("password - Searchisko provider password (plaintext)\n");
+			sb.append("activeMailListsConf - conf file with list of mail lists to include into delta indexing (other files are still deleted!)\n");
+			System.out.println(sb.toString());
+			return;
+		}
+
+		String pathToDeltaArchive = args[0].trim();
+		int numberOfThreads = Integer.parseInt(args[1].trim());
+
+		String serviceHost = args[2].trim();
+		String servicePath = args[3].trim();
+		String contentType = args[4].trim();
+		String username = args[5].trim();
+		String password = args[6].trim();
+		String activeMailListsConf = args[7].trim();
+
+		if (log.isDebugEnabled()) {
+			log.debug("CL parameters:");
+			log.debug("----------------------------------");
+			log.debug("pathToDeltaArchive: {}", pathToDeltaArchive);
+			log.debug("numberOfThreads: {} (avail_cores: {})", new Object[]{numberOfThreads, Runtime.getRuntime().availableProcessors()});
+			log.debug("activeMailListsConf: {}", activeMailListsConf);
+			log.debug("----------------------------------");
+		}
+
+		if (numberOfThreads < 1) {
+			throw new IllegalArgumentException("numberOfThreads must be at least 1");
+		}
+
+		// load properties conf
+		Properties prop = new Properties();
+		prop.load(IndexDeltaFolder.class.getClassLoader().getResourceAsStream(activeMailListsConf));
+		Collection<String> activeMailLists = prop.stringPropertyNames();
 
         File[] files = read(pathToDeltaArchive);
         files = filter(files, activeMailLists);

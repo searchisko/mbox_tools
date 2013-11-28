@@ -8,7 +8,7 @@ Collection of tools that can be used to:
 
 We use these tools to parse mbox files and archives from services like <https://lists.jboss.org/mailman/listinfo>, we add specific metadata to each JSON and, finally, we send resulting JSON objects to correctly configured Searchisko for indexing.
 
-The code has been tailored specifically for Searchisko API but generally it shouldn't be hard to use these tools in connection with other JSON service/servers, like Elasticsearch, MongoDB, … etc.
+The code has been tailored specifically for Searchisko API but generally it shouldn't be hard to use these tools in connection with other JSON consuming service/servers, like Elasticsearch or MongoDB.
 
 ## How to use it
 
@@ -19,6 +19,8 @@ We will show how to build a command line tool that is used to run sequence of st
     git clone https://github.com/searchisko/mbox_integration;
     cd mbox_integration;
     mvn clean package;
+    
+Note: final artefacts will be soon available in mvn repo as well.
 
 ### Install
 
@@ -43,7 +45,7 @@ This tool has two execution modes:
 
 #### Normal mode
 
-Normal mode is used to parse and push content of a single mbox cumulative archive file into Searchisko. This is used for (re-)indexing from mailman archive.
+Normal mode is used to parse and push content of a single cumulative mbox archive file into Searchisko. This is used for (re-)indexing from Mailman archive.
 
     java -jar mailman_searchisko_integration.jar -?
     
@@ -57,12 +59,12 @@ Normal mode is used to parse and push content of a single mbox cumulative archiv
     # username - Searchisko provider username (plaintext)
     # password - Searchisko provider password (plaintext)
     # mailListName - name of mail_list, it is needed for document URL creation
-    # mailListCategory - mail_list category [dev,users,announce,...etc]
+    # mailListCategorygory - mail_list category [dev,users,announce,...etc]
     # numberOffset - public URL numbering offset 
     
 #### Delta mode
 
-Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that were added to the mailman archive since some time. Typically, this job is started from cron every few minutes. It requires mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple mailman plugin for this).
+Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that have been added to the Mailman archive since some time. Typically, this job is started from cron every few minutes. It requires Mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple Mailman plugin for this).
 
     java -jar mailman_searchisko_integration.jar -delta -?
     
