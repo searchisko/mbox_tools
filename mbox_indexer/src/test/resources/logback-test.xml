@@ -22,6 +22,7 @@
     <logger name="org.searchisko.http.client" level="error"/>
     <logger name="org.searchisko.mbox.task" level="error"/>
     <logger name="org.searchisko.mbox.task.IndexMboxArchive" level="info"/>
+    <logger name="org.searchisko.mbox.task.IndexDeltaFolder" level="info"/>
     <logger name="org.searchisko.mbox.task.IndexDeltaFolderTest" level="error"/>
     <logger name="org.searchisko.mbox.parser" level="error"/>
 

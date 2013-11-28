@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -55,11 +56,12 @@ public class IndexDeltaFolder {
      */
     public static File[] read(String deltaArchivePath, long fileAge) {
 
-        List<File> filesToProcess = new ArrayList<File>();
+        List<File> filesToProcess = new ArrayList<>();
         log.info("Reading folder {}", deltaArchivePath);
-        File folder = new File(deltaArchivePath);
+        File folder;
 
         try {
+			folder = new File(ClassLoader.getSystemResource(deltaArchivePath).toURI());
             File[] files = DirUtil.listFiles(folder);
             log.info("Checking {} files", files.length);
             for (File file : files) {
@@ -75,9 +77,11 @@ public class IndexDeltaFolder {
                 }
             }
         } catch (FileNotFoundException e) {
-            log.error("Oops! Error reading ["+deltaArchivePath+"]", e);
-        }
-        return filesToProcess.toArray(new File[filesToProcess.size()]);
+            log.error("Could not read resource: {}", deltaArchivePath , e);
+        } catch (URISyntaxException e) {
+			log.error("Could not open resource: {}", deltaArchivePath, e);
+		}
+		return filesToProcess.toArray(new File[filesToProcess.size()]);
     }
 
     /**

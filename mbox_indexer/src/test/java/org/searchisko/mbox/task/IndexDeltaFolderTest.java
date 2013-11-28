@@ -88,7 +88,7 @@ public class IndexDeltaFolderTest {
 		System.setOut(origOut);
 	}
 
-//	@Test
+	@Test
 	public void shouldPass() {
 
 		stubFor(post(urlMatching("/service1/ct/.+"))
@@ -112,7 +112,7 @@ public class IndexDeltaFolderTest {
 				activeMailListsConf
 		});
 
-//		verify(0, postRequestedFor(urlMatching("/service1/ct/.+")));
+//		verify(2, postRequestedFor(urlMatching("/service1/ct/.+")));
 
 	}
 

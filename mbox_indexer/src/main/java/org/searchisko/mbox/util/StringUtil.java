@@ -46,7 +46,7 @@ public class StringUtil {
     }
 
     private static String convertFilenameSafe(String source) {
-        return source.replaceAll("_","/");
+        return source.replaceAll("_","/"); // TODO: should "/" be File.separator ? Right now we are on Linux so we are ok.
     }
 
     private static String[] splitURL(String source) {
