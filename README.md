@@ -61,6 +61,8 @@ Normal mode is used to parse and push content of a single cumulative mbox archiv
     # mailListName - name of mail_list, it is needed for document URL creation
     # mailListCategorygory - mail_list category [dev,users,announce,...etc]
     # numberOffset - public URL numbering offset 
+
+Consult Javadoc for parameters details: [IndexMBoxArchive.java](blob/master/mbox_indexer/src/main/java/org/searchisko/mbox/task/IndexMboxArchive.java).
     
 #### Delta mode
 
@@ -68,7 +70,18 @@ Delta mode is used to index individual message files from given folder and delet
 
     java -jar mailman_searchisko_integration.jar -delta -?
     
-    # --TDB-- 
+    # Parameters: pathToDeltaArchive numberOfThreads serviceHost servicePath contentType username password activeMailListsConf
+    # 
+    # pathToDeltaArchive - path to folder with delta mbox files
+    # numberOfThreads - max threads used for processing tasks
+    # serviceHost - service host URL
+    # servicePath - service path
+    # contentType - Searchisko provider sys_content_type
+    # username - Searchisko provider username (plaintext)
+    # password - Searchisko provider password (plaintext)
+    # activeMailListsConf - conf file with list of mail lists to include into delta indexing (other files are still deleted!)
+    
+Consult Javadoc for parameters details: [IndexDeltaFolder.java](blob/master/mbox_indexer/src/main/java/org/searchisko/mbox/task/IndexDeltaFolder.java).
     
 ## Quick Example of Normal Mode 
 
