@@ -89,4 +89,16 @@ public class StringUtilTest {
             // ok
         }
     }
+
+	@Test
+	public void shouldParseLuceneMailListEntry() {
+
+		// http://mail-archives.apache.org/mod_mbox/lucene-java-user/201003.mbox/%3C8c4e68611003050142nfaa67cj384cd2b3bfaaeb77%40mail.gmail.com%3E
+		String messageFromLuceneML = "aHR0cDovL21haWwtYXJjaGl2ZXMuYXBhY2hlLm9yZy9tb2RfbWJveC9sdWNlbmUtamF2YS11c2Vy\n" +
+				"LzIwMTAwMy5tYm94LyUzQzhjNGU2ODYxMTAwMzA1MDE0Mm5mYWE2N2NqMzg0Y2QyYjNiZmFhZWI3\n" +
+				"NyU0MG1haWwuZ21haWwuY29tJTNF";
+		StringUtil.URLInfo info = StringUtil.getInfo(messageFromLuceneML);
+		assertEquals("lucene-java", info.getProject());
+		assertEquals("user", info.getListType());
+	}
 }

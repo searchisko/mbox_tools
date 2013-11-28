@@ -45,11 +45,20 @@ public class StringUtil {
         return base64.encodeToString(source.getBytes());
     }
 
+	/**
+	 * base64 can contain '/' character. This can be problem on some platforms if base64 is used as a filename.
+	 * To workaround this we assume that every '/' ware replaced by '_' after encoding. Now, before we decode
+	 * we should replace '_' with '/'.
+	 * TODO: consider using URL encode/decode to handle '/' instead of this hack-ish replace
+	 * @param source
+	 * @return
+	 */
     private static String convertFilenameSafe(String source) {
-        return source.replaceAll("_","/"); // TODO: should "/" be File.separator ? Right now we are on Linux so we are ok.
+        return source.replaceAll("_","/");
     }
 
     private static String[] splitURL(String source) {
+		// TODO: consider using some URL utils
         return source.split("\\/");
     }
 
@@ -64,17 +73,13 @@ public class StringUtil {
         return buffer.toString();
     }
 
-    public static String encodeFilenameSafe(String source) {
-        return StringUtil.base64Encode(StringUtil.convertFilenameSafe(source));
-    }
-
     public static String decodeFilenameSafe(String encoded) {
-        return StringUtil.convertFilenameSafe(new String(StringUtil.base64Decode(encoded)));
+        return new String(StringUtil.base64Decode(StringUtil.convertFilenameSafe(encoded)));
     }
 
     public static URLInfo getInfo(String encoded) {
 
-        String target = StringUtil.splitURL(StringUtil.convertFilenameSafe(new String(StringUtil.base64Decode(encoded))))[4];
+		String target = StringUtil.splitURL(decodeFilenameSafe(encoded))[4];
         URLInfo info = new URLInfo();
 
         // TODO make exceptions like -l10n or -rpm configurable
