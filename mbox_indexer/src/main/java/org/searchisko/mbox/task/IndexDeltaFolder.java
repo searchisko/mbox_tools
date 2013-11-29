@@ -13,6 +13,7 @@ import org.searchisko.http.client.Client;
 import org.searchisko.mbox.dto.Mail;
 import org.searchisko.mbox.json.Converter;
 import org.searchisko.mbox.parser.MessageParser;
+import org.searchisko.mbox.util.ContentType;
 import org.searchisko.mbox.util.DirUtil;
 import org.searchisko.mbox.util.StringUtil;
 import org.slf4j.Logger;
@@ -80,10 +81,29 @@ public class IndexDeltaFolder {
 				StringUtil.URLInfo info = StringUtil.getInfo(file.getName());
 				String messageId;
 				try {
-					Message message = mb.parseMessage(new FileInputStream(file));
+
 					Map<String, String> metadata = new HashMap<>();
+					metadata.put("sys_view_url", mailURL);
+					metadata.put("project", info.getProject());
+					metadata.put("mail_list_category", info.getListType());
+
+					Message message = mb.parseMessage(new FileInputStream(file));
 					Mail mail = MessageParser.parse(message);
 					messageId = mail.message_id(); // "sys_content_id"
+
+					String sysContent = mail.first_text_message_without_quotes();
+					String sysContentContentType = ContentType.TEXT_PLAIN;
+					if (sysContent == null || sysContent.trim().isEmpty()) {
+						sysContent = mail.first_text_message();
+					}
+					if (sysContent == null || sysContent.trim().isEmpty()) {
+						sysContent = mail.first_html_message();
+						sysContentContentType = ContentType.TEXT_HTML;
+					}
+					metadata.put("sys_content", sysContent);
+					metadata.put("sys_content_content-type", sysContentContentType);
+
+					metadata.put("sys_description", mail.message_snippet());
 					String messageJSON = Converter.toJSON(mail, metadata);
 
 					Object response = httpClient.post(messageJSON, messageId);

@@ -7,8 +7,9 @@ The main function of this code is to use `mbox_parser` to:
 
 The *metadata* that is added is relevant to specific DCP configuration. Namely it is:
 
-- project code `sys_project`
+- project code `project` for project name (e.g. `cdi`, `mod_cluster`, `jboss-l10n`)
+- add `mail_list_category` (`announce`, `dev`, `users`)
 - provide `sys_url_view` value
 - decide which field will be used for the `sys_content`
 - provide `sys_content_content-type` value for selected `sys_content`
-- add mailing list type (`announce`, `dev`, `users`, ...)
+- populate `sys_description` with `message_snippet`

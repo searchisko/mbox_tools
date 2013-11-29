@@ -13,14 +13,15 @@ import org.searchisko.http.client.Client;
 import org.searchisko.mbox.dto.Mail;
 import org.searchisko.mbox.json.Converter;
 import org.searchisko.mbox.parser.MessageParser;
+import org.searchisko.mbox.util.ContentType;
+import org.searchisko.mbox.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -60,7 +61,13 @@ public class IndexMboxArchive {
 	private static AtomicLong taskCount = new AtomicLong();
 	private static long messageCount = 0;
 
-	private static Runnable prepareTask(final String message) {
+	/**
+	 *
+	 * @param message
+	 * @param cnt order # of this message within the single cumulative mbox archive file
+	 * @return
+	 */
+	private static Runnable prepareTask(final String message, final String mailListName, final String mailListCategory, final long cnt) {
 		return new Runnable() {
 			@Override
 			public void run() {
@@ -71,9 +78,31 @@ public class IndexMboxArchive {
 				String messageId = null;
 				try {
 					Message msg = mb.parseMessage(new ByteArrayInputStream(message.getBytes()));
+
+					String document_url = getDocumentUrl(msg, mailListName, cnt);
+
+					// add missing metadata
 					Map<String, String> metadata = new HashMap<>();
+					metadata.put("sys_url_view", document_url);
+					metadata.put("project", StringUtil.getProjectName(mailListName, mailListCategory));
+					metadata.put("mail_list_category", mailListCategory);
+
 					Mail mail = MessageParser.parse(msg);
 					messageId = mail.message_id(); // "sys_content_id"
+
+					String sysContent = mail.first_text_message_without_quotes();
+					String sysContentContentType = ContentType.TEXT_PLAIN;
+					if (sysContent == null || sysContent.trim().isEmpty()) {
+						sysContent = mail.first_text_message();
+					}
+					if (sysContent == null || sysContent.trim().isEmpty()) {
+						sysContent = mail.first_html_message();
+						sysContentContentType = ContentType.TEXT_HTML;
+					}
+					metadata.put("sys_content", sysContent);
+					metadata.put("sys_content_content-type", sysContentContentType);
+
+					metadata.put("sys_description", mail.message_snippet());
 					String messageJSON = Converter.toJSON(mail, metadata);
 
 					Object response = httpClient.post(messageJSON, messageId);
@@ -86,6 +115,21 @@ public class IndexMboxArchive {
 
 			}
 		};
+	}
+
+	/**
+	 * Construct public URL for given message.
+	 * TODO: this needs to be configurable going forward.
+	 * @param message
+	 * @param mailListName
+	 * @param cnt order # of this message within mbox file (single cumulative file)
+	 * @return
+	 */
+	protected static String getDocumentUrl(final Message message, final String mailListName, final long cnt) {
+		// our Mailman is in specific times zone, this has impact on how it constructs URLs
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMMM", Locale.US);
+		sdf.setTimeZone(TimeZone.getTimeZone("EST"));
+		return "http://lists.jboss.org/pipermail/"+mailListName+"/"+sdf.format(message.getDate())+"/"+String.format("%06d",cnt)+".html";
 	}
 
 	public static File getFile(String path) {
@@ -184,7 +228,7 @@ public class IndexMboxArchive {
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith("From ")) {
 					if (messageSB.length() > 0) {
-						executor.submit(prepareTask(messageSB.toString()));
+						executor.submit(prepareTask(messageSB.toString(), mailListName, mailListCategory, messageCount+offset));
 						messageCount++;
 						messageSB.setLength(0);
 					}
@@ -193,7 +237,7 @@ public class IndexMboxArchive {
 			}
 			// process last message
 			if (messageSB.length() > 0) {
-				executor.submit(prepareTask(messageSB.toString()));
+				executor.submit(prepareTask(messageSB.toString(), mailListName, mailListCategory, messageCount+offset));
 				messageCount++;
 				messageSB.setLength(0);
 			}
