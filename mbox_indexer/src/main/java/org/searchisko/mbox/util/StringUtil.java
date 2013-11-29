@@ -96,4 +96,27 @@ public class StringUtil {
 
         return info;
     }
+
+	/**
+	 * Deduce project name from mail list name and mail list category.
+	 * @param mailListName
+	 * @param mailListCategory
+	 * @return project name
+	 */
+	public static String getProjectName(String mailListName, String mailListCategory) {
+		if (mailListCategory == null || mailListCategory.trim().isEmpty()) {
+			return mailListName;
+		}
+		if (mailListName != null && !mailListName.trim().isEmpty()) {
+			String name = mailListName.trim();
+			String category = "-"+mailListCategory.trim();
+
+			if (name.length() > category.length()) {
+				if (name.endsWith(category)) {
+					return name.substring(0, name.length() - category.length());
+				}
+			}
+		}
+		return mailListName;
+	}
 }

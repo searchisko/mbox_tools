@@ -101,4 +101,18 @@ public class StringUtilTest {
 		assertEquals("lucene-java", info.getProject());
 		assertEquals("user", info.getListType());
 	}
+
+	@Test
+	public void testProjectName() {
+		assertEquals(null, StringUtil.getProjectName(null, ""));
+		assertEquals(" ", StringUtil.getProjectName(" ", null));
+		assertEquals(" ", StringUtil.getProjectName(" ", ""));
+
+		assertEquals("a-b", StringUtil.getProjectName("a-b", " "));
+		assertEquals("a-b", StringUtil.getProjectName("a-b", ""));
+		assertEquals("a-b", StringUtil.getProjectName("a-b", null));
+
+		assertEquals("a-b", StringUtil.getProjectName("a-b-c", "c"));
+		assertEquals("a-b_c", StringUtil.getProjectName("a-b_c", "c"));
+	}
 }
