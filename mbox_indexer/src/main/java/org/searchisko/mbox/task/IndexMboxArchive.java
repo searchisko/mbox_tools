@@ -133,6 +133,10 @@ public class IndexMboxArchive {
 	}
 
 	public static File getFile(String path) {
+		// try to get form fs
+		File file = new File(path);
+		if (file.exists()) { return file; }
+		// try to get from classpath
 		URL url = IndexMboxArchive.class.getClassLoader().getResource(path);
 		log.trace("file url: {}", url);
 		String filesPathAndName = url.getPath();

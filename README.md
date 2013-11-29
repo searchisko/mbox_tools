@@ -93,8 +93,9 @@ Get some mbox files:
     
 Given Searchisko is properly configured and running at `http://localhost:8080` you can parse and send mbox data to it using the following approach:
 
-    java -jar mailman_searchisko_integration.jar
-    --TBD--
+    java -jar mailman_searchisko_integration.jar \
+      ./201301.mbox 3 http://localhost:8080 /v1/rest/content \
+      jbossorg_mailing_list jbossorg jbossorgjbossorg lucene-java user
 
 ## More about "mbox" format
 
