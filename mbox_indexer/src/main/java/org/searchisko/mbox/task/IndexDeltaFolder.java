@@ -16,6 +16,7 @@ import org.searchisko.mbox.parser.MessageParser;
 import org.searchisko.mbox.util.ContentType;
 import org.searchisko.mbox.util.DirUtil;
 import org.searchisko.mbox.util.StringUtil;
+import org.searchisko.preprocessor.HTMLStripUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,8 +98,7 @@ public class IndexDeltaFolder {
 						sysContent = mail.first_text_message();
 					}
 					if (sysContent == null || sysContent.trim().isEmpty()) {
-						sysContent = mail.first_html_message();
-						sysContentContentType = ContentType.TEXT_HTML;
+						sysContent = HTMLStripUtil.stripHTML(mail.first_html_message());
 					}
 					metadata.put("sys_content", sysContent);
 					metadata.put("sys_content_content-type", sysContentContentType);
