@@ -243,6 +243,8 @@ public class IndexDeltaFolder {
 
 	public static void main(String[] args) {
 
+		log.info("Job started.");
+
 		if (args.length < 8) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Parameters: ");
@@ -324,6 +326,7 @@ public class IndexDeltaFolder {
 				executor.shutdownNow();
 				Thread.currentThread().interrupt();
 			}
-		}
+
+			log.info("Job finished.");}
 	}
 }

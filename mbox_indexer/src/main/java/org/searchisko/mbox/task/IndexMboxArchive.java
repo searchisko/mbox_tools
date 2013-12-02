@@ -149,6 +149,8 @@ public class IndexMboxArchive {
 	 */
 	public static void main(String[] args) {
 
+		log.info("Job started.");
+
 		if (args.length < 9) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Parameters: ");
@@ -220,6 +222,7 @@ public class IndexMboxArchive {
 		try {
 			mb = getMessageBuilder();
 
+			log.info("Opening file {}", mboxFilePath);
 			fr = new FileReader(getFile(mboxFilePath));
 			br = new BufferedReader(fr);
 
@@ -251,10 +254,8 @@ public class IndexMboxArchive {
 
 			Date end = new Date();
 
-			if (log.isInfoEnabled()) {
-				log.info("Processed {} mails in {} millis", messageCount, end.getTime() - start.getTime());
-				log.info("Tasks created: {}", taskCount.get());
-			}
+			log.info("Processed {} mails in {} millis", messageCount, end.getTime() - start.getTime());
+			log.debug("Tasks created: {}", taskCount.get());
 
 		} catch (IOException e) {
 			log.error("Error occurred", e);
@@ -288,6 +289,8 @@ public class IndexMboxArchive {
 				executor.shutdownNow();
 				Thread.currentThread().interrupt();
 			}
+
+			log.info("Job finished.");
 		}
 
 	}
