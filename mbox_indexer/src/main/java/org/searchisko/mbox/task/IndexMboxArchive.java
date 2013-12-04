@@ -46,6 +46,9 @@ import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
  * result up to `N+1` active parallel connections to target <code>host</code> (contrary, a typical HttpClient connection
  * pool does not allow for more then 2 parallel connection per <code>host</code>). So be sure your target service is
  * able to handle this number of incoming connections.
+ * <p/>
+ * The <code>numberOffset</code> is used if numbering of individual messages in the public archive does not start
+ * from 0. This can be typically result of Mailman admin mistake during archive rebuilding or similar issue.
  *
  * @author Lukáš Vlček (lvlcek@redhat.com)
  *
@@ -222,7 +225,7 @@ public class IndexMboxArchive {
 		try {
 			mb = getMessageBuilder();
 
-			log.info("Opening file {}", mboxFilePath);
+			log.info("Processing file {}", mboxFilePath);
 			fr = new FileReader(getFile(mboxFilePath));
 			br = new BufferedReader(fr);
 

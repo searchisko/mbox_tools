@@ -31,30 +31,31 @@ public class HTMLStripUtil {
 
 	private static String convertNodeToText(Element element)
 	{
+		if (element == null) return "";
 		final StringBuilder buffer = new StringBuilder();
 
 		new NodeTraversor(new NodeVisitor() {
-
 			@Override
 			public void head(Node node, int depth) {
 				if (node instanceof TextNode) {
 					TextNode textNode = (TextNode) node;
-					String text = textNode.text().replace('\u00A0', ' ').trim();
+					String text = textNode.text().replace('\u00A0', ' ').trim(); // non breaking space
 					if(!text.isEmpty())
 					{
 						buffer.append(text);
 						if (!text.endsWith(" ")) {
-							buffer.append(" ");
+							buffer.append(" "); // the last text gets appended the extra space too but we remove it later
 						}
 					}
 				}
 			}
-
 			@Override
-			public void tail(Node node, int depth) {
-			}
+			public void tail(Node node, int depth) {}
 		}).traverse(element);
-
-		return buffer.toString();
+		String output = buffer.toString();
+		if (output.endsWith(" ")) { // removal of the last extra space
+			output = output.substring(0, output.length() - 1);
+		}
+		return output;
 	}
 }
