@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static org.searchisko.http.client.Client.getConfig;
 import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
+import static org.searchisko.mbox.parser.MessageParser.getMessageHeaders;
 
 /**
  * Given a single mbox archive file (can be huge) we read it line by line and every time a complete message is red we
@@ -49,6 +50,11 @@ import static org.searchisko.mbox.parser.MessageParser.getMessageBuilder;
  * <p/>
  * The <code>numberOffset</code> is used if numbering of individual messages in the public archive does not start
  * from 0. This can be typically result of Mailman admin mistake during archive rebuilding or similar issue.
+ * Note this is an optional parameter but we need to provide it if we need to provide parameters following this. In such
+ * case we can use value 0.
+ * <p/>
+ * The <code>excludeMessageIdListPath</code> is used if we need to exclude specific messages from processing. This is
+ * an optional parameter.
  *
  * @author Lukáš Vlček (lvlcek@redhat.com)
  *
@@ -67,11 +73,14 @@ public class IndexMboxArchive {
 
 	/**
 	 *
-	 * @param message
+	 * @param messageString raw message as a string. Can be null.
+	 * @param message parsed message. Can be null.
+	 * @param mailListName
+	 * @param mailListCategory
 	 * @param cnt order # of this message within the single cumulative mbox archive file
 	 * @return
 	 */
-	private static Runnable prepareTask(final String message, final String mailListName, final String mailListCategory, final long cnt) {
+	private static Runnable prepareTask(final String messageString, final Message message, final String mailListName, final String mailListCategory, final long cnt) {
 		return new Runnable() {
 			@Override
 			public void run() {
@@ -79,9 +88,18 @@ public class IndexMboxArchive {
 				// 2. Send mail to the server, using blocking operation.
 				long taskId = taskCount.incrementAndGet();
 				log.debug("starting task [{}]", taskId);
+				if (messageString == null && message == null) {
+					log.error("Missing message source. Either raw message string or parsed message must be provided. Exit task {}", taskId);
+					return;
+				}
 				String messageId = null;
 				try {
-					Message msg = mb.parseMessage(new ByteArrayInputStream(message.getBytes()));
+					Message msg;
+					if (messageString != null) {
+						msg = mb.parseMessage(new ByteArrayInputStream(messageString.getBytes()));
+					} else {
+					    msg = message;
+					}
 
 					String document_url = getDocumentUrl(msg, mailListName, cnt);
 
@@ -136,7 +154,7 @@ public class IndexMboxArchive {
 	}
 
 	public static File getFile(String path) {
-		// try to get form fs
+		// try to get from fs
 		File file = new File(path);
 		if (file.exists()) { return file; }
 		// try to get from classpath
@@ -147,8 +165,40 @@ public class IndexMboxArchive {
 		return new File(filesPathAndName);
 	}
 
+	public static InputStream getInputStream(String filePath) throws FileNotFoundException {
+		InputStream is = null;
+		// try to get from fs
+		File f = new File(filePath);
+		if (f.exists()) is = new FileInputStream(f);
+		// try to get from classpath
+		if (is == null) {
+			is = IndexMboxArchive.class.getClassLoader().getResourceAsStream(filePath);
+		}
+		return is;
+	}
+
+
+	private static void processMessageBuffer(ThreadPoolExecutor executor, Properties excludeMessageIds, StringBuilder messageSB, String mailListName, String mailListCategory, int offset) throws IOException, MimeException {
+		if (messageSB.length() > 0) {
+			String messageString = messageSB.toString();
+			Message message = null;
+			boolean filterOut = false;
+			if (excludeMessageIds != null && !excludeMessageIds.isEmpty()) {
+				message = mb.parseMessage(new ByteArrayInputStream(messageString.getBytes()));
+				String messageId = getMessageHeaders(message).get(MessageParser.MessageHeader.MESSAGE_ID.toString()).getBody();
+				filterOut = excludeMessageIds.containsKey(messageId) ? true : false;
+				if (filterOut) log.info("skipping message [{}]", messageId);
+			}
+			if (!filterOut) {
+				executor.submit(prepareTask(messageString, message, mailListName, mailListCategory, messageCount+offset));
+				messageCount++;
+			}
+			messageSB.setLength(0);
+		}
+	}
+
 	/**
-	 * @param args
+	 * @param args see Class JavaDoc
 	 */
 	public static void main(String[] args) {
 
@@ -157,7 +207,7 @@ public class IndexMboxArchive {
 		if (args.length < 9) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Parameters: ");
-			sb.append("mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset]\n\n");
+			sb.append("mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset] [excludeMessageIdListPath]\n\n");
 			sb.append("mboxFilePath - path to mbox file\n");
 			sb.append("numberOfThreads - max threads used for processing tasks\n");
 			sb.append("serviceHost - service host URL\n");
@@ -167,7 +217,8 @@ public class IndexMboxArchive {
 			sb.append("password - Searchisko provider password (plaintext)\n");
 			sb.append("mailListName - name of mail_list, it is needed for document URL creation\n");
 			sb.append("mailListCategory - mail_list category [dev,users,announce,...etc]\n");
-			sb.append("numberOffset - public URL numbering offset\n");
+			sb.append("[numberOffset] - public URL numbering offset\n");
+			sb.append("[excludeMessageIdListPath] - path to properties file containing list of Message-Ids to skip");
 			System.out.println(sb.toString());
 			return;
 		}
@@ -187,6 +238,10 @@ public class IndexMboxArchive {
 		if (args.length > 9) {
 			offset = Integer.parseInt(args[9].trim());
 		}
+		String excludeMessageIdListPath = null;
+		if (args.length > 10) {
+			excludeMessageIdListPath = args[10].trim();
+		}
 
 		if (log.isDebugEnabled()) {
 			log.debug("CL parameters:");
@@ -196,6 +251,7 @@ public class IndexMboxArchive {
 			log.debug("mailListName: {}", mailListName);
 			log.debug("mailListCategory: {}", mailListCategory);
 			log.debug("offset: {}", offset);
+			log.debug("excludeMessageIdListPath: {}", excludeMessageIdListPath);
 			log.debug("----------------------------------");
 		}
 
@@ -212,7 +268,8 @@ public class IndexMboxArchive {
 				.password(password)
 		);
 
-		FileReader fr = null;
+		FileReader mboxFileReader = null;
+		FileReader excludedIdsFileReader = null;
 		BufferedReader br = null;
 
 		ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -226,8 +283,14 @@ public class IndexMboxArchive {
 			mb = getMessageBuilder();
 
 			log.info("Processing file {}", mboxFilePath);
-			fr = new FileReader(getFile(mboxFilePath));
-			br = new BufferedReader(fr);
+			mboxFileReader = new FileReader(getFile(mboxFilePath));
+			Properties excludeMessageIds = new Properties();
+			// Note that if there are any Message-Ids to be excluded then we have to parse all messages
+			// in the main thread before they are handed to another thread for processing.
+			if (excludeMessageIdListPath != null) {
+				excludeMessageIds.load(getInputStream(excludeMessageIdListPath));
+			}
+			br = new BufferedReader(mboxFileReader);
 
 			String line;
 			StringBuilder messageSB = new StringBuilder();
@@ -237,20 +300,12 @@ public class IndexMboxArchive {
 
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith("From ")) {
-					if (messageSB.length() > 0) {
-						executor.submit(prepareTask(messageSB.toString(), mailListName, mailListCategory, messageCount+offset));
-						messageCount++;
-						messageSB.setLength(0);
-					}
+					processMessageBuffer(executor, excludeMessageIds, messageSB, mailListName, mailListCategory, offset);
 				}
 				messageSB.append(line).append(separator);
 			}
 			// process last message
-			if (messageSB.length() > 0) {
-				executor.submit(prepareTask(messageSB.toString(), mailListName, mailListCategory, messageCount+offset));
-				messageCount++;
-				messageSB.setLength(0);
-			}
+			processMessageBuffer(executor, excludeMessageIds, messageSB, mailListName, mailListCategory, offset);
 
 			executor.shutdown();
 			executor.awaitTermination(10L, TimeUnit.SECONDS);
@@ -277,12 +332,21 @@ public class IndexMboxArchive {
 				}
 			}
 
-			if (fr != null) {
+			if (mboxFileReader != null) {
 				try {
-					fr.close();
+					mboxFileReader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
-					log.error("Error closing FileReader", e);
+					log.error("Error closing mboxFileReader", e);
+				}
+			}
+
+			if (excludedIdsFileReader != null) {
+				try {
+					excludedIdsFileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					log.error("Error closing excludedIdsFileReader", e);
 				}
 			}
 
@@ -295,6 +359,5 @@ public class IndexMboxArchive {
 
 			log.info("Job finished.");
 		}
-
 	}
 }

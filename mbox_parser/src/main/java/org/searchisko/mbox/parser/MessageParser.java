@@ -287,7 +287,8 @@ public class MessageParser {
     }
 
     /**
-     * Extract only those header fields that are listed in MBoxParserUtil#headers
+     * Extract only those header fields that are listed in MessageHeader
+	 * All keys are lower-cased.
      *
      * @param message
      * @return

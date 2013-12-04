@@ -49,7 +49,7 @@ Normal mode is used to parse and push content of a single cumulative mbox archiv
 
     java -jar mailman_searchisko_integration.jar -?
     
-    # Parameters: mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset]
+    # Parameters: mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset] [excludeMessageIdListPath]
     #
     # mboxFilePath - path to mbox file
     # numberOfThreads - max threads used for processing tasks
@@ -59,8 +59,9 @@ Normal mode is used to parse and push content of a single cumulative mbox archiv
     # username - Searchisko provider username (plaintext)
     # password - Searchisko provider password (plaintext)
     # mailListName - name of mail_list, it is needed for document URL creation
-    # mailListCategorygory - mail_list category [dev,users,announce,...etc]
-    # numberOffset - public URL numbering offset 
+    # mailListCategory - mail_list category [dev,users,announce,...etc]
+    # [numberOffset] - public URL numbering offset
+    # [excludeMessageIdListPath] - path to properties file containing list of Message-Ids to skip
 
 Consult Javadoc for parameters details: [IndexMBoxArchive.java](mbox_indexer/src/main/java/org/searchisko/mbox/task/IndexMboxArchive.java).
     

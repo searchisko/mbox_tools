@@ -157,26 +157,34 @@ public class IndexMboxArchiveTest {
 
     }
 
-	/*
-    @Test
-    public void indexIntoDCP() {
+	/**
+	 * Parsing three messages but only one is indexed. The rest is filtered out.
+	 */
+	@Test
+	public void shouldFilterOutMessageIds() {
 
-//        String mboxFilePath = "mboxArchive/lucene-java-user-200703.mbox";
-        String mboxFilePath = "mbox/multipart/weld-dev-01.mbox";
-//        String mboxFilePath = "mbox/multipart/wise-users-01.mbox"; //author <>
-        int numberOfThreads = 4;
-        String serviceHost = "http://10.34.2.178:8080"; // non-public
-        String servicePath = "/v1/rest/content";
-        String contentType = "jbossorg_mailing_list"; // "sys_content_type"
-        String username = "jbossorg";
-        String password = "jbossorgjbossorg";
-        String mailListName = "weld";
-        String mailListCategory = "dev";
+		stubFor(post(urlMatching("/service4/ct/.+"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withFixedDelay(200) // simulate a small delay
+						.withHeader("Content-Type", "application/json")
+						.withBody("{\"foo\":\"bar\"}")));
 
-        IndexMboxArchive.main(new String[]{mboxFilePath, Integer.toString(numberOfThreads),
-                serviceHost, servicePath, contentType, username, password,
-                mailListName, mailListCategory});
+		String path = "mboxArchive"+File.separator+"simpleFilter.mbox";
+		String filteredIdPath = "mboxArchive"+File.separator+"filteredMessageId.properties";
+		int numberOfThreads = 2;
+		String serviceHost = "http://localhost:8089";
+		String servicePath = "/service4";
+		String contentType = "ct";
+		String username = "john.doe";
+		String password = "not_defined";
+		String mailListName = "aa";
+		String mailListCategory = "bb";
 
-    }
-    */
+		IndexMboxArchive.main(new String[]{path, Integer.toString(numberOfThreads),
+				serviceHost, servicePath, contentType, username, password,
+				mailListName, mailListCategory, "0", filteredIdPath});
+
+		verify(1, postRequestedFor(urlMatching("/service4/ct/.+")));
+	}
 }
