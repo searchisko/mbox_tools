@@ -1,5 +1,6 @@
 {
-    "author" : "Galder Zamarreño <galder@redhat.com>",
+    "author_name" : "Galder Zamarreño",
+    "author_email" : "galder@redhat.com",
     "to" : [ "infinispan -Dev List <infinispan-dev@lists.jboss.org>" ],
     "subject_original" : "Re: [infinispan-dev] Feedback from Mobicents Cluster Framework on        top of Infinispan 5.0 Alpha1",
     "subject" : "Feedback from Mobicents Cluster Framework on top of Infinispan 5.0 Alpha1",

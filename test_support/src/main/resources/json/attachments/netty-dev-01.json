@@ -1,5 +1,6 @@
 {
-    "author" : "Michael McGrady <mmcgrady@topiatechnology.com>",
+    "author_name" : "Michael McGrady",
+    "author_email" : "mmcgrady@topiatechnology.com",
     "to" : [ "Netty -Dev List <netty-dev@lists.jboss.org>" ],
     "subject_original" : "ExternalResourceReleasable",
     "subject" : "ExternalResourceReleasable",

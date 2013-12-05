@@ -1,5 +1,6 @@
 {
-    "author" : "Galder Zamarreno <galder.zamarreno@redhat.com>",
+    "author_name" : "Galder Zamarreno",
+    "author_email" : "galder.zamarreno@redhat.com",
     "to" : [ "jboss-cluster-dev@lists.jboss.org" ],
     "subject_original" : "[jboss-cluster-dev] booo mooo",
     "subject" : "booo mooo",

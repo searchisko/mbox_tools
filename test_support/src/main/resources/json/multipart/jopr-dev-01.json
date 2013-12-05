@@ -1,5 +1,6 @@
 {
-    "author" : "John Mazzitelli <mazz@redhat.com>",
+    "author_name" : "John Mazzitelli",
+    "author_email" : "mazz@redhat.com",
     "to" : [ "jopr-dev <jopr-dev@lists.jboss.org>" ],
     "subject_original" : "[jopr-dev] order of tabs",
     "subject" : "order of tabs",

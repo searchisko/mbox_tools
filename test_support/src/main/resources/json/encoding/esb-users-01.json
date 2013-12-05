@@ -1,5 +1,6 @@
 {
-    "author" : "钱宇虹 <yhqian99@163.com>",
+    "author_name" : "钱宇虹",
+    "author_email" : "yhqian99@163.com",
     "to" : [ "Jeff Yu <cyu@redhat.com>" ],
     "subject_original" : "[esb-users] Re:Re: jbossesb project wizard",
     "subject" : "jbossesb project wizard",

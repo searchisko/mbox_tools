@@ -1,5 +1,6 @@
 {
-    "author" : "Wolfgang Laun <wolfgang.laun@gmail.com>",
+    "author_name" : "Wolfgang Laun",
+    "author_email" : "wolfgang.laun@gmail.com",
     "to" : [ "Rules Users List <rules-users@lists.jboss.org>" ],
     "subject_original" : "Re: [rules-users] mvel strict-mode not applied in drools 5.3.1.Final",
     "subject" : "mvel strict-mode not applied in drools 5.3.1.Final",

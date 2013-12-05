@@ -1,5 +1,6 @@
 {
-    "author" : "jiacc@gillion.com.cn <jiacc@gillion.com.cn>",
+    "author_name" : "jiacc@gillion.com.cn",
+    "author_email" : "jiacc@gillion.com.cn",
     "to" : [ "Burkhard Vogel <Burkhard.Vogel@modinter.com.ec>" ],
     "subject_original" : "Re: [jbpm-users]        how to add a self-defined property for [usertask]node in eclipse-plugin editor.",
     "subject" : "how to add a self-defined property for ode in eclipse-plugin editor.",

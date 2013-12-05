@@ -1,5 +1,6 @@
 {
-    "author" : "Max Rydahl Andersen <max.andersen@gmail.com>",
+    "author_name" : "Max Rydahl Andersen",
+    "author_email" : "max.andersen@gmail.com",
     "to" : [ "jbosstools-dev jbosstools-dev <jbosstools-dev@lists.jboss.org>" ],
     "subject_original" : "[jbosstools-dev] rename of plugins without warning ...",
     "subject" : "rename of plugins without warning ...",

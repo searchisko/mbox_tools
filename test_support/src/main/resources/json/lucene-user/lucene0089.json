@@ -1,5 +1,6 @@
 {
-    "author" : "mark harwood <markharw00d@yahoo.co.uk>",
+    "author_name" : "mark harwood",
+    "author_email" : "markharw00d@yahoo.co.uk",
     "to" : [ "java-user@lucene.apache.org" ],
     "subject_original" : "Re: SpanQueries in Luke",
     "subject" : "SpanQueries in Luke",

@@ -1,5 +1,6 @@
 {
-    "author" : "Alexandre LourenÃ§o <do-not-reply@jboss.com>",
+    "author_name" : "Alexandre LourenÃ§o",
+    "author_email" : "do-not-reply@jboss.com",
     "to" : [ "Wise Users <wise-users@lists.jboss.org>" ],
     "subject_original" : "[wise-users] [Wise Development] New message: \"cant make wise to        work\"",
     "subject" : "New message: \"cant make wise to work\"",

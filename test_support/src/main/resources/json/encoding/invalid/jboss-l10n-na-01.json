@@ -1,5 +1,6 @@
 {
-    "author" : "Bruno Leonardo Gonçalves <brunolmfg@gmail.com>",
+    "author_name" : "Bruno Leonardo Gonçalves",
+    "author_email" : "brunolmfg@gmail.com",
     "to" : [ "jboss-l10n@lists.jboss.org" ],
     "subject_original" : "[jboss-l10n] Brazilian Portuguese Translation of Weld Reference        Guide: Completed!",
     "subject" : "Brazilian Portuguese Translation of Weld Reference Guide: Completed!",

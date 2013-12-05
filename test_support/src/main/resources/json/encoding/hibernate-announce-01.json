@@ -1,5 +1,6 @@
 {
-    "author" : "Samael Cui <crazyasp@gmail.com>",
+    "author_name" : "Samael Cui",
+    "author_email" : "crazyasp@gmail.com",
     "to" : [ "hibernate-announce@lists.jboss.org" ],
     "subject_original" : "[hibernate-announce] a question to use <any> tag",
     "subject" : "a question to use <any> tag",

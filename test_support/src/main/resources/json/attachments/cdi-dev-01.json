@@ -1,5 +1,6 @@
 {
-    "author" : "Pete Muir <pmuir@redhat.com>",
+    "author_name" : "Pete Muir",
+    "author_email" : "pmuir@redhat.com",
     "to" : [ "cdi-dev <cdi-dev@lists.jboss.org>" ],
     "subject_original" : "[cdi-dev] Fwd: JSR-346 Public Review Draft",
     "subject" : "JSR-346 Public Review Draft",

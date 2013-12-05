@@ -51,7 +51,8 @@ public class MessageHeaderParsingTest extends MessageTestSupport {
         assertEquals(mail.message_id_original(), "<7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>");
         assertEquals(mail.message_id(), "<7EC53B0B-B47C-45E5-A9E8-46B48FCE394E@redhat.com>clientSuffix");
 
-        assertEquals(mail.author(), "Galder Zamarreño <galder@redhat.com>");
+        assertEquals(mail.author_name(), "Galder Zamarreño");
+        assertEquals(mail.author_email(), "galder@redhat.com");
 
         assertThat(mail.to().length, is(1));
         assertThat(Arrays.asList(mail.to()), hasItems("infinispan -Dev List <infinispan-dev@lists.jboss.org>"));

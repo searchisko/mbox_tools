@@ -133,7 +133,8 @@ public class MessageParser {
      */
     public static Mail parse(Message message, /*Map<String, String> data,*/ String idsuffix) throws MessageParseException {
 
-        String author = null;
+        String author_name = null;
+        String author_email = null;
         String[] to = null;
         String subject_original = null;
         String subject = null;
@@ -161,7 +162,9 @@ public class MessageParser {
             Field f = headers.get(fieldName);
             switch (MessageHeader.getValue(f.getName())) {
                 case FROM:
-                    author = extractValue((MailboxListField)f);
+					Author author = extractValue((MailboxListField)f);
+                    author_name = author.name;
+                    author_email = author.email;
                     break;
                 case TO:
                     List<String> tos = new ArrayList<>();
@@ -269,7 +272,8 @@ public class MessageParser {
                 to,
                 subject_original,
                 subject,
-                author,
+                author_name,
+                author_email,
                 date,
                 in_reply_to,
                 references,
@@ -304,18 +308,29 @@ public class MessageParser {
         return h;
     }
 
+	private static class Author {
+		protected Author(String name, String email) {
+			this.name = name;
+			this.email = email;
+		}
+		protected String name;
+		protected String email;
+	}
+
     /**
-     *
+     * Parse field and return #Author instance. If it is not possible to split (or identify) name and email parts
+	 * in the incoming field then returned Author instance can have name field null and email contains the most of
+	 * the content extracted from the field.
      * @param field
      * @return
      */
-    public static String extractValue(MailboxListField field) {
+    public static Author extractValue(MailboxListField field) {
         if (field.getMailboxList() == null) {
-            return field.getBody();
+            return new Author(null, field.getBody());
         }
         String name = field.getMailboxList().get(0).getName();
         String address = field.getMailboxList().get(0).getAddress();
-        return prepareAddress(name, address);
+        return new Author(name, address);
     }
 
     /**

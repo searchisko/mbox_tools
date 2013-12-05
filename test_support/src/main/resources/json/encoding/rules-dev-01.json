@@ -1,5 +1,6 @@
 {
-    "author" : "Lukáš Petrovický <lpetrovi@redhat.com>",
+    "author_name" : "Lukáš Petrovický",
+    "author_email" : "lpetrovi@redhat.com",
     "to" : [ "rules-dev@lists.jboss.org", "jbpm-dev@lists.jboss.org" ],
     "subject_original" : "Re: [rules-dev] POM changes for AS7.1.2 BOM",
     "subject" : "POM changes for AS7.1.2 BOM",

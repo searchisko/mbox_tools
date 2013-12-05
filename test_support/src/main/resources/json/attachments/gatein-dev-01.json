@@ -1,5 +1,6 @@
 {
-    "author" : "Dimitri BAELI <dbaeli@gmail.com>",
+    "author_name" : "Dimitri BAELI",
+    "author_email" : "dbaeli@gmail.com",
     "to" : [ "Arnaud HERITIER <aheritier@gmail.com>" ],
     "subject_original" : "Re: [gatein-dev] Compilation hell on Windows",
     "subject" : "Compilation hell on Windows",

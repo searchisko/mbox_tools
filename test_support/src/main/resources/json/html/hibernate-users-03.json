@@ -1,5 +1,6 @@
 {
-    "author" : "Heping Zhang <phoenix.zhp@gmail.com>",
+    "author_name" : "Heping Zhang",
+    "author_email" : "phoenix.zhp@gmail.com",
     "to" : [ "hibernate-users@lists.jboss.org" ],
     "subject_original" : "[hibernate-users] how can I change the order of the classes handed        to AnnotationConfiguration",
     "subject" : "how can I change the order of the classes handed to AnnotationConfiguration",

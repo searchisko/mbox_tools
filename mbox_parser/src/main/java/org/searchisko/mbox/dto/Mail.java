@@ -20,7 +20,8 @@ public class Mail {
     private final String[] to;
     private final String subject_original;
     private final String subject;
-    private final String author;
+	private final String author_name;
+    private final String author_email;
     private final String date;
 
     private final String in_reply_to;
@@ -41,7 +42,7 @@ public class Mail {
     private final Integer message_attachments_cnt;
 
     public Mail(final String messageId, final String message_id_original, final String[] to, final String subject_original,
-                    final String subject, final String author, final String date, final String in_reply_to,
+                    final String subject, final String author_name, String author_email, final String date, final String in_reply_to,
                     final String[] references, final String message_snippet, final String first_text_message,
                     final String first_text_message_without_quotes, final String first_html_message, final String[] text_messages,
                     final Integer text_messages_cnt, final String[] html_messages, final Integer html_messages_cnt,
@@ -52,7 +53,8 @@ public class Mail {
         this.to = to;
         this.subject_original = subject_original;
         this.subject = subject;
-        this.author = author;
+        this.author_name = author_name;
+        this.author_email = author_email;
         this.date = date;
         this.in_reply_to = in_reply_to;
         this.references = references;
@@ -74,7 +76,8 @@ public class Mail {
     public String[] to() { return to; }
     public String subject_original() { return subject_original; }
     public String subject() { return subject; }
-    public String author() { return author; }
+    public String author_name() { return author_name; }
+    public String author_email() { return author_email; }
     public String dateUTC() { return date; }
     public String in_reply_to() { return in_reply_to; }
     public String[] references() { return references; }

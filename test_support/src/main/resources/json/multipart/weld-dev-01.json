@@ -1,5 +1,6 @@
 {
-    "author" : "Stuart Douglas <stuart.w.douglas@gmail.com>",
+    "author_name" : "Stuart Douglas",
+    "author_email" : "stuart.w.douglas@gmail.com",
     "to" : [ "Marko Lukša <marko.luksa@gmail.com>" ],
     "subject_original" : "Re: [weld-dev] Bridge methods & proxies & interceptors",
     "subject" : "Bridge methods & proxies & interceptors",

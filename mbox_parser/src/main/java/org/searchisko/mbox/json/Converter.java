@@ -78,7 +78,8 @@ public class Converter {
                 generator.useDefaultPrettyPrinter();
             }
 
-            if (mail.author() != null && !hasKey(metadata, "author")) generator.writeStringField("author", mail.author());
+            if (mail.author_name() != null && !hasKey(metadata, "author_name")) generator.writeStringField("author_name", mail.author_name());
+            if (mail.author_email() != null && !hasKey(metadata, "author_email")) generator.writeStringField("author_email", mail.author_email());
 
             if (mail.to() != null && !hasKey(metadata, "to")) {
                 generator.writeArrayFieldStart("to");
