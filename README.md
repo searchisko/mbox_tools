@@ -1,4 +1,4 @@
-# "mbox" Integration
+# mbox Tools
 
 Collection of tools that can be used to:
 
@@ -16,8 +16,8 @@ We will show how to build a command line tool that is used to run sequence of st
 
 ### Build from source code (Java 1.7 required)
 
-    git clone https://github.com/searchisko/mbox_integration;
-    cd mbox_integration;
+    git clone https://github.com/searchisko/mbox_tools;
+    cd mbox_tools;
     mvn clean package;
     
 Note: final artefacts will be soon available in mvn repo as well.
@@ -27,13 +27,13 @@ Note: final artefacts will be soon available in mvn repo as well.
 Copy final artefact to `~/mbox_tools` folder and unzip it:
 
     mkdir ~/mbox_tools;
-    cp assembly/target/mailman_searchisko_integration-bin.zip ~/mbox_tools;
+    cp assembly/target/mailman_searchisko_tools-bin.zip ~/mbox_tools;
     cd ~/mbox_tools;
-    unzip mailman_searchisko_integration-bin.zip;
+    unzip mailman_searchisko_tools-bin.zip;
     
 ### Run it
 
-    java -jar mailman_searchisko_integration.jar
+    java -jar mailman_searchisko_tools.jar
     
     # Invalid parameters!
 	# Usage: Starter [ -delta | other_params ]
@@ -47,7 +47,7 @@ This tool has two execution modes:
 
 Normal mode is used to parse and push content of a single cumulative mbox archive file into Searchisko. This is used for (re-)indexing from Mailman archive.
 
-    java -jar mailman_searchisko_integration.jar -?
+    java -jar mailman_searchisko_tools.jar -?
     
     # Parameters: mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset] [excludeMessageIdListPath]
     #
@@ -69,7 +69,7 @@ Consult Javadoc for parameters details: [IndexMBoxArchive.java](mbox_indexer/src
 
 Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that have been added to the Mailman archive since some time. Typically, this job is started from cron every few minutes. It requires Mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple Mailman plugin for this).
 
-    java -jar mailman_searchisko_integration.jar -delta -?
+    java -jar mailman_searchisko_tools.jar -delta -?
     
     # Parameters: pathToDeltaArchive numberOfThreads serviceHost servicePath contentType username password activeMailListsConf
     # 
@@ -94,11 +94,11 @@ Get some mbox files:
     
 Given Searchisko is properly configured and running at `http://localhost:8080` you can parse and send mbox data to it using the following approach:
 
-    java -jar mailman_searchisko_integration.jar \
+    java -jar mailman_searchisko_tools.jar \
       ./201301.mbox 3 http://localhost:8080 /v1/rest/content \
       jbossorg_mailing_list jbossorg jbossorgjbossorg lucene-java user
 
-## More about "mbox" format
+## More about mbox format
 
 mbox ([RFC 4155](http://tools.ietf.org/html/rfc4155)) stores mailbox messages in their original
 Internet Message ([RFC 2822](http://tools.ietf.org/html/rfc2822)) format, usually in files directly accessible to users.
