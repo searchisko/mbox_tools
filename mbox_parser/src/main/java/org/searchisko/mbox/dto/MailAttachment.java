@@ -8,6 +8,8 @@ package org.searchisko.mbox.dto;
 
 /**
  * Represents parsed message attachment.
+ *
+ * @author Lukáš Vlček (lvlcek@redhat.com)
  */
 public class MailAttachment {
 
