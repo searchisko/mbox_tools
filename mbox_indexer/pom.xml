@@ -12,39 +12,37 @@
     <artifactId>mbox_indexer</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.searchisko</groupId>
             <artifactId>mbox_parser</artifactId>
         </dependency>
-
 		<dependency>
 			<groupId>org.searchisko</groupId>
 			<artifactId>test_support</artifactId>
 		</dependency>
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
             <version>4.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.7.3</version>
         </dependency>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+		</dependency>
 
         <!-- logging -->
         <dependency>

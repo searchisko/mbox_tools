@@ -16,9 +16,9 @@ We will show how to build a command line tool that is used to run sequence of st
 
 ### Build from source code (Java 1.7 required)
 
-    git clone https://github.com/searchisko/mbox_tools;
-    cd mbox_tools;
-    mvn clean package;
+    $ git clone https://github.com/searchisko/mbox_tools;
+    $ cd mbox_tools;
+    $ mvn clean package;
     
 Note: final artefacts will be soon available in mvn repo as well.
 
@@ -26,17 +26,17 @@ Note: final artefacts will be soon available in mvn repo as well.
 
 Copy final artefact to `~/mbox_tools` folder and unzip it:
 
-    mkdir ~/mbox_tools;
-    cp assembly/target/mailman_searchisko_tools-bin.zip ~/mbox_tools;
-    cd ~/mbox_tools;
-    unzip mailman_searchisko_tools-bin.zip;
+    $ mkdir ~/mbox_tools;
+    $ cp assembly/target/mailman_searchisko_integration-bin.zip ~/mbox_tools;
+    $ cd ~/mbox_tools;
+    $ unzip mailman_searchisko_integration-bin.zip;
     
 ### Run it
 
-    java -jar mailman_searchisko_tools.jar
+    $ java -jar mailman_searchisko_integration.jar
     
-    # Invalid parameters!
-	# Usage: Starter [ -delta | other_params ]
+    Invalid parameters!
+    Usage: [ -delta ] options...
 
 This tool has two execution modes:
 
@@ -47,21 +47,25 @@ This tool has two execution modes:
 
 Normal mode is used to parse and push content of a single cumulative mbox archive file into Searchisko. This is used for (re-)indexing from Mailman archive.
 
-    java -jar mailman_searchisko_tools.jar -?
+    $ java -jar mailman_searchisko_integration.jar -?
     
-    # Parameters: mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset] [excludeMessageIdListPath]
-    #
-    # mboxFilePath - path to mbox file
-    # numberOfThreads - max threads used for processing tasks
-    # serviceHost - service host URL
-    # servicePath - service path
-    # contentType - Searchisko provider sys_content_type
-    # username - Searchisko provider username (plaintext)
-    # password - Searchisko provider password (plaintext)
-    # mailListName - name of mail_list, it is needed for document URL creation
-    # mailListCategory - mail_list category [dev,users,announce,...etc]
-    # [numberOffset] - public URL numbering offset
-    # [excludeMessageIdListPath] - path to properties file containing list of Message-Ids to skip
+    java application.jar [options...] arguments...
+     -contentType VAL                 : Searchisko provider sys_content_type
+     -excludeMessageIdListPath <path> : [optional] path to properties file
+                                        containing list of Message-Ids to skip
+     -mailListCategory VAL            : mail_list category [dev,users,announce,...et
+                                        c]
+     -mailListName VAL                : name of mail_list, it is needed for
+                                        document URL creation
+     -mboxFilePath <path>             : path to mbox file
+     -numberOfThreads N               : max threads used for processing tasks
+     -numberOffset N                  : [optional] public URL numbering offset
+     -password VAL                    : Searchisko provider password (plaintext)
+     -serviceHost URI                 : service host URL
+     -servicePath VAL                 : service path
+     -username VAL                    : Searchisko provider username (plaintext)
+    
+      Example: java application.jar  -contentType VAL -excludeMessageIdListPath <path> -mailListCategory VAL -mailListName VAL -mboxFilePath <path> -numberOfThreads N -numberOffset N -password VAL -serviceHost URI -servicePath VAL -username VAL
 
 Consult Javadoc for parameters details: [IndexMBoxArchive.java](mbox_indexer/src/main/java/org/searchisko/mbox/task/IndexMboxArchive.java).
     
@@ -69,18 +73,20 @@ Consult Javadoc for parameters details: [IndexMBoxArchive.java](mbox_indexer/src
 
 Delta mode is used to index individual message files from given folder and delete those message files that were processed. This is used for indexing of new mails that have been added to the Mailman archive since some time. Typically, this job is started from cron every few minutes. It requires Mailman to mirror a copy of every new incoming mail into specific folder (one can implement a simple Mailman plugin for this).
 
-    java -jar mailman_searchisko_tools.jar -delta -?
+    $ java -jar mailman_searchisko_integration.jar -delta
     
-    # Parameters: pathToDeltaArchive numberOfThreads serviceHost servicePath contentType username password activeMailListsConf
-    # 
-    # pathToDeltaArchive - path to folder with delta mbox files
-    # numberOfThreads - max threads used for processing tasks
-    # serviceHost - service host URL
-    # servicePath - service path
-    # contentType - Searchisko provider sys_content_type
-    # username - Searchisko provider username (plaintext)
-    # password - Searchisko provider password (plaintext)
-    # activeMailListsConf - conf file with list of mail lists to include into delta indexing (other files are still deleted!)
+    java application.jar [options...] arguments...
+     -activeMailListsConf VAL : conf file with list of mail lists to include into
+                                delta indexing (other files are still deleted!)
+     -contentType VAL         : Searchisko provider sys_content_type
+     -numberOfThreads N       : max threads used for processing tasks
+     -password VAL            : Searchisko provider password (plaintext)
+     -pathToDeltaArchive VAL  : path to folder with delta mbox files
+     -serviceHost URI         : service host URL
+     -servicePath VAL         : service path
+     -username VAL            : Searchisko provider username (plaintext)
+    
+      Example: java application.jar  -activeMailListsConf VAL -contentType VAL -numberOfThreads N -password VAL -pathToDeltaArchive VAL -serviceHost URI -servicePath VAL -username VAL
     
 Consult Javadoc for parameters details: [IndexDeltaFolder.java](mbox_indexer/src/main/java/org/searchisko/mbox/task/IndexDeltaFolder.java).
     
@@ -90,13 +96,20 @@ The following is example how to build and use prepared command line utility to r
     
 Get some mbox files:
 
-    wget http://mail-archives.apache.org/mod_mbox/lucene-java-user/201301.mbox
+    $ wget http://mail-archives.apache.org/mod_mbox/lucene-java-user/201301.mbox
     
 Given Searchisko is properly configured and running at `http://localhost:8080` you can parse and send mbox data to it using the following approach:
 
-    java -jar mailman_searchisko_tools.jar \
-      ./201301.mbox 3 http://localhost:8080 /v1/rest/content \
-      jbossorg_mailing_list jbossorg jbossorgjbossorg lucene-java user
+    $ java -jar mailman_searchisko_integration.jar \
+      -mboxFilePath ./201301.mbox \
+      -numberOfThreads 3 \
+      -serviceHost http://localhost:8080 \
+      -servicePath /v1/rest/content \
+      -contentType jbossorg_mailing_list \
+      -username jbossorg \
+      -password jbossorgjbossorg \
+      -mailListName lucene-java \
+      -mailListCategory user
 
 ## More about mbox format
 

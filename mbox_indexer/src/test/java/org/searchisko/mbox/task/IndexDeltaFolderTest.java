@@ -73,19 +73,19 @@ public class IndexDeltaFolderTest {
 			}
 		}
 
-		PrintStream origOut = System.out;
+		PrintStream origOut = System.err;
 		PrintStream interceptor = new Interceptor(origOut);
-		System.setOut(interceptor);
+		System.setErr(interceptor);
 
 		// no args
 		IndexDeltaFolder.main(new String[]{""});
-		assertThat(sb.toString(), containsString("Parameters: "));
+		assertThat(sb.toString(), containsString("Example: "));
 
 		// not enough args
 		IndexDeltaFolder.main(new String[]{"1","2","3","4","5","6","7"});
-		assertThat(sb.toString(), containsString("Parameters: "));
+		assertThat(sb.toString(), containsString("Example: "));
 
-		System.setOut(origOut);
+		System.setErr(origOut);
 	}
 
 	@Test
@@ -99,6 +99,7 @@ public class IndexDeltaFolderTest {
 						.withBody("{\"foo\":\"bar\"}")));
 
 		String tmpPath = path+File.separator+tmpDir;
+		String fileClassPath = getClass().getClassLoader().getResource(tmpPath).getFile();
 		int numberOfThreads = 2;
 		String serviceHost = "http://localhost:8089";
 		String servicePath = "/service1";
@@ -106,10 +107,17 @@ public class IndexDeltaFolderTest {
 		String username = "john.doe";
 		String password = "not_defined";
 		String activeMailListsConf = "deltaTask"+File.separator+"allowedLists.properties";
+		String activeMailListsConfClassPath = getClass().getClassLoader().getResource(activeMailListsConf).getFile();
 
-		IndexDeltaFolder.main(new String[]{tmpPath, Integer.toString(numberOfThreads),
-				serviceHost, servicePath, contentType, username, password,
-				activeMailListsConf
+		IndexDeltaFolder.main(new String[]{
+				IndexDeltaFolderOptions.PATH_TO_DELTA_ARCHIVE, fileClassPath,
+				IndexDeltaFolderOptions.NUMBER_OF_THREADS, Integer.toString(numberOfThreads),
+				IndexDeltaFolderOptions.SERVICE_HOST, serviceHost,
+				IndexDeltaFolderOptions.SERVICE_PATH, servicePath,
+				IndexDeltaFolderOptions.CONTENT_TYPE, contentType,
+				IndexDeltaFolderOptions.USERNAME, username,
+				IndexDeltaFolderOptions.PASSWORD, password,
+				IndexDeltaFolderOptions.ACTIVE_MAIL_LISTS_CONF, activeMailListsConfClassPath
 		});
 
 		// verify all files from copy folder have been deleted

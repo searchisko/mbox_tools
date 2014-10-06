@@ -24,7 +24,7 @@ public class Starter {
         if (args.length < 1) {
             StringBuilder sb = new StringBuilder();
             sb.append("Invalid parameters!\n");
-            sb.append("Usage: Starter [ -delta | other_params ]\n");
+            sb.append("Usage: [ -delta ] options...\n");
             System.out.println(sb.toString());
             return;
         }

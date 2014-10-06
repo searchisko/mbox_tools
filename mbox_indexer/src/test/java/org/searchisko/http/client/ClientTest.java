@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.searchisko.http.client.Client.getConfig;
@@ -27,7 +29,7 @@ public class ClientTest {
     public static WireMockClassRule wireMockRule = new WireMockClassRule(8089);
 
     @Test
-    public void shouldNotFail() throws IOException {
+    public void shouldNotFail() throws IOException, URISyntaxException {
 
         stubFor(post(urlMatching("/service/ct/[0-9]+"))
                 .willReturn(aResponse()
@@ -35,7 +37,7 @@ public class ClientTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody("{\"foo\":\"bar\"}")));
 
-        Client client = new Client(getConfig().servicePath("/service").contentType("ct"));
+        Client client = new Client(getConfig().serviceHost(new URI("http://localhost:8089")).servicePath("/service").contentType("ct"));
 
         client.post("{\"foo\":\"1\"}", "1");
         client.post("{\"foo\":\"2\"}", "2");

@@ -204,160 +204,129 @@ public class IndexMboxArchive {
 
 		log.info("Job started.");
 
-		if (args.length < 9) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Parameters: ");
-			sb.append("mboxFilePath numberOfThreads serviceHost servicePath contentType username password mailListName mailListCategory [numberOffset] [excludeMessageIdListPath]\n\n");
-			sb.append("mboxFilePath - path to mbox file\n");
-			sb.append("numberOfThreads - max threads used for processing tasks\n");
-			sb.append("serviceHost - service host URL\n");
-			sb.append("servicePath - service path\n");
-			sb.append("contentType - Searchisko provider sys_content_type\n");
-			sb.append("username - Searchisko provider username (plaintext)\n");
-			sb.append("password - Searchisko provider password (plaintext)\n");
-			sb.append("mailListName - name of mail_list, it is needed for document URL creation\n");
-			sb.append("mailListCategory - mail_list category [dev,users,announce,...etc]\n");
-			sb.append("[numberOffset] - public URL numbering offset\n");
-			sb.append("[excludeMessageIdListPath] - path to properties file containing list of Message-Ids to skip");
-			System.out.println(sb.toString());
-			return;
-		}
+		IndexMboxArchiveOptions options = new IndexMboxArchiveOptions();
+		options.parseArgs(args);
+		if (options.isValid()) {
 
-		String mboxFilePath = args[0].trim();
-		int numberOfThreads = Integer.parseInt(args[1].trim());
+			int offset = options.getNumberOffset() == null ? 0 : options.getNumberOffset();
+			File excludeMessageIdListPath = options.getExcludeMessageIdListPath() == null ? null : options.getExcludeMessageIdListPath();
 
-		String serviceHost = args[2].trim();
-		String servicePath = args[3].trim();
-		String contentType = args[4].trim();
-		String username = args[5].trim();
-		String password = args[6].trim();
-
-		String mailListName = args[7].trim();
-		String mailListCategory = args[8].trim();
-		int offset = 0;
-		if (args.length > 9) {
-			offset = Integer.parseInt(args[9].trim());
-		}
-		String excludeMessageIdListPath = null;
-		if (args.length > 10) {
-			excludeMessageIdListPath = args[10].trim();
-		}
-
-		if (log.isDebugEnabled()) {
-			log.debug("CL parameters:");
-			log.debug("----------------------------------");
-			log.debug("mboxFilePath: {}", mboxFilePath);
-			log.debug("numberOfThreads: {} (avail_cores: {})", new Object[]{numberOfThreads, Runtime.getRuntime().availableProcessors()});
-			log.debug("mailListName: {}", mailListName);
-			log.debug("mailListCategory: {}", mailListCategory);
-			log.debug("offset: {}", offset);
-			log.debug("excludeMessageIdListPath: {}", excludeMessageIdListPath);
-			log.debug("----------------------------------");
-		}
-
-		if (numberOfThreads < 1) {
-			throw new IllegalArgumentException("numberOfThreads must be at least 1");
-		}
-
-		httpClient = new Client(getConfig()
-				.connectionsPerRoute(numberOfThreads + 1) // because task can be executed in the `main` thread as well
-				.serviceHost(serviceHost)
-				.servicePath(servicePath)
-				.contentType(contentType)
-				.username(username)
-				.password(password)
-		);
-
-		FileReader mboxFileReader = null;
-		FileReader excludedIdsFileReader = null;
-		BufferedReader br = null;
-
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(
-				numberOfThreads,
-				numberOfThreads,
-				3, TimeUnit.SECONDS,
-				new ArrayBlockingQueue<Runnable>(numberOfThreads, true),
-				new ThreadPoolExecutor.CallerRunsPolicy());
-
-		try {
-			mb = getMessageBuilder();
-
-			log.info("Processing file {}", mboxFilePath);
-			mboxFileReader = new FileReader(getFile(mboxFilePath));
-			Properties excludeMessageIds = new Properties();
-			// Note that if there are any Message-Ids to be excluded then we have to parse all messages
-			// in the main thread before they are handed to another thread for processing.
-			if (excludeMessageIdListPath != null) {
-				excludeMessageIds.load(getInputStream(excludeMessageIdListPath));
+			if (log.isDebugEnabled()) {
+				log.debug("CL parameters:");
+				log.debug("----------------------------------");
+				log.debug("mboxFilePath: {}", options.getMboxFilePath());
+				log.debug("numberOfThreads: {} (avail_cores: {})", new Object[]{options.getNumberOfThreads(), Runtime.getRuntime().availableProcessors()});
+				log.debug("mailListName: {}", options.getMailListName());
+				log.debug("mailListCategory: {}", options.getMailListCategory());
+				log.debug("offset: {}", offset);
+				log.debug("excludeMessageIdListPath: {}", excludeMessageIdListPath.getAbsolutePath());
+				log.debug("----------------------------------");
 			}
-			br = new BufferedReader(mboxFileReader);
 
-			String line;
-			StringBuilder messageSB = new StringBuilder();
-			String separator = System.getProperty("line.separator");
+			if (options.getNumberOfThreads() < 1) {
+				throw new IllegalArgumentException("numberOfThreads must be at least 1");
+			}
 
-			Date start = new Date();
+			httpClient = new Client(getConfig()
+					.connectionsPerRoute(options.getNumberOfThreads() + 1) // because task can be executed in the `main` thread as well
+					.serviceHost(options.getServiceHost())
+					.servicePath(options.getServicePath())
+					.contentType(options.getContentType())
+					.username(options.getUsername())
+					.password(options.getPassword())
+			);
 
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith("From ")) {
-					processMessageBuffer(executor, excludeMessageIds, messageSB, mailListName, mailListCategory, offset);
+			FileReader mboxFileReader = null;
+			FileReader excludedIdsFileReader = null;
+			BufferedReader br = null;
+
+			ThreadPoolExecutor executor = new ThreadPoolExecutor(
+					options.getNumberOfThreads(),
+					options.getNumberOfThreads(),
+					3, TimeUnit.SECONDS,
+					new ArrayBlockingQueue<Runnable>(options.getNumberOfThreads(), true),
+					new ThreadPoolExecutor.CallerRunsPolicy());
+
+			try {
+				mb = getMessageBuilder();
+
+				log.info("Processing file {}", options.getMboxFilePath());
+				mboxFileReader = new FileReader(options.getMboxFilePath());
+				Properties excludeMessageIds = new Properties();
+				// Note that if there are any Message-Ids to be excluded then we have to parse all messages
+				// in the main thread before they are handed to another thread for processing.
+				if (excludeMessageIdListPath != null) {
+					excludeMessageIds.load(new FileInputStream(options.getExcludeMessageIdListPath()));
 				}
-				messageSB.append(line).append(separator);
-			}
-			// process last message
-			processMessageBuffer(executor, excludeMessageIds, messageSB, mailListName, mailListCategory, offset);
+				br = new BufferedReader(mboxFileReader);
 
-			executor.shutdown();
-			executor.awaitTermination(10L, TimeUnit.SECONDS);
+				String line;
+				StringBuilder messageSB = new StringBuilder();
+				String separator = System.getProperty("line.separator");
 
-			Date end = new Date();
+				Date start = new Date();
 
-			log.info("Processed {} mails in {} millis", messageCount, end.getTime() - start.getTime());
-			log.debug("Tasks created: {}", taskCount.get());
-
-		} catch (IOException e) {
-			log.error("Error occurred", e);
-		} catch (MimeException e) {
-			log.error("Unable to instantiate MessageBuilder", e);
-		} catch (/*InterruptedException | */ Throwable e) {
-			log.error("Unexpected exception", e);
-		} finally {
-
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					log.error("Error closing BufferedReader", e);
+				while ((line = br.readLine()) != null) {
+					if (line.startsWith("From ")) {
+						processMessageBuffer(executor, excludeMessageIds, messageSB, options.getMailListName(), options.getMailListCategory(), offset);
+					}
+					messageSB.append(line).append(separator);
 				}
-			}
+				// process last message
+				processMessageBuffer(executor, excludeMessageIds, messageSB, options.getMailListName(), options.getMailListCategory(), offset);
 
-			if (mboxFileReader != null) {
-				try {
-					mboxFileReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					log.error("Error closing mboxFileReader", e);
+				executor.shutdown();
+				executor.awaitTermination(10L, TimeUnit.SECONDS);
+
+				Date end = new Date();
+
+				log.info("Processed {} mails in {} millis", messageCount, end.getTime() - start.getTime());
+				log.debug("Tasks created: {}", taskCount.get());
+
+			} catch (IOException e) {
+				log.error("Error occurred", e);
+			} catch (MimeException e) {
+				log.error("Unable to instantiate MessageBuilder", e);
+			} catch (/*InterruptedException | */ Throwable e) {
+				log.error("Unexpected exception", e);
+			} finally {
+
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+						log.error("Error closing BufferedReader", e);
+					}
 				}
-			}
 
-			if (excludedIdsFileReader != null) {
-				try {
-					excludedIdsFileReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					log.error("Error closing excludedIdsFileReader", e);
+				if (mboxFileReader != null) {
+					try {
+						mboxFileReader.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+						log.error("Error closing mboxFileReader", e);
+					}
 				}
-			}
 
-			// try to force executor termination if needed
-			if (!executor.isTerminated()) {
-				log.warn("Executor not terminated, forcing termination.");
-				executor.shutdownNow();
-				Thread.currentThread().interrupt();
-			}
+				if (excludedIdsFileReader != null) {
+					try {
+						excludedIdsFileReader.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+						log.error("Error closing excludedIdsFileReader", e);
+					}
+				}
 
-			log.info("Job finished.");
+				// try to force executor termination if needed
+				if (!executor.isTerminated()) {
+					log.warn("Executor not terminated, forcing termination.");
+					executor.shutdownNow();
+					Thread.currentThread().interrupt();
+				}
+
+				log.info("Job finished.");
+			}
 		}
 	}
 }

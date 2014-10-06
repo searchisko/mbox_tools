@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -36,14 +37,14 @@ public class Client {
 
     public static class ClientConfig {
         // defaults
-        private String serviceHost = "http://localhost:8089";
+        private URI serviceHost; // = new URI("http://localhost:8089");
         private String servicePath = "/v1/rest/content";
         private String contentType = "jbossorg_mailing_list";
         private int connectionsPerRoute = 2;
         private String username = "john.doe";
         private String password = "not_defined";
 
-        public ClientConfig serviceHost(String url) { this.serviceHost = url; return this; }
+        public ClientConfig serviceHost(URI url) { this.serviceHost = url; return this; }
         public ClientConfig servicePath(String path) { this.servicePath = path; return this; }
         public ClientConfig contentType(String type) { this.contentType = type; return this; }
         public ClientConfig connectionsPerRoute(int num) { this.connectionsPerRoute = num; return this; }

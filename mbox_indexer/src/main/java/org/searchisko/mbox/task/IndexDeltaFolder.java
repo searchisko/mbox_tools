@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -127,9 +126,9 @@ public class IndexDeltaFolder {
 	 *
 	 * @param deltaArchivePath
 	 * @return
-	 * @see #read(String, long)
+	 * @see #read(File, long)
 	 */
-	public static File[] read(String deltaArchivePath) {
+	public static File[] read(File deltaArchivePath) {
 		return read(deltaArchivePath, 2000);
 	}
 
@@ -140,15 +139,13 @@ public class IndexDeltaFolder {
 	 * @param fileAge
 	 * @return
 	 */
-	public static File[] read(String deltaArchivePath, long fileAge) {
+	public static File[] read(File deltaArchivePath, long fileAge) {
 
 		List<File> filesToProcess = new ArrayList<>();
 		log.info("Reading folder {}", deltaArchivePath);
-		File folder;
 
 		try {
-			folder = new File(ClassLoader.getSystemResource(deltaArchivePath).toURI());
-			File[] files = DirUtil.listFiles(folder);
+			File[] files = DirUtil.listFiles(deltaArchivePath);
 			log.info("Checking {} files", files.length);
 			for (File file : files) {
 				// If file can not be deleted then do not process it,
@@ -164,8 +161,6 @@ public class IndexDeltaFolder {
 			}
 		} catch (FileNotFoundException e) {
 			log.error("Could not read resource: {}", deltaArchivePath, e);
-		} catch (URISyntaxException e) {
-			log.error("Could not open resource: {}", deltaArchivePath, e);
 		}
 		return filesToProcess.toArray(new File[filesToProcess.size()]);
 	}
@@ -245,88 +240,68 @@ public class IndexDeltaFolder {
 
 		log.info("Job started.");
 
-		if (args.length < 8) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("Parameters: ");
-			sb.append("pathToDeltaArchive numberOfThreads serviceHost servicePath contentType username password activeMailListsConf\n\n");
-			sb.append("pathToDeltaArchive - path to folder with delta mbox files\n");
-			sb.append("numberOfThreads - max threads used for processing tasks\n");
-			sb.append("serviceHost - service host URL\n");
-			sb.append("servicePath - service path\n");
-			sb.append("contentType - Searchisko provider sys_content_type\n");
-			sb.append("username - Searchisko provider username (plaintext)\n");
-			sb.append("password - Searchisko provider password (plaintext)\n");
-			sb.append("activeMailListsConf - conf file with list of mail lists to include into delta indexing (other files are still deleted!)\n");
-			System.out.println(sb.toString());
-			return;
-		}
+		IndexDeltaFolderOptions options = new IndexDeltaFolderOptions();
+		options.parseArgs(args);
+		if (options.isValid()) {
 
-		String pathToDeltaArchive = args[0].trim();
-		int numberOfThreads = Integer.parseInt(args[1].trim());
-
-		String serviceHost = args[2].trim();
-		String servicePath = args[3].trim();
-		String contentType = args[4].trim();
-		String username = args[5].trim();
-		String password = args[6].trim();
-		String activeMailListsConf = args[7].trim();
-
-		if (log.isDebugEnabled()) {
-			log.debug("CL parameters:");
-			log.debug("----------------------------------");
-			log.debug("pathToDeltaArchive: {}", pathToDeltaArchive);
-			log.debug("numberOfThreads: {} (avail_cores: {})", new Object[]{numberOfThreads, Runtime.getRuntime().availableProcessors()});
-			log.debug("activeMailListsConf: {}", activeMailListsConf);
-			log.debug("----------------------------------");
-		}
-
-		if (numberOfThreads < 1) {
-			throw new IllegalArgumentException("numberOfThreads must be at least 1");
-		}
-
-		httpClient = new Client(getConfig()
-				.connectionsPerRoute(numberOfThreads + 1) // because task can be executed in the `main` thread as well
-				.serviceHost(serviceHost)
-				.servicePath(servicePath)
-				.contentType(contentType)
-				.username(username)
-				.password(password)
-		);
-
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(
-				numberOfThreads,
-				numberOfThreads,
-				3, TimeUnit.SECONDS,
-				new ArrayBlockingQueue<Runnable>(numberOfThreads, true),
-				new ThreadPoolExecutor.CallerRunsPolicy());
-
-		// load properties conf
-		Properties prop = new Properties();
-
-		try {
-
-			prop.load(IndexDeltaFolder.class.getClassLoader().getResourceAsStream(activeMailListsConf));
-			Collection<String> activeMailLists = prop.stringPropertyNames();
-
-			File[] files = read(pathToDeltaArchive);
-			files = filter(files, activeMailLists);
-			index(files, executor);
-
-			executor.shutdown();
-			executor.awaitTermination(10L, TimeUnit.SECONDS);
-
-		} catch (IOException e) {
-			log.error("Error occurred", e);
-		} catch (InterruptedException e) {
-			log.error("Unexpected exception", e);
-		} finally {
-			// try to force executor termination if needed
-			if (!executor.isTerminated()) {
-				log.warn("Executor not terminated, forcing termination.");
-				executor.shutdownNow();
-				Thread.currentThread().interrupt();
+			if (log.isDebugEnabled()) {
+				log.debug("CL parameters:");
+				log.debug("----------------------------------");
+				log.debug("pathToDeltaArchive: {}", options.getPathToDeltaArchive());
+				log.debug("numberOfThreads: {} (avail_cores: {})", new Object[]{options.getNumberOfThreads(), Runtime.getRuntime().availableProcessors()});
+				log.debug("activeMailListsConf: {}", options.getActiveMailListsConf());
+				log.debug("----------------------------------");
 			}
 
-			log.info("Job finished.");}
+			if (options.getNumberOfThreads() < 1) {
+				throw new IllegalArgumentException("numberOfThreads must be at least 1");
+			}
+
+			httpClient = new Client(getConfig()
+					.connectionsPerRoute(options.getNumberOfThreads() + 1) // because task can be executed in the `main` thread as well
+					.serviceHost(options.getServiceHost())
+					.servicePath(options.getServicePath())
+					.contentType(options.getContentType())
+					.username(options.getUsername())
+					.password(options.getPassword())
+			);
+
+			ThreadPoolExecutor executor = new ThreadPoolExecutor(
+					options.getNumberOfThreads(),
+					options.getNumberOfThreads(),
+					3, TimeUnit.SECONDS,
+					new ArrayBlockingQueue<Runnable>(options.getNumberOfThreads(), true),
+					new ThreadPoolExecutor.CallerRunsPolicy());
+
+			// load properties conf
+			Properties prop = new Properties();
+
+			try {
+
+				prop.load(new FileInputStream(options.getActiveMailListsConf()));
+				Collection<String> activeMailLists = prop.stringPropertyNames();
+
+				File[] files = read(options.getPathToDeltaArchive());
+				files = filter(files, activeMailLists);
+				index(files, executor);
+
+				executor.shutdown();
+				executor.awaitTermination(10L, TimeUnit.SECONDS);
+
+			} catch (IOException e) {
+				log.error("Error occurred", e);
+			} catch (InterruptedException e) {
+				log.error("Unexpected exception", e);
+			} finally {
+				// try to force executor termination if needed
+				if (!executor.isTerminated()) {
+					log.warn("Executor not terminated, forcing termination.");
+					executor.shutdownNow();
+					Thread.currentThread().interrupt();
+				}
+
+				log.info("Job finished.");
+			}
+		}
 	}
 }

@@ -19,6 +19,7 @@
     <packaging>pom</packaging>
 
     <properties>
+		<arg4sj.version>2.0.29</arg4sj.version>
         <compileSource>1.7</compileSource>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -31,30 +32,31 @@
 				<artifactId>assembly</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.searchisko</groupId>
 				<artifactId>controller</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.searchisko</groupId>
 				<artifactId>mbox_indexer</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.searchisko</groupId>
 				<artifactId>mbox_parser</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.4</version>
             </dependency>
+			<dependency>
+				<groupId>args4j</groupId>
+				<artifactId>args4j</artifactId>
+				<version>${arg4sj.version}</version>
+			</dependency>
 
             <!-- logging -->
             <dependency>
